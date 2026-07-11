@@ -101,7 +101,7 @@ export default function HomePage({ onStart }) {
               {/* Slider 1: Loan Amount */}
               <div className="space-y-2">
                 <div className="flex justify-between text-xs">
-                  <span className="text-slate-350 font-medium">Loan Offer Amount</span>
+                  <span className="text-slate-300 font-medium">Loan Offer Amount</span>
                   <span className="text-teal-400 font-bold">UGX {loanAmount.toLocaleString()}</span>
                 </div>
                 <input 
@@ -111,14 +111,14 @@ export default function HomePage({ onStart }) {
                   step="50000"
                   value={loanAmount}
                   onChange={(e) => setLoanAmount(Number(e.target.value))}
-                  className="w-full h-1.5 bg-slate-850 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                  className="w-full h-1.5 bg-slate-855 rounded-lg appearance-none cursor-pointer accent-teal-500"
                 />
               </div>
 
               {/* Slider 2: Interest Rate */}
               <div className="space-y-2">
                 <div className="flex justify-between text-xs">
-                  <span className="text-slate-350 font-medium">Interest Rate</span>
+                  <span className="text-slate-300 font-medium">Interest Rate</span>
                   <span className="text-teal-400 font-bold">{interestRate}%</span>
                 </div>
                 <input 
@@ -128,14 +128,14 @@ export default function HomePage({ onStart }) {
                   step="1"
                   value={interestRate}
                   onChange={(e) => setInterestRate(Number(e.target.value))}
-                  className="w-full h-1.5 bg-slate-850 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                  className="w-full h-1.5 bg-slate-855 rounded-lg appearance-none cursor-pointer accent-teal-500"
                 />
               </div>
 
               {/* Slider 3: Term */}
               <div className="space-y-2">
                 <div className="flex justify-between text-xs">
-                  <span className="text-slate-350 font-medium">Repayment Term</span>
+                  <span className="text-slate-300 font-medium">Repayment Term</span>
                   <span className="text-teal-400 font-bold">{termDays} Days</span>
                 </div>
                 <input 
@@ -145,14 +145,14 @@ export default function HomePage({ onStart }) {
                   step="1"
                   value={termDays}
                   onChange={(e) => setTermDays(Number(e.target.value))}
-                  className="w-full h-1.5 bg-slate-850 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                  className="w-full h-1.5 bg-slate-855 rounded-lg appearance-none cursor-pointer accent-teal-500"
                 />
               </div>
 
               {/* Slider 4: Income */}
               <div className="space-y-2">
                 <div className="flex justify-between text-xs">
-                  <span className="text-slate-350 font-medium">Your Monthly Income</span>
+                  <span className="text-slate-300 font-medium">Your Monthly Income</span>
                   <span className="text-teal-400 font-bold">UGX {income.toLocaleString()}</span>
                 </div>
                 <input 
@@ -162,7 +162,7 @@ export default function HomePage({ onStart }) {
                   step="50000"
                   value={income}
                   onChange={(e) => setIncome(Number(e.target.value))}
-                  className="w-full h-1.5 bg-slate-850 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                  className="w-full h-1.5 bg-slate-855 rounded-lg appearance-none cursor-pointer accent-teal-500"
                 />
               </div>
             </div>

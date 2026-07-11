@@ -244,7 +244,7 @@ export default function LenderSelection({ onSelect }) {
               return (
                 <div key={lender.id} className="space-y-0.5">
                   <div className="flex justify-between items-center text-[9px]">
-                    <span className="font-semibold text-slate-350">{lender.shortName}</span>
+                    <span className="font-semibold text-slate-300">{lender.shortName}</span>
                     <span className="text-slate-500">
                       UGX {totalCost.toLocaleString()} ({markupPct.toFixed(0)}%)
                     </span>
@@ -280,7 +280,7 @@ export default function LenderSelection({ onSelect }) {
               return (
                 <div key={lender.id} className="space-y-0.5">
                   <div className="flex justify-between items-center text-[9px]">
-                    <span className="font-semibold text-slate-350">{lender.shortName}</span>
+                    <span className="font-semibold text-slate-300">{lender.shortName}</span>
                     <span className="text-slate-500 font-bold flex items-center gap-0.5">
                       {lender.trustScore} ★
                     </span>
@@ -324,7 +324,7 @@ export default function LenderSelection({ onSelect }) {
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3">
                     <div className={`p-2 rounded-lg border shrink-0 transition-colors ${
-                      hoveredLenderId === lender.id ? 'bg-teal-955 text-teal-455 border-teal-800/40' : 'bg-slate-950 text-slate-500 border-slate-900'
+                      hoveredLenderId === lender.id ? 'bg-teal-955 text-teal-400 border-teal-800/40' : 'bg-slate-955 text-slate-500 border-slate-900'
                     }`}>
                       <Landmark className="h-4.5 w-4.5" />
                     </div>
@@ -339,8 +339,8 @@ export default function LenderSelection({ onSelect }) {
                         <span>{lender.category}</span>
                         <span>•</span>
                         <div className="flex items-center gap-0.5">
-                          <Star className="h-3 w-3 text-amber-500 fill-amber-555 shrink-0" />
-                          <span className="text-slate-350">{lender.trustScore} Rating</span>
+                          <Star className="h-3 w-3 text-amber-550 fill-amber-500 shrink-0" />
+                          <span className="text-slate-300">{lender.trustScore} Rating</span>
                         </div>
                       </div>
                     </div>
@@ -348,7 +348,7 @@ export default function LenderSelection({ onSelect }) {
 
                   <Button 
                     onClick={() => onSelect(lender)}
-                    className="bg-teal-955 hover:bg-teal-900 text-teal-405 border border-teal-800/50 text-[10px] uppercase font-bold py-1 px-2.5 rounded-lg flex items-center gap-0.5 shrink-0"
+                    className="bg-teal-955 hover:bg-teal-900 text-teal-400 border border-teal-800/50 text-[10px] uppercase font-bold py-1 px-2.5 rounded-lg flex items-center gap-0.5 shrink-0"
                   >
                     Select Offer
                     <ChevronRight className="h-3.5 w-3.5" />

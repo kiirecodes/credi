@@ -137,7 +137,7 @@ export default function App() {
               </div>
               <button 
                 onClick={() => setView('home')} 
-                className="w-full text-center text-[10px] text-slate-500 hover:text-slate-350 underline mt-4"
+                className="w-full text-center text-[10px] text-slate-500 hover:text-slate-300 underline mt-4"
               >
                 Back to Home Screen
               </button>

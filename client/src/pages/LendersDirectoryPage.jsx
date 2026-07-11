@@ -214,7 +214,7 @@ export default function LendersDirectoryPage() {
               
               {/* Description & Details */}
               <div className="space-y-3.5">
-                <p className="text-xs text-slate-350 leading-relaxed">
+                <p className="text-xs text-slate-300 leading-relaxed">
                   {lender.description}
                 </p>
 
@@ -243,8 +243,8 @@ export default function LendersDirectoryPage() {
                 <div className="flex items-center justify-between text-[10px] font-bold p-2 bg-slate-950/30 rounded border border-slate-900">
                   <span className="text-slate-500 uppercase tracking-wider">Safety Status:</span>
                   <span className={
-                    lender.safetyStatus.includes('Risk') ? 'text-rose-455' : 
-                    lender.safetyStatus.includes('Caution') ? 'text-amber-455' : 'text-emerald-455'
+                    lender.safetyStatus.includes('Risk') ? 'text-rose-400' : 
+                    lender.safetyStatus.includes('Caution') ? 'text-amber-400' : 'text-emerald-400'
                   }>
                     {lender.safetyStatus}
                   </span>

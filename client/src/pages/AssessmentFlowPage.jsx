@@ -28,13 +28,13 @@ function ProgressStepper({ currentStep }) {
                 isActive 
                   ? 'bg-teal-600 text-white shadow-sm shadow-teal-900/50' 
                   : isCompleted 
-                    ? 'bg-teal-950/80 text-teal-400 border border-teal-800/60' 
-                    : 'bg-slate-955 text-slate-500 border border-slate-900'
+                    ? 'bg-teal-955/80 text-teal-400 border border-teal-800/60' 
+                    : 'bg-slate-950 text-slate-500 border border-slate-900'
               }`}>
                 {isCompleted ? '✓' : s.number}
               </div>
               <span className={`text-[10px] uppercase tracking-wider font-bold hidden sm:inline ${
-                isActive ? 'text-teal-400' : isCompleted ? 'text-slate-350' : 'text-slate-500'
+                isActive ? 'text-teal-400' : isCompleted ? 'text-slate-300' : 'text-slate-500'
               }`}>
                 {s.label}
               </span>

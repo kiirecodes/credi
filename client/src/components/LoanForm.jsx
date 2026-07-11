@@ -15,31 +15,32 @@ const fields = [
 ];
 
 export default function LoanForm({ onSubmit, onValuesChange, initialValues }) {
+  // Initialize state directly from initialValues to prevent mount race-overwriting
   const [values, setValues] = useState({
-    loanAmount: '',
-    feeAmount: '',
-    interestRate: '',
-    repaymentPeriodDays: '',
-    monthlyIncome: '',
-    existingDebtRepayment: '',
+    loanAmount: initialValues?.loanAmount ? String(initialValues.loanAmount) : '',
+    feeAmount: initialValues?.feeAmount ? String(initialValues.feeAmount) : '',
+    interestRate: initialValues?.interestRate ? String(initialValues.interestRate) : '',
+    repaymentPeriodDays: initialValues?.repaymentPeriodDays ? String(initialValues.repaymentPeriodDays) : '',
+    monthlyIncome: initialValues?.monthlyIncome ? String(initialValues.monthlyIncome) : '',
+    existingDebtRepayment: initialValues?.existingDebtRepayment ? String(initialValues.existingDebtRepayment) : '',
   });
   const [errors, setErrors] = useState({});
 
-  // Sync with initialValues from parent on lender selection
+  // Sync with initialValues from parent on subsequent changes (e.g. selected lender change)
   useEffect(() => {
     if (initialValues) {
       setValues((prev) => {
         const isDifferent = 
-          Number(initialValues.interestRate) !== Number(prev.interestRate) ||
-          Number(initialValues.feeAmount) !== Number(prev.feeAmount) ||
-          Number(initialValues.repaymentPeriodDays) !== Number(prev.repaymentPeriodDays);
+          (initialValues.interestRate !== undefined && Number(initialValues.interestRate) !== Number(prev.interestRate)) ||
+          (initialValues.feeAmount !== undefined && Number(initialValues.feeAmount) !== Number(prev.feeAmount)) ||
+          (initialValues.repaymentPeriodDays !== undefined && Number(initialValues.repaymentPeriodDays) !== Number(prev.repaymentPeriodDays));
           
         if (isDifferent) {
           return {
             ...prev,
-            interestRate: initialValues.interestRate || '',
-            feeAmount: initialValues.feeAmount || '',
-            repaymentPeriodDays: initialValues.repaymentPeriodDays || '',
+            interestRate: initialValues.interestRate ? String(initialValues.interestRate) : '',
+            feeAmount: initialValues.feeAmount ? String(initialValues.feeAmount) : '',
+            repaymentPeriodDays: initialValues.repaymentPeriodDays ? String(initialValues.repaymentPeriodDays) : '',
           };
         }
         return prev;
@@ -118,7 +119,8 @@ export default function LoanForm({ onSubmit, onValuesChange, initialValues }) {
               const FieldIcon = field.icon;
               return (
                 <div key={field.name} className="space-y-1.5">
-                  <Label htmlFor={field.name} className="text-slate-350 text-xs font-semibold tracking-wide flex items-center justify-between">
+                  {/* Fixed text-slate-350 to standard text-slate-300 to make label text visible */}
+                  <Label htmlFor={field.name} className="text-slate-300 text-xs font-semibold tracking-wide flex items-center justify-between">
                     {field.label}
                     {field.optional && (
                       <span className="text-[10px] text-slate-500 font-medium tracking-normal lowercase">optional</span>
@@ -134,25 +136,28 @@ export default function LoanForm({ onSubmit, onValuesChange, initialValues }) {
                       placeholder={field.placeholder}
                       value={values[field.name]}
                       onChange={(e) => handleChange(field.name, e.target.value)}
-                      className={`pl-10 bg-slate-950 border-slate-850 text-slate-100 placeholder:text-slate-700 focus:border-teal-700 transition-colors focus-visible:ring-0 focus-visible:ring-offset-0 ${
+                      className={`pl-10 bg-slate-950 border-slate-850 text-slate-100 placeholder:text-slate-700 focus:border-teal-705 transition-colors focus-visible:ring-0 focus-visible:ring-offset-0 ${
                         errors[field.name] ? 'border-rose-500 focus:border-rose-500' : ''
                       }`}
                     />
                   </div>
                   {errors[field.name] && (
-                    <p className="text-rose-450 text-[11px] flex items-center gap-1">
-                      <AlertCircle className="h-3 w-3 shrink-0" />
+                    <span className="text-[10px] text-rose-400 font-semibold block flex items-center gap-1">
+                      <AlertCircle className="h-3.5 w-3.5 shrink-0" />
                       {errors[field.name]}
-                    </p>
+                    </span>
                   )}
                 </div>
               );
             })}
           </div>
 
-          <Button type="submit" className="w-full bg-teal-650 hover:bg-teal-700 text-white font-semibold text-sm py-5 rounded-xl border border-teal-500/20 shadow-md shadow-teal-950/40 hover:scale-[1.01] transition-all mt-6">
-            Run Transparency Audit
-            <ArrowRight className="h-4 w-4 ml-2" />
+          <Button 
+            type="submit" 
+            className="w-full bg-teal-600 hover:bg-teal-500 text-white font-semibold py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-lg shadow-teal-950"
+          >
+            Review Audit Disclosures
+            <ArrowRight className="h-4.5 w-4.5" />
           </Button>
         </form>
       </CardContent>

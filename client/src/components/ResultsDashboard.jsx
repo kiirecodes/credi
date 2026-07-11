@@ -108,7 +108,7 @@ export default function ResultsDashboard({ assessment }) {
                 </div>
               </div>
 
-              <p className="text-xs text-slate-350 leading-relaxed mt-5 p-4 bg-slate-950/40 border border-slate-900 rounded-xl">
+              <p className="text-xs text-slate-300 leading-relaxed mt-5 p-4 bg-slate-950/40 border border-slate-900 rounded-xl">
                 <strong className="text-teal-400">Audit Insight:</strong> {assessment.plainLanguageSummary}
               </p>
             </CardContent>
@@ -146,15 +146,15 @@ export default function ResultsDashboard({ assessment }) {
                 <div className="grid grid-cols-3 gap-2 pt-2">
                   <div className="space-y-0.5 text-left border-l-2 border-slate-600 pl-2">
                     <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Prior Debt</span>
-                    <p className="text-xs font-semibold text-slate-350">{preDebtPct.toFixed(0)}% ({existingDebtRepayment.toLocaleString()} UGX)</p>
+                    <p className="text-xs font-semibold text-slate-300">{preDebtPct.toFixed(0)}% ({existingDebtRepayment.toLocaleString()} UGX)</p>
                   </div>
                   <div className="space-y-0.5 text-left border-l-2 border-teal-600 pl-2">
                     <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">New Loan</span>
-                    <p className="text-xs font-semibold text-slate-350">{newDebtPct.toFixed(0)}% ({Math.round(newLoanMonthlyCost).toLocaleString()} UGX)</p>
+                    <p className="text-xs font-semibold text-slate-300">{newDebtPct.toFixed(0)}% ({Math.round(newLoanMonthlyCost).toLocaleString()} UGX)</p>
                   </div>
                   <div className="space-y-0.5 text-left border-l-2 border-emerald-500 pl-2">
                     <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Remaining</span>
-                    <p className="text-xs font-semibold text-slate-350">{netRemainingPct.toFixed(0)}% ({Math.round(netRemaining).toLocaleString()} UGX)</p>
+                    <p className="text-xs font-semibold text-slate-300">{netRemainingPct.toFixed(0)}% ({Math.round(netRemaining).toLocaleString()} UGX)</p>
                   </div>
                 </div>
               </div>
@@ -187,7 +187,7 @@ export default function ResultsDashboard({ assessment }) {
               <Lightbulb className="h-5 w-5 text-teal-400 shrink-0 mt-0.5" />
               <div className="space-y-1">
                 <h4 className="text-xs uppercase font-bold text-teal-400 tracking-wider">Risk Mitigation Recommendation</h4>
-                <p className="text-xs text-slate-350 leading-relaxed font-medium">
+                <p className="text-xs text-slate-300 leading-relaxed font-medium">
                   {assessment.recommendationText}
                 </p>
               </div>
