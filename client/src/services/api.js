@@ -14,4 +14,9 @@ export const getLoanReport = async (id) => {
   return response.data;
 };
 
+export const getLenders = async () => {
+  const response = await api.get('/lenders');
+  return response.data.lenders;
+};
+
 export default api;

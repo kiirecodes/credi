@@ -43,7 +43,7 @@ export default function App() {
           </header>
 
           <main className="flex-grow">
-            <HomePage onStartAssessment={() => setView('flow')} />
+            <HomePage onStart={() => setView('flow')} />
           </main>
 
           <footer className="border-t border-slate-900 bg-slate-950/40 py-6 text-center text-xs text-slate-500">

@@ -1,137 +1,49 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Landmark, Search, Star, ShieldCheck, ShieldAlert, Award, FileText, ExternalLink } from 'lucide-react';
-
-const allLenders = [
-  {
-    id: 'tala',
-    name: 'Tala Mobile Loan',
-    category: 'Fintech Mobile app',
-    interestRate: 15,
-    feeAmount: 10000,
-    repaymentPeriodDays: 30,
-    trustScore: 4.5,
-    license: 'UMRA Registered',
-    licenseColor: 'text-teal-400 border-teal-800/40 bg-teal-950/20',
-    loanRange: 'UGX 50,000 - 1,000,000',
-    description: 'Fast automated credit scoring via mobile app logs. No collateral required.',
-    privacyNote: 'Collects contacts list and device info for identity checks.',
-    safetyStatus: 'Safe (Regulated)'
-  },
-  {
-    id: 'branch',
-    name: 'Branch Finance',
-    category: 'Fintech Mobile app',
-    interestRate: 12,
-    feeAmount: 15000,
-    repaymentPeriodDays: 30,
-    trustScore: 4.6,
-    license: 'UMRA Registered',
-    licenseColor: 'text-teal-400 border-teal-800/40 bg-teal-950/20',
-    loanRange: 'UGX 80,000 - 2,000,000',
-    description: 'Low-cost mobile digital credit. Direct mobile money transfer within minutes.',
-    privacyNote: 'Accesses GPS data and device identifiers for credit score computations.',
-    safetyStatus: 'Safe (Regulated)'
-  },
-  {
-    id: 'mkopa',
-    name: 'M-Kopa Cash',
-    category: 'Asset Financer',
-    interestRate: 25,
-    feeAmount: 30000,
-    repaymentPeriodDays: 60,
-    trustScore: 3.8,
-    license: 'Consumer Goods Provider',
-    licenseColor: 'text-amber-400 border-amber-800/40 bg-amber-955/20',
-    loanRange: 'UGX 200,000 - 1,500,000',
-    description: 'Asset finance solutions linked to phone locking and solar power lease systems.',
-    privacyNote: 'Remote lock features installed on financed smartphones.',
-    safetyStatus: 'Caution (Device Locks)'
-  },
-  {
-    id: 'watu',
-    name: 'Watu Credit Uganda',
-    category: 'Microfinance Institution',
-    interestRate: 20,
-    feeAmount: 50000,
-    repaymentPeriodDays: 90,
-    trustScore: 3.9,
-    license: 'Tier 4 Microfinance',
-    licenseColor: 'text-teal-400 border-teal-800/40 bg-teal-950/20',
-    loanRange: 'UGX 500,000 - 5,000,000',
-    description: 'Primarily specializes in asset leasing (Boda Boda financing) and micro business loans.',
-    privacyNote: 'GPS trackers installed on financed assets; weekly repayments required.',
-    safetyStatus: 'Safe (Asset Collateral)'
-  },
-  {
-    id: 'ugtrust',
-    name: 'Uganda Trust Microfinance',
-    category: 'Microfinance Institution',
-    interestRate: 8,
-    feeAmount: 20000,
-    repaymentPeriodDays: 90,
-    trustScore: 4.8,
-    license: 'BOU Regulated (MDI)',
-    licenseColor: 'text-emerald-400 border-emerald-800/40 bg-emerald-955/20',
-    loanRange: 'UGX 1,000,000 - 20,000,000',
-    description: 'Traditional savings and loan microfinance deposit-taking institution regulated by Bank of Uganda.',
-    privacyNote: 'Requires standard physical verification, guarantor forms, and local bank statement logs.',
-    safetyStatus: 'Highly Secure (Regulated)'
-  },
-  {
-    id: 'platinum',
-    name: 'Platinum Credit Uganda',
-    category: 'Microfinance Institution',
-    interestRate: 18,
-    feeAmount: 40000,
-    repaymentPeriodDays: 120,
-    trustScore: 4.1,
-    license: 'UMRA Registered',
-    licenseColor: 'text-teal-400 border-teal-800/40 bg-teal-950/20',
-    loanRange: 'UGX 300,000 - 8,000,000',
-    description: 'Provides quick civil servant logbook and salary loans. High limits with quick turnarounds.',
-    privacyNote: 'Salary deduction agreements or logbook title transfers required.',
-    safetyStatus: 'Safe (Contractual)'
-  },
-  {
-    id: 'tugende',
-    name: 'Tugende Lease Finance',
-    category: 'Asset Financer',
-    interestRate: 22,
-    feeAmount: 60000,
-    repaymentPeriodDays: 180,
-    trustScore: 4.0,
-    license: 'Asset Lease Licenced',
-    licenseColor: 'text-amber-400 border-amber-800/40 bg-amber-955/20',
-    loanRange: 'UGX 800,000 - 6,000,000',
-    description: 'Ownership path lease financing for boda motorcycles, engines, and agricultural gear.',
-    privacyNote: 'Asset tracking enabled. Mandatory insurance packages bundled into weekly fees.',
-    safetyStatus: 'Safe (Lease Option)'
-  },
-  {
-    id: 'zuricash',
-    name: 'Zuri Cash Mobile',
-    category: 'Fintech Mobile app',
-    interestRate: 28,
-    feeAmount: 35000,
-    repaymentPeriodDays: 14,
-    trustScore: 3.2,
-    license: 'Unregulated Web Platform',
-    licenseColor: 'text-rose-400 border-rose-800/40 bg-rose-955/20',
-    loanRange: 'UGX 30,000 - 300,000',
-    description: 'Short-term high interest mobile credit app. Quick payouts but aggressive penalties.',
-    privacyNote: 'Aggressive data scraping; contacts and photo galleries are uploaded to external databases.',
-    safetyStatus: 'High Risk (Predatory Warnings)'
-  }
-];
+import { getLenders } from '@/services/api';
 
 export default function LendersDirectoryPage() {
+  const [lenders, setLenders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const categories = ['All', 'Fintech Mobile app', 'Microfinance Institution', 'Asset Financer'];
+  useEffect(() => {
+    const loadLenders = async () => {
+      try {
+        const fetched = await getLenders();
+        setLenders(fetched);
+      } catch (err) {
+        setFetchError('Unable to fetch lenders from the database.');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const filteredLenders = allLenders.filter((lender) => {
+    loadLenders();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="rounded-3xl border border-slate-800 bg-slate-950/70 p-8 text-center text-slate-400">
+        Loading lender directory...
+      </div>
+    );
+  }
+
+  if (fetchError) {
+    return (
+      <div className="rounded-3xl border border-rose-800 bg-rose-950/60 p-8 text-center text-rose-200">
+        {fetchError}
+      </div>
+    );
+  }
+
+  const categories = ['All', ...Array.from(new Set(lenders.map((lender) => lender.category)))];
+
+  const filteredLenders = lenders.filter((lender) => {
     const matchesSearch = lender.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           lender.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCat = selectedCategory === 'All' || lender.category === selectedCategory;
