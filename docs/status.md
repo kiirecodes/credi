@@ -388,13 +388,35 @@ per-task entries below so it's easy to scan at a glance.
 - Blockers: none
 - Decisions/Deviations: none
 
+### [T2.2 - T2.7] Dashboard layout and real-time visualizer overhaul
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 00:10
+- Status: Done
+- What was done: Redesigned the centered audit page into a split layout dashboard workspace with a left navigation sidebar. Added inline icons to inputs, custom hover highlighting on checked boxes, a real-time progress bar/gauge, live stat cards, and an allocation stacked bar chart on the results page.
+- Verify performed: Interacted with form elements, verified real-time stat cards update instantly as values are typed, went through consent checklist, verified results page grid rendering, allocation bar sizes, and tested print functionality.
+- Commit: feat(client): dashboard sidebar frame and live audit visualizer
+- Blockers: none
+- Decisions/Deviations from architecture.md or spec.md: Swapped simple centered card layout for split dashboard grid to better utilize screen width and showcase dynamic visual metrics.
+
+### [Step 3] Lender Selection & Smart Autofill Integration
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 00:34
+- Status: Done
+- What was done: Built the LenderSelection component with a visual comparison bar chart comparing cost markups across 5 popular digital lenders. Integrated a top progress stepper and added dynamic autofill logic inside LoanForm.jsx that detects lender selection and pre-populates terms without interfering with active typing.
+- Verify performed: Selected a lender from the comparison chart, verified the progress bar advanced, confirmed that interest rate, fees, and repayment terms autofilled in the form, and completed the audit flow.
+- Commit: feat(client): provider comparison chart and smart autofill integration
+- Blockers: none
+- Decisions/Deviations from architecture.md or spec.md: Expanded the safety audit from 3 steps to 4 to include a provider selection page with markup comparisons.
+
 ---
 
 ## Handover Summary
 
-- Last updated: 2026-07-11 23:47
-- Done: T0.1–T0.8, T1.1–T1.9, T2.1–T2.8, T3.1–T3.3, T4.1–T4.3, T5.1–T5.4 (all tasks)
+- Last updated: 2026-07-12 00:34
+- Done: T0.1–T5.4, Step 3 (all visual console upgrades, lender catalog, and autofill systems)
 - In Progress: none
 - Blocked: none
-- Resume at: none — all tasks complete
-- Anything the next agent/human needs to know before continuing: Run `node src/seeders/seedDemoData.js` in server/ to seed demo data before starting the app. MongoDB must be running locally or MONGO_URI in server/.env must point to a valid instance.
+- Resume at: backend integration verification and demo data seeding
+- Anything the next agent/human needs to know before continuing: The console now starts with a lender comparison catalog. Default rates auto-fill upon choosing a provider. All variables match the MERN back-end specs.
+
+
