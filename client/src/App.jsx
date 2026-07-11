@@ -61,10 +61,10 @@ export default function App() {
         </div>
       ) : (
         // Dashboard Workspace Layout (Left Sidebar + Wide Right Workspace)
-        <div className="flex flex-row min-h-screen relative">
+        <div className="flex flex-row h-screen w-screen overflow-hidden relative">
           
           {/* Dashboard Left Sidebar */}
-          <aside className="w-64 border-r border-slate-900 bg-slate-950 flex flex-col justify-between shrink-0 sticky top-0 h-screen z-20">
+          <aside className="w-64 border-r border-slate-900 bg-slate-950 flex flex-col justify-between shrink-0 h-full z-20">
             <div>
               {/* Brand Header */}
               <div 
@@ -139,7 +139,7 @@ export default function App() {
           </aside>
 
           {/* Main workspace frame */}
-          <main className="flex-grow min-h-screen bg-slate-950 flex flex-col justify-between overflow-y-auto">
+          <main className="flex-grow h-full bg-slate-950 flex flex-col justify-between overflow-y-auto">
             <div className="p-6 md:p-10 max-w-7xl w-full mx-auto">
               {view === 'flow' ? (
                 <div className="animate-slideUp">

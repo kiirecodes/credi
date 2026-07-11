@@ -26,15 +26,15 @@ function ProgressStepper({ currentStep }) {
             <div className="flex items-center gap-2">
               <div className={`h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-all ${
                 isActive 
-                  ? 'bg-teal-655 text-white shadow-sm shadow-teal-900/50' 
+                  ? 'bg-teal-600 text-white shadow-sm shadow-teal-900/50' 
                   : isCompleted 
                     ? 'bg-teal-950/80 text-teal-400 border border-teal-800/60' 
-                    : 'bg-slate-950 text-slate-500 border border-slate-900'
+                    : 'bg-slate-955 text-slate-500 border border-slate-900'
               }`}>
                 {isCompleted ? '✓' : s.number}
               </div>
               <span className={`text-[10px] uppercase tracking-wider font-bold hidden sm:inline ${
-                isActive ? 'text-teal-400' : isCompleted ? 'text-slate-355' : 'text-slate-500'
+                isActive ? 'text-teal-400' : isCompleted ? 'text-slate-350' : 'text-slate-500'
               }`}>
                 {s.label}
               </span>
@@ -127,7 +127,7 @@ export default function AssessmentFlowPage() {
       liveRisk = {
         label: 'Moderate Financial Pressure',
         color: 'text-amber-400',
-        bg: 'bg-amber-950/20 border-amber-800/30',
+        bg: 'bg-amber-955/20 border-amber-800/30',
         barColor: 'bg-amber-500',
         desc: 'Repayments are elevated. Ensure you reduce other discretionary spending.'
       };
@@ -175,7 +175,12 @@ export default function AssessmentFlowPage() {
       )}
 
       {/* Grid view selection based on step state */}
-      {step === 'results' && assessment ? (
+      {step === 'select-provider' ? (
+        // Full width layout for lender selection
+        <div className="animate-fadeIn">
+          <LenderSelection onSelect={handleSelectLender} />
+        </div>
+      ) : step === 'results' && assessment ? (
         // Full width layout for final results
         <div className="animate-fadeIn">
           <ResultsDashboard assessment={{ ...liveValues, ...assessment }} />
@@ -186,14 +191,10 @@ export default function AssessmentFlowPage() {
           
           {/* Left Hand: Active Input Step */}
           <div className="lg:col-span-7 space-y-6">
-            {step === 'select-provider' && (
-              <LenderSelection onSelect={handleSelectLender} />
-            )}
-
             {step === 'form' && (
               <div className="space-y-4">
                 {selectedLender && (
-                  <div className="p-3 bg-teal-950/20 border border-teal-900/30 rounded-xl text-xs flex justify-between items-center text-teal-400">
+                  <div className="p-3 bg-teal-955/20 border border-teal-900/30 rounded-xl text-xs flex justify-between items-center text-teal-400 animate-fadeIn">
                     <span>Selected Lender: <strong>{selectedLender.name}</strong></span>
                     <button 
                       onClick={() => setStep('select-provider')} 
@@ -219,166 +220,117 @@ export default function AssessmentFlowPage() {
             )}
           </div>
 
-          {/* Right Hand: Real-Time Interactive Analytics & Stats OR Lender Trap Education Guides */}
+          {/* Right Hand: Real-Time Interactive Analytics & Stats */}
           <div className="lg:col-span-5 space-y-6">
-            
-            {step === 'select-provider' ? (
-              // Lender Trap Education Guide shown during provider selection step
-              <div className="space-y-6">
-                <div className="p-5 bg-teal-955/20 border border-teal-900/30 rounded-2xl space-y-3">
-                  <div className="flex items-center gap-2 text-teal-400 font-bold text-xs uppercase tracking-wider">
-                    <Shield className="h-4 w-4" />
-                    Audit Objective
-                  </div>
-                  <p className="text-xs text-slate-350 leading-relaxed">
-                    Digital lenders often use compound processing fees and roll-over structures to inflate costs. Select any provider on the left to see their standard cost profile mapped visually and compare rates.
-                  </p>
-                </div>
-
-                <div className="p-5 bg-slate-900/40 border border-slate-800/60 rounded-2xl space-y-4">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-850 pb-2 flex items-center gap-2">
-                    <AlertTriangle className="h-4 w-4 text-amber-500" />
-                    predatory lending warning signals
-                  </h3>
-
-                  <div className="space-y-3">
-                    <div className="space-y-1">
-                      <h4 className="text-xs font-semibold text-slate-200">1. Administrative Fee Gouging</h4>
-                      <p className="text-[11px] text-slate-400 leading-normal">
-                        Some apps advertise low interest rates (e.g. 5%) but tack on flat processing fees (e.g. UGX 50,000) that multiply borrowing costs on small loans.
-                      </p>
-                    </div>
-
-                    <div className="space-y-1">
-                      <h4 className="text-xs font-semibold text-slate-200">2. Compound Roll-Over Trap</h4>
-                      <p className="text-[11px] text-slate-400 leading-normal">
-                        Extending repayment terms by 7 days can trigger flat late charges exceeding 50% of the original principal amount.
-                      </p>
-                    </div>
-
-                    <div className="space-y-1">
-                      <h4 className="text-xs font-semibold text-slate-200">3. Roll-Over Debt Spirals</h4>
-                      <p className="text-[11px] text-slate-400 leading-normal">
-                        Borrowers frequently accept a secondary loan to repay the first, entering an aggressive multi-lender debt cycle.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+            {/* Live Visual Gauge / Status Header */}
+            <div className={`p-5 rounded-2xl border transition-all duration-300 ${liveRisk.bg}`}>
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  Real-time Affordability
+                </span>
+                <span className={`text-xs font-bold ${liveRisk.color}`}>
+                  {liveRisk.label}
+                </span>
               </div>
-            ) : (
-              // Live Affordability Analytics panel shown during Form and Consent steps
-              <>
-                {/* Live Visual Gauge / Status Header */}
-                <div className={`p-5 rounded-2xl border transition-all duration-300 ${liveRisk.bg}`}>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                      Real-time Affordability
-                    </span>
-                    <span className={`text-xs font-bold ${liveRisk.color}`}>
-                      {liveRisk.label}
-                    </span>
-                  </div>
-                  
-                  {/* Progress gauge bar */}
-                  <div className="w-full h-3 bg-slate-900 rounded-full overflow-hidden p-0.5 border border-slate-800 mb-2">
-                    <div 
-                      className={`h-full rounded-full transition-all duration-500 ${liveRisk.barColor}`} 
-                      style={{ width: `${hasData ? Math.min(debtRatio, 100) : 0}%` }}
-                    />
+              
+              {/* Progress gauge bar */}
+              <div className="w-full h-3 bg-slate-900 rounded-full overflow-hidden p-0.5 border border-slate-800 mb-2">
+                <div 
+                  className={`h-full rounded-full transition-all duration-500 ${liveRisk.barColor}`} 
+                  style={{ width: `${hasData ? Math.min(debtRatio, 100) : 0}%` }}
+                />
+              </div>
+              <p className="text-[11px] text-slate-400 leading-normal">
+                {liveRisk.desc}
+              </p>
+            </div>
+
+            {/* Live Stats grid */}
+            <div className="bg-slate-900/40 border border-slate-800/60 rounded-2xl p-5 space-y-4">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-850 pb-2">
+                Simulated Cost Indicators
+              </h3>
+              
+              {/* Stat 1: Total Repayment */}
+              <div className="flex justify-between items-center py-1">
+                <div className="flex items-center gap-2 text-xs text-slate-400">
+                  <Coins className="h-4 w-4 text-slate-500" />
+                  <span>Est. Repayment:</span>
+                </div>
+                <span className="text-sm font-semibold text-slate-200">
+                  UGX {hasData ? totalRepayment.toLocaleString() : '0'}
+                </span>
+              </div>
+
+              {/* Stat 2: Monthly Cost */}
+              <div className="flex justify-between items-center py-1">
+                <div className="flex items-center gap-2 text-xs text-slate-400">
+                  <Calendar className="h-4 w-4 text-slate-500" />
+                  <span>Monthly Cost:</span>
+                </div>
+                <span className="text-sm font-semibold text-slate-200">
+                  UGX {hasData ? Math.round(newLoanMonthlyCost).toLocaleString() : '0'}
+                </span>
+              </div>
+
+              {/* Stat 3: Markup Percentage */}
+              <div className="flex justify-between items-center py-1">
+                <div className="flex items-center gap-2 text-xs text-slate-400">
+                  <Percent className="h-4 w-4 text-slate-500" />
+                  <span>Cost Multiplier:</span>
+                </div>
+                <span className="text-sm font-semibold text-slate-200">
+                  {hasData ? `+${costPct.toFixed(0)}%` : '0%'}
+                </span>
+              </div>
+
+              {/* Stat 4: Debt-to-income burden */}
+              <div className="flex justify-between items-center py-1">
+                <div className="flex items-center gap-2 text-xs text-slate-400">
+                  <TrendingUp className="h-4 w-4 text-slate-500" />
+                  <span>Total Debt Ratio:</span>
+                </div>
+                <span className={`text-sm font-bold ${liveRisk.color}`}>
+                  {hasData ? `${debtRatio.toFixed(0)}%` : '0%'}
+                </span>
+              </div>
+            </div>
+
+            {/* Informative Guidance / Trust Pillars */}
+            <div className="p-5 bg-slate-900/10 border border-slate-900 rounded-2xl space-y-3.5">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                Key Affordability Rules
+              </h3>
+              
+              <div className="space-y-3">
+                <div className="flex items-start gap-2.5">
+                  <div className="h-4 w-4 rounded-full bg-teal-950 flex items-center justify-center text-[9px] font-bold text-teal-400 mt-0.5 shrink-0">
+                    1
                   </div>
                   <p className="text-[11px] text-slate-400 leading-normal">
-                    {liveRisk.desc}
+                    <strong className="text-slate-300">The 40% Guideline</strong>: Safe lending recommends keeping all combined debt payments under 40% of net monthly income.
                   </p>
                 </div>
 
-                {/* Live Stats grid */}
-                <div className="bg-slate-900/40 border border-slate-800/60 rounded-2xl p-5 space-y-4">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-850 pb-2">
-                    Simulated Cost Indicators
-                  </h3>
-                  
-                  {/* Stat 1: Total Repayment */}
-                  <div className="flex justify-between items-center py-1">
-                    <div className="flex items-center gap-2 text-xs text-slate-400">
-                      <Coins className="h-4 w-4 text-slate-500" />
-                      <span>Est. Repayment:</span>
-                    </div>
-                    <span className="text-sm font-semibold text-slate-200">
-                      UGX {hasData ? totalRepayment.toLocaleString() : '0'}
-                    </span>
+                <div className="flex items-start gap-2.5">
+                  <div className="h-4 w-4 rounded-full bg-teal-950 flex items-center justify-center text-[9px] font-bold text-teal-400 mt-0.5 shrink-0">
+                    2
                   </div>
-
-                  {/* Stat 2: Monthly Cost */}
-                  <div className="flex justify-between items-center py-1">
-                    <div className="flex items-center gap-2 text-xs text-slate-400">
-                      <Calendar className="h-4 w-4 text-slate-500" />
-                      <span>Monthly Cost:</span>
-                    </div>
-                    <span className="text-sm font-semibold text-slate-200">
-                      UGX {hasData ? Math.round(newLoanMonthlyCost).toLocaleString() : '0'}
-                    </span>
-                  </div>
-
-                  {/* Stat 3: Markup Percentage */}
-                  <div className="flex justify-between items-center py-1">
-                    <div className="flex items-center gap-2 text-xs text-slate-400">
-                      <Percent className="h-4 w-4 text-slate-500" />
-                      <span>Cost Multiplier:</span>
-                    </div>
-                    <span className="text-sm font-semibold text-slate-200">
-                      {hasData ? `+${costPct.toFixed(0)}%` : '0%'}
-                    </span>
-                  </div>
-
-                  {/* Stat 4: Debt-to-income burden */}
-                  <div className="flex justify-between items-center py-1">
-                    <div className="flex items-center gap-2 text-xs text-slate-400">
-                      <TrendingUp className="h-4 w-4 text-slate-500" />
-                      <span>Total Debt Ratio:</span>
-                    </div>
-                    <span className={`text-sm font-bold ${liveRisk.color}`}>
-                      {hasData ? `${debtRatio.toFixed(0)}%` : '0%'}
-                    </span>
-                  </div>
+                  <p className="text-[11px] text-slate-400 leading-normal">
+                    <strong className="text-slate-300">Cost Transparency</strong>: Pay attention to administrative fees; they are often used to mask double-digit interest rates.
+                  </p>
                 </div>
 
-                {/* Informative Guidance / Trust Pillars */}
-                <div className="p-5 bg-slate-900/10 border border-slate-900 rounded-2xl space-y-3.5">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                    Key Affordability Rules
-                  </h3>
-                  
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-2.5">
-                      <div className="h-4 w-4 rounded-full bg-teal-950 flex items-center justify-center text-[9px] font-bold text-teal-400 mt-0.5 shrink-0">
-                        1
-                      </div>
-                      <p className="text-[11px] text-slate-400 leading-normal">
-                        <strong className="text-slate-300">The 40% Guideline</strong>: Safe lending recommends keeping all combined debt payments under 40% of net monthly income.
-                      </p>
-                    </div>
-
-                    <div className="flex items-start gap-2.5">
-                      <div className="h-4 w-4 rounded-full bg-teal-950 flex items-center justify-center text-[9px] font-bold text-teal-400 mt-0.5 shrink-0">
-                        2
-                      </div>
-                      <p className="text-[11px] text-slate-400 leading-normal">
-                        <strong className="text-slate-300">Cost Transparency</strong>: Pay attention to administrative fees; they are often used to mask double-digit interest rates.
-                      </p>
-                    </div>
-
-                    <div className="flex items-start gap-2.5">
-                      <div className="h-4 w-4 rounded-full bg-teal-950 flex items-center justify-center text-[9px] font-bold text-teal-400 mt-0.5 shrink-0">
-                        3
-                      </div>
-                      <p className="text-[11px] text-slate-400 leading-normal">
-                        <strong className="text-slate-300">Privacy Safeguard</strong>: All computations happen locally. Your finances are never uploaded to our databases unless you request a logged report.
-                      </p>
-                    </div>
+                <div className="flex items-start gap-2.5">
+                  <div className="h-4 w-4 rounded-full bg-teal-950 flex items-center justify-center text-[9px] font-bold text-teal-400 mt-0.5 shrink-0">
+                    3
                   </div>
+                  <p className="text-[11px] text-slate-400 leading-normal">
+                    <strong className="text-slate-300">Privacy Safeguard</strong>: All computations happen locally. Your finances are never uploaded to our databases unless you request a logged report.
+                  </p>
                 </div>
-              </>
-            )}
+              </div>
+            </div>
 
           </div>
 

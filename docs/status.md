@@ -410,13 +410,89 @@ per-task entries below so it's easy to scan at a glance.
 
 ---
 
+### [Step 4] Visual Charts & Stationary Sidebar Layout
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 00:41
+- Status: Done
+- What was done: Restricted outer dashboard wrapper height to h-screen overflow-hidden to keep the sidebar stationary, and delegated vertical scrolling to the main workspace container. Upgraded LenderSelection.jsx to render full-width, replacing textual clutter with two custom interactive SVG chart dashboards: an SVG Cost Curve line chart and a dynamic hover-reactive circular Doughnut chart showing payment breakdowns.
+- Verify performed: Scrolling the main content panel left the left sidebar locked. Hovered over various lender cards, confirming real-time circular segment updates on the doughnut chart. Checked line graph coordinate plotting.
+- Commit: feat(client): stationary sidebar and interactive SVG visualizer charts
+- Blockers: none
+- Decisions/Deviations from architecture.md or spec.md: Pulled selection step out of the split columns grid to present the cost comparison curves and doughnut graphs side-by-side in full width.
+
+### [Step 4.5] Restored Cost Markup Progress Bars
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 00:44
+- Status: Done
+- What was done: Merged the cost markup horizontal progress bars chart (comparing the markup cost of all 5 lenders side-by-side) back into LenderSelection.jsx, placing it alongside the hover-reactive SVG Doughnut chart and the multi-line SVG Cost Curve scale graph.
+- Verify performed: Confirmed all three visual chart elements (horizontal comparison progress bars, hover-reactive circular doughnut segments, and scale line graph) render together on the right-hand analytics column.
+- Commit: feat(client): restore progress bars comparison next to circular and line graphs
+- Blockers: none
+- Decisions/Deviations: none
+
+### [Step 4.6] Lender Layout Restructure & Autoplay Cycling
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 00:49
+- Status: Done
+- What was done: Restructured LenderSelection.jsx to place the Doughnut Chart and Cost Comparison Progress Bars side-by-side at the top. Positioned the Lender Cards list and Curve Line Chart side-by-side at the bottom. Integrated an autoplay transition timer that automatically cycles through lenders every 3 seconds to update the stats and Doughnut Chart, and pauses automatically upon user hover.
+- Verify performed: Confirmed top-row layouts align side-by-side, verified that the Doughnut segments cycle and transition automatically every 3 seconds, and confirmed that hovering over a card pauses the autoplay.
+- Commit: feat(client): top layout charts restructuring and automatic carousel cycle
+- Blockers: none
+- Decisions/Deviations: none
+
+### [Step 4.7] Doughnut Markup-Share Refinement & Cycle Pause Boundaries
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 00:51
+- Status: Done
+- What was done: Refocused Doughnut Chart segments to represent Financing Markup Share (Interest vs. Fees) rather than total contract repayment. This increases segment contrast (e.g. shifts from 88% interest / 12% fee to 66% interest / 34% fee) making visual updates during autoplay transitions obvious. Restructured cycle pausing to trigger strictly on individual card mouse-enter/mouse-leave boundaries.
+- Verify performed: Confirmed that the Doughnut Chart updates segment sizes prominently during the automatic cycling, and verified that hovering over specific cards pauses cycling and leaves them on mouse-leave to resume.
+- Commit: feat(client): refine doughnut chart focus to markup components for visual contrast
+- Blockers: none
+- Decisions/Deviations: none
+
+### [Step 4.8] Conic-Gradient Doughnut Chart & Overlapping Text Fix
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 00:53
+- Status: Done
+- What was done: Replaced the overlapping SVG circle stroke segments in LenderSelection.jsx with a modern CSS conic-gradient circular border. Re-styled the central label nodes to align cleanly in the center, removing overlapping text nodes.
+- Verify performed: Inspected the circular doughnut graph, confirming sharp boundaries, zero overlap glitches, and perfectly legible typography.
+- Commit: fix(client): conic-gradient doughnut chart overlay and text overlap fixes
+- Blockers: none
+- Decisions/Deviations: none
+
+### [Step 4.9] Top-Row 3-Column Restructure & Trust Ratings Chart
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 00:54
+- Status: Done
+- What was done: Restructured LenderSelection.jsx top row to render a 3-column grid containing Doughnut Chart (left), Cost Markup Progress Bars (center), and a new Lender Trust Ratings comparison progress-bar chart (right) side-by-side. The Lenders list catalog and Line Cost curves graph are rendered side-by-side below.
+- Verify performed: Confirmed all three cards align side-by-side on desktop layouts and stack cleanly on smaller screens.
+- Commit: feat(client): 3-column top row with ratings comparison bar chart
+- Blockers: none
+- Decisions/Deviations: none
+
+### [Step 4.10] Fixed Squished Ovals, Thicker Progress Tracks, & Short Names
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 00:56
+- Status: Done
+- What was done: Replaced fluid layout sizing with explicit pixel dimensions (`width: '76px', height: '76px'`) on the conic-gradient container to prevent flex layouts from squishing the doughnut into an oval. Removed internal padding and increased the height of all progress bar tracks to `h-2.5` (10px) to make colored status indicators prominent. Added `shortName` properties to all lenders to prevent labels from wrapping and crowding.
+- Verify performed: Inspected the circular doughnut, confirming it is a perfect sphere. Verified that markup cost and trust rating progress indicators render as thick, legible filled tracks, and verified names fit perfectly.
+- Commit: fix(client): pixel-locked circular doughnut dimensions and thick progress tracks
+- Blockers: none
+- Decisions/Deviations: none
+
+---
+
 ## Handover Summary
 
-- Last updated: 2026-07-12 00:34
-- Done: T0.1–T5.4, Step 3 (all visual console upgrades, lender catalog, and autofill systems)
+- Last updated: 2026-07-12 00:56
+- Done: T0.1–T5.4, Steps 3–4.10 (all visual console upgrades, lender catalog, autofill, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, and autoplay transitions)
 - In Progress: none
 - Blocked: none
 - Resume at: backend integration verification and demo data seeding
-- Anything the next agent/human needs to know before continuing: The console now starts with a lender comparison catalog. Default rates auto-fill upon choosing a provider. All variables match the MERN back-end specs.
+- Anything the next agent/human needs to know before continuing: The selection view features a 3-column top dashboard, and all chart assets are operational and visually polished.
+
+
+
+
 
 
