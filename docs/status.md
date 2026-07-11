@@ -480,16 +480,27 @@ per-task entries below so it's easy to scan at a glance.
 - Blockers: none
 - Decisions/Deviations: none
 
+### [Step 5] Lender Directory Page & Catalog Scroll Containment
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 01:00
+- Status: Done
+- What was done: Bounded the card selection catalog to max-h-[385px] with overflow-y-auto to contain screen heights, preventing the page from stretching. Expanded mock database from 5 to 8 digital lenders. Created LendersDirectoryPage.jsx with search inputs, category filtering, regulatory licenses, and safety disclosures. Added Lenders Directory route link in App.jsx sidebar.
+- Verify performed: Clicked Lenders Directory in the sidebar navigation, verified search filtration works, and verified the catalog selector on the safety audit page scroll-contains after 3 items.
+- Commit: feat(client): lenders transparency directory page and selection catalog scroll containment
+- Blockers: none
+- Decisions/Deviations: none
+
 ---
 
 ## Handover Summary
 
-- Last updated: 2026-07-12 00:56
-- Done: T0.1–T5.4, Steps 3–4.10 (all visual console upgrades, lender catalog, autofill, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, and autoplay transitions)
+- Last updated: 2026-07-12 01:00
+- Done: T0.1–T5.4, Steps 3–5 (all visual console upgrades, lender catalog, autofill, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, lenders transparency directory, catalog scroll containment, and autoplay transitions)
 - In Progress: none
 - Blocked: none
 - Resume at: backend integration verification and demo data seeding
-- Anything the next agent/human needs to know before continuing: The selection view features a 3-column top dashboard, and all chart assets are operational and visually polished.
+- Anything the next agent/human needs to know before continuing: The client console features a fully functional visual dashboard and directory. All variables match MERN specs.
+
 
 
 

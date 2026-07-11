@@ -63,6 +63,42 @@ const lenders = [
     category: 'Regulated Microfinance',
     badge: 'Highly Regulated',
     color: 'text-emerald-400 border-emerald-800/40 bg-emerald-955/20'
+  },
+  {
+    id: 'platinum',
+    name: 'Platinum Credit Uganda',
+    shortName: 'Platinum Credit',
+    interestRate: 18,
+    feeAmount: 40000,
+    repaymentPeriodDays: 120,
+    trustScore: 4.1,
+    category: 'Microfinance Institution',
+    badge: 'UMRA Registered',
+    color: 'text-teal-400 border-teal-800/40 bg-teal-950/20'
+  },
+  {
+    id: 'tugende',
+    name: 'Tugende Lease Finance',
+    shortName: 'Tugende Lease',
+    interestRate: 22,
+    feeAmount: 60000,
+    repaymentPeriodDays: 180,
+    trustScore: 4.0,
+    category: 'Asset Financer',
+    badge: 'Asset Lease Option',
+    color: 'text-amber-400 border-amber-800/40 bg-amber-955/20'
+  },
+  {
+    id: 'zuricash',
+    name: 'Zuri Cash Mobile',
+    shortName: 'Zuri Cash',
+    interestRate: 28,
+    feeAmount: 35000,
+    repaymentPeriodDays: 14,
+    trustScore: 3.2,
+    category: 'Fintech Mobile app',
+    badge: 'Unregulated Web',
+    color: 'text-rose-400 border-rose-800/40 bg-rose-955/20'
   }
 ];
 
@@ -147,7 +183,7 @@ export default function LenderSelection({ onSelect }) {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 flex items-center justify-between gap-4 flex-grow">
-            {/* CSS Conic-Gradient Doughnut Chart - Fixed dimensions to prevent squishing */}
+            {/* CSS Conic-Gradient Doughnut Chart - Fixed dimensions */}
             <div 
               className="rounded-full flex items-center justify-center shrink-0 shadow-lg transition-all duration-500"
               style={{
@@ -197,7 +233,7 @@ export default function LenderSelection({ onSelect }) {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 space-y-2 flex-grow flex flex-col justify-center">
-            {lenders.map((lender) => {
+            {lenders.slice(0, 5).map((lender) => { // Render top 5 for neatness in comparison cards
               const totalCost = (BASE_LOAN * lender.interestRate / 100) + lender.feeAmount;
               const markupPct = (totalCost / BASE_LOAN) * 100;
               
@@ -213,7 +249,6 @@ export default function LenderSelection({ onSelect }) {
                       UGX {totalCost.toLocaleString()} ({markupPct.toFixed(0)}%)
                     </span>
                   </div>
-                  {/* Made progress track thicker and removed padding to let the inner bar render fully */}
                   <div className="w-full h-2.5 bg-slate-950 rounded-full border border-slate-850 overflow-hidden">
                     <div 
                       className={`h-full rounded-full transition-all duration-1000 ${barColor}`}
@@ -230,12 +265,12 @@ export default function LenderSelection({ onSelect }) {
         <Card className="bg-slate-900/40 border-slate-800/80 shadow-2xl backdrop-blur-md flex flex-col justify-between">
           <CardHeader className="border-b border-slate-850 py-3 px-5">
             <CardTitle className="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <Star className="h-3.5 w-3.5 text-amber-500 fill-amber-550 shrink-0" />
+              <Star className="h-3.5 w-3.5 text-amber-500 fill-amber-555 shrink-0" />
               Lender Trust Ratings (0-5.0)
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 space-y-2 flex-grow flex flex-col justify-center">
-            {lenders.map((lender) => {
+            {lenders.slice(0, 5).map((lender) => {
               const ratingPct = (lender.trustScore / 5.0) * 100;
               
               let ratingColor = 'bg-amber-500';
@@ -250,7 +285,6 @@ export default function LenderSelection({ onSelect }) {
                       {lender.trustScore} ★
                     </span>
                   </div>
-                  {/* Thicker progress tracks for trust ratings */}
                   <div className="w-full h-2.5 bg-slate-950 rounded-full border border-slate-850 overflow-hidden">
                     <div 
                       className={`h-full rounded-full transition-all duration-1000 ${ratingColor}`}
@@ -265,7 +299,7 @@ export default function LenderSelection({ onSelect }) {
 
       </div>
 
-      {/* 2. Bottom Section: Lenders Catalog (Left) & Curve Line Graph (Right) */}
+      {/* 2. Bottom Section: Lenders Catalog (Left, scroll-bounded) & Curve Line Graph (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* Left Column: Lenders Catalog */}
@@ -274,7 +308,8 @@ export default function LenderSelection({ onSelect }) {
             Lender Verification Catalog
           </h3>
 
-          <div className="space-y-3">
+          {/* Bound list to max height and make scrollable internally */}
+          <div className="space-y-3 max-h-[385px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-800">
             {lenders.map((lender) => (
               <div 
                 key={lender.id}
@@ -304,7 +339,7 @@ export default function LenderSelection({ onSelect }) {
                         <span>{lender.category}</span>
                         <span>•</span>
                         <div className="flex items-center gap-0.5">
-                          <Star className="h-3 w-3 text-amber-500 fill-amber-550 shrink-0" />
+                          <Star className="h-3 w-3 text-amber-500 fill-amber-555 shrink-0" />
                           <span className="text-slate-350">{lender.trustScore} Rating</span>
                         </div>
                       </div>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ShieldCheck, Activity, Award, Landmark, BookOpen, ChevronRight, HelpCircle } from 'lucide-react';
 import HomePage from '@/pages/HomePage';
 import AssessmentFlowPage from '@/pages/AssessmentFlowPage';
+import LendersDirectoryPage from '@/pages/LendersDirectoryPage';
 import RoadmapSlide from '@/components/RoadmapSlide';
 
 export default function App() {
@@ -19,44 +20,34 @@ export default function App() {
         <div className="flex flex-col min-h-screen">
           <header className="sticky top-0 z-50 w-full border-b border-slate-800/80 bg-slate-950/70 backdrop-blur-md px-6 py-4">
             <div className="max-w-7xl mx-auto flex items-center justify-between">
-              <div className="flex items-center gap-2.5 cursor-pointer group" onClick={() => setView('home')}>
-                <div className="p-2 rounded-xl bg-teal-950/60 border border-teal-800/50 group-hover:border-teal-700 transition-all duration-300">
-                  <ShieldCheck className="h-6 w-6 text-teal-400" />
+              {/* Brand logo */}
+              <div className="flex items-center gap-2 cursor-pointer" onClick={() => setView('home')}>
+                <div className="p-1.5 rounded-lg bg-teal-950/60 border border-teal-800/40">
+                  <ShieldCheck className="h-5 w-5 text-teal-400" />
                 </div>
-                <div className="flex flex-col">
-                  <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-teal-400 to-emerald-400 bg-clip-text text-transparent">
-                    Credi-Check
-                  </span>
-                  <span className="text-[10px] text-slate-400 tracking-wider uppercase font-semibold">
-                    Intelligence Layer
-                  </span>
-                </div>
+                <span className="font-bold text-sm tracking-tight text-slate-100">
+                  Credi-Check
+                </span>
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 text-xs text-slate-400 font-medium">
-                  <span className="relative flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                  </span>
-                  Protection Active
-                </div>
-                <button
+              {/* Navigation Items */}
+              <div className="flex items-center gap-6">
+                <button 
                   onClick={() => setView('flow')}
-                  className="bg-teal-650 hover:bg-teal-700 text-white font-semibold text-xs px-4 py-2 rounded-xl border border-teal-500/35 transition-all shadow-md shadow-teal-900/20"
+                  className="px-4 py-1.5 rounded-lg bg-teal-950 hover:bg-teal-900 text-teal-450 border border-teal-800/40 text-xs font-semibold tracking-wide transition-all shadow shadow-teal-950"
                 >
-                  Enter App
+                  Enter Safety Audit Console
                 </button>
               </div>
             </div>
           </header>
 
           <main className="flex-grow">
-            <HomePage onStart={() => setView('flow')} />
+            <HomePage onStartAssessment={() => setView('flow')} />
           </main>
 
           <footer className="border-t border-slate-900 bg-slate-950/40 py-6 text-center text-xs text-slate-500">
-            <p>© {new Date().getFullYear()} Credi-Check. Built for the Africa Borrower Protection Hackathon.</p>
+            <p>© {new Date().getFullYear()} Credi-Check Borrower Protection Framework. Ugandan Fintech Hackathon Entry.</p>
           </footer>
         </div>
       ) : (
@@ -102,6 +93,21 @@ export default function App() {
                 </button>
 
                 <button
+                  onClick={() => setView('directory')}
+                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
+                    view === 'directory'
+                      ? 'bg-teal-955/40 text-teal-400 border border-teal-800/50 shadow-sm shadow-teal-950/40'
+                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <BookOpen className="h-4 w-4 shrink-0" />
+                    <span>Lenders Directory</span>
+                  </div>
+                  <ChevronRight className={`h-3 w-3 transition-transform ${view === 'directory' ? 'translate-x-0.5 text-teal-400' : 'text-slate-600'}`} />
+                </button>
+
+                <button
                   onClick={() => setView('roadmap')}
                   className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
                     view === 'roadmap'
@@ -144,6 +150,10 @@ export default function App() {
               {view === 'flow' ? (
                 <div className="animate-slideUp">
                   <AssessmentFlowPage />
+                </div>
+              ) : view === 'directory' ? (
+                <div className="animate-slideUp">
+                  <LendersDirectoryPage />
                 </div>
               ) : (
                 <div className="animate-fadeIn">
