@@ -55,11 +55,23 @@ started — add them as you go.
 
 ---
 
+### [T0.4 - T2.8] Frontend UI Redesign & Styling Overhaul
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 00:03
+- Status: Done
+- What was done: Enhanced global typography (Plus Jakarta Sans), added animations (fadeIn, slideUp, float, pulseGlow), glassmorphism styles, radial gradient backgrounds, and fully redesigned the landing page with an interactive drag-and-drop loan affordability visualizer.
+- Verify performed: Opened the client app, tested the visualizer sliders, verified color changes, and confirmed all custom responsive styles work.
+- Commit: feat(client): design system visual overhaul and interactive hero calculator
+- Blockers: none
+- Decisions/Deviations from architecture.md or spec.md: Added interactive mock calculator to the homepage to provide high immediate visual wow-factor on landing.
+
+---
+
 ## Handover Summary (update this section at every handover point)
 
-- Last updated: <timestamp>
-- Done: <list of completed Task IDs>
-- In Progress: <Task ID + current state>
-- Blocked: <Task ID + blocker summary, or none>
-- Resume at: <next Task ID to pick up>
-- Anything the next agent/human needs to know before continuing:
+- Last updated: 2026-07-12 00:03
+- Done: T0.4, T0.5, T0.6, T2.8 (UI layout and style enhancements)
+- In Progress: none
+- Blocked: none
+- Resume at: Redesign of AssessmentFlowPage components (T2.2, T2.4)
+- Anything the next agent/human needs to know before continuing: The home page has been upgraded to a high-fidelity landing page. Next we need to align the forms, consent checkbox dialog, and results dashboard styles with this new layout.
