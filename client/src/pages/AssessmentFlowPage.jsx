@@ -323,7 +323,7 @@ export default function AssessmentFlowPage() {
               <div className="flex justify-between items-center py-1">
                 <div className="flex items-center gap-2 text-xs text-slate-400">
                   <Coins className="h-4 w-4 text-slate-500" />
-                  <span>Total you pay back:</span>
+                  <span>Total Repayment:</span>
                 </div>
                 <span className="text-sm font-semibold text-slate-200">
                   UGX {hasData ? totalRepayment.toLocaleString() : '0'}
@@ -334,7 +334,7 @@ export default function AssessmentFlowPage() {
               <div className="flex justify-between items-center py-1">
                 <div className="flex items-center gap-2 text-xs text-slate-400">
                   <Calendar className="h-4 w-4 text-slate-500" />
-                  <span>Expected monthly payment:</span>
+                  <span>Monthly Cost:</span>
                 </div>
                 <span className="text-sm font-semibold text-slate-200">
                   UGX {hasData ? Math.round(newLoanMonthlyCost).toLocaleString() : '0'}
@@ -345,7 +345,7 @@ export default function AssessmentFlowPage() {
               <div className="flex justify-between items-center py-1">
                 <div className="flex items-center gap-2 text-xs text-slate-400">
                   <Percent className="h-4 w-4 text-slate-500" />
-                  <span>Extra borrowing cost:</span>
+                  <span>Cost of Borrowing:</span>
                 </div>
                 <span className="text-sm font-semibold text-slate-200">
                   {hasData ? `+${costPct.toFixed(0)}%` : '0%'}
@@ -356,7 +356,7 @@ export default function AssessmentFlowPage() {
               <div className="flex justify-between items-center py-1">
                 <div className="flex items-center gap-2 text-xs text-slate-400">
                   <TrendingUp className="h-4 w-4 text-slate-500" />
-                  <span>Portion of income spent on loans:</span>
+                  <span>Monthly Debt Ratio:</span>
                 </div>
                 <span className={`text-sm font-bold ${liveRisk.color}`}>
                   {hasData ? `${debtRatio.toFixed(0)}%` : '0%'}
