@@ -155,7 +155,7 @@ export default function LoanForm({ onSubmit, onValuesChange, initialValues }) {
             type="submit" 
             className="w-full bg-teal-600 hover:bg-teal-500 text-white font-semibold py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-md shadow-teal-100 border-0"
           >
-            Review Audit Disclosures
+            Next
             <ArrowRight className="h-4.5 w-4.5" />
           </Button>
         </form>

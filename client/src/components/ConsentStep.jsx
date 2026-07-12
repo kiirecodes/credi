@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { Info, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Info, CheckCircle2, ShieldCheck, ArrowRight } from 'lucide-react';
 
 export default function ConsentStep({ assessment, onConfirm }) {
   const [checks, setChecks] = useState({
@@ -99,8 +99,8 @@ export default function ConsentStep({ assessment, onConfirm }) {
           disabled={!allChecked}
           className="w-full bg-teal-600 hover:bg-teal-500 text-white font-semibold text-sm py-5 rounded-xl border-0 shadow-md shadow-teal-100/50 hover:scale-[1.01] transition-all disabled:opacity-40 disabled:scale-100 mt-4"
         >
-          View Full Transparency Report
-          <CheckCircle2 className="h-4 w-4 ml-2" />
+          Next
+          <ArrowRight className="h-4 w-4 ml-2" />
         </Button>
       </CardContent>
     </Card>

@@ -646,16 +646,27 @@ per-task entries below so it's easy to scan at a glance.
 - Blockers: none
 - Decisions/Deviations: none
 
+### [Feature] Enforce Manual Confirmation on Quiz Failure & Standardize Buttons
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 17:48
+- Status: Done
+- What was done: Modified the Acknowledgment quiz error modal to persist (no auto-timeout redirect) and added a manual "Start Afresh" button to let the user review the warning at their own pace before going back to the declaration screen. Standardized transition buttons across all flow pages: Step 2 submit and Step 3 verify now display "Next", while Step 4 quiz displays "Complete" to navigate to the Safety Report.
+- Verify performed: Verified quiz failure overlays the modal with the "Start Afresh" action button and step buttons follow the "Next, Next, Complete" naming convention; production build compiles successfully.
+- Commit: feat(client): manual quiz rollback button and standardized step buttons
+- Blockers: none
+- Decisions/Deviations: none
+
 ---
 
 ## Handover Summary
 
-- Last updated: 2026-07-12 17:43
-- Done: T0.1–T5.4, Steps 3–5.14 (all visual console upgrades, lender catalog, autofill fixes, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, lenders directory, catalog scroll containment, backend bypass, plain English translation pass, professional copy refinements, light theme conversion, global border fixes, homepage slider visualizer removal, selection card titles simplification, active friction comprehension quiz step, real-time sidebar blinding, warning modal overlays, back-navigation button, and autoplay transitions)
+- Last updated: 2026-07-12 17:48
+- Done: T0.1–T5.4, Steps 3–5.15 (all visual console upgrades, lender catalog, autofill fixes, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, lenders directory, catalog scroll containment, backend bypass, plain English translation pass, professional copy refinements, light theme conversion, global border fixes, homepage slider visualizer removal, selection card titles simplification, active friction comprehension quiz step, real-time sidebar blinding, warning modal overlays, manual rollback button, standardized navigation labels, back-navigation button, and autoplay transitions)
 - In Progress: none
 - Blocked: none
 - Resume at: backend integration verification and demo data seeding
 - Anything the next agent/human needs to know before continuing: The client console features a fully functional visual dashboard, directory, active friction comprehension check with real-time sidebar masking, and manual step back-navigation. Autofill initializes cleanly on mount. All safety calculations are executed locally on the client-side, using professional and accessible labels. Card borders are soft light-slate-200.
+
 
 
 
