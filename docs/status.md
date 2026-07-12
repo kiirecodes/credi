@@ -586,16 +586,27 @@ per-task entries below so it's easy to scan at a glance.
 - Blockers: none
 - Decisions/Deviations: none
 
+### [Fix] Resolve Card Black Borders in Light Mode
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 17:08
+- Status: Done
+- What was done: Fixed the black outline borders around card containers by updating the HSL `--border` and `--input` base variables inside `globals.css` to clean light-slate values (`214.3 31.8% 91.4%`). Corrected all invalid Tailwind colors (like `border-slate-205`, `border-slate-250`, `border-slate-150`, and `border-amber-205`) to valid Tailwind classes (`border-slate-200` or `border-amber-200`).
+- Verify performed: Confirmed cards now render with soft, professional, light gray border lines; production build compiles successfully.
+- Commit: fix(client): resolve black border lines in light mode by correcting base border HSL and fixing invalid tailwind colors
+- Blockers: none
+- Decisions/Deviations: none
+
 ---
 
 ## Handover Summary
 
-- Last updated: 2026-07-12 16:55
-- Done: T0.1–T5.4, Steps 3–5.8 (all visual console upgrades, lender catalog, autofill fixes, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, lenders directory, catalog scroll containment, backend bypass, plain English translation pass, professional copy refinements, and autoplay transitions)
+- Last updated: 2026-07-12 17:08
+- Done: T0.1–T5.4, Steps 3–5.9 (all visual console upgrades, lender catalog, autofill fixes, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, lenders directory, catalog scroll containment, backend bypass, plain English translation pass, professional copy refinements, light theme conversion, global border fixes, and autoplay transitions)
 - In Progress: none
 - Blocked: none
 - Resume at: backend integration verification and demo data seeding
-- Anything the next agent/human needs to know before continuing: The client console features a fully functional visual dashboard and directory. Autofill initializes cleanly on mount. All safety calculations are executed locally on the client-side, using professional and accessible labels.
+- Anything the next agent/human needs to know before continuing: The client console features a fully functional visual dashboard and directory. Autofill initializes cleanly on mount. All safety calculations are executed locally on the client-side, using professional and accessible labels. Card borders are soft light-slate-200.
+
 
 
 

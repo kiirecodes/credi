@@ -43,7 +43,7 @@ export default function ConsentStep({ assessment, onConfirm }) {
   ];
 
   return (
-    <Card className="bg-white border-slate-205 shadow-sm animate-slideUp">
+    <Card className="bg-white border-slate-200 shadow-sm animate-slideUp">
       <CardHeader className="border-b border-slate-100 py-4 px-6">
         <CardTitle className="text-base font-bold text-slate-800 flex items-center gap-2">
           <ShieldCheck className="h-5 w-5 text-teal-600" />
@@ -67,7 +67,7 @@ export default function ConsentStep({ assessment, onConfirm }) {
               className={`flex items-start gap-3.5 p-4 rounded-xl border cursor-pointer transition-all duration-200 select-none ${
                 checks[item.key] 
                   ? 'bg-teal-50/20 border-teal-500/80 shadow-sm' 
-                  : 'bg-white border-slate-200 hover:bg-slate-50/40 hover:border-slate-250'
+                  : 'bg-white border-slate-200 hover:bg-slate-50/40 hover:border-slate-300'
               }`}
             >
               <Info className={`h-5 w-5 mt-0.5 shrink-0 transition-colors ${checks[item.key] ? 'text-teal-655' : 'text-slate-400'}`} />

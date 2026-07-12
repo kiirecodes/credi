@@ -78,7 +78,7 @@ export default function ResultsDashboard({ assessment, userId }) {
         <div className="lg:col-span-7 space-y-6">
           
           {/* Main Stat Cards Grid */}
-          <Card className="bg-white border-slate-205 shadow-sm">
+          <Card className="bg-white border-slate-200 shadow-sm">
             <CardHeader className="border-b border-slate-100 py-3.5 px-6">
               <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Loan Cost Summary
@@ -109,14 +109,14 @@ export default function ResultsDashboard({ assessment, userId }) {
                 </div>
               </div>
 
-              <p className="text-xs text-slate-600 leading-relaxed mt-5 p-4 bg-slate-50 border border-slate-150 rounded-xl">
+              <p className="text-xs text-slate-600 leading-relaxed mt-5 p-4 bg-slate-50 border border-slate-200 rounded-xl">
                 <strong className="text-teal-655">Summary:</strong> {assessment.plainLanguageSummary}
               </p>
             </CardContent>
           </Card>
 
           {/* Visual Income Breakdown chart list */}
-          <Card className="bg-white border-slate-205 shadow-sm">
+          <Card className="bg-white border-slate-200 shadow-sm">
             <CardHeader className="border-b border-slate-100 py-3.5 px-6">
               <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
                 <TrendingDown className="h-4 w-4 text-teal-600" />
@@ -168,7 +168,7 @@ export default function ResultsDashboard({ assessment, userId }) {
         <div className="lg:col-span-5 space-y-6">
           
           {/* Assessment Reasoning cards */}
-          <Card className="bg-white border-slate-205 shadow-sm">
+          <Card className="bg-white border-slate-200 shadow-sm">
             <CardHeader className="border-b border-slate-100 py-3.5 px-6">
               <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Affordability Audit Checks
@@ -206,7 +206,7 @@ export default function ResultsDashboard({ assessment, userId }) {
             <Button
               onClick={handleReload}
               variant="outline"
-              className="flex-1 bg-white border-slate-250 text-slate-700 hover:text-slate-900 hover:bg-slate-50/50 py-5 rounded-xl text-xs font-semibold shadow-sm"
+              className="flex-1 bg-white border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-50/50 py-5 rounded-xl text-xs font-semibold shadow-sm"
             >
               <RotateCcw className="h-4 w-4 mr-2" />
               New Safety Audit

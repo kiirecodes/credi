@@ -38,7 +38,7 @@ const lenders = [
     trustScore: 3.8,
     category: 'Asset Financer',
     badge: 'High Cost / Flexible',
-    color: 'text-amber-700 border-amber-205 bg-amber-50'
+    color: 'text-amber-700 border-amber-200 bg-amber-50'
   },
   {
     slug: 'watu',
@@ -50,7 +50,7 @@ const lenders = [
     trustScore: 3.9,
     category: 'Microfinance Institution',
     badge: 'Longer repayment',
-    color: 'text-amber-700 border-amber-205 bg-amber-50'
+    color: 'text-amber-700 border-amber-200 bg-amber-50'
   },
   {
     slug: 'ugtrust',
@@ -86,7 +86,7 @@ const lenders = [
     trustScore: 4.0,
     category: 'Asset Financer',
     badge: 'Asset Lease Option',
-    color: 'text-amber-700 border-amber-205 bg-amber-50'
+    color: 'text-amber-700 border-amber-200 bg-amber-50'
   },
   {
     slug: 'zuricash',

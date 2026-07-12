@@ -34,7 +34,7 @@ export default function BorrowingPatternPanel({ userId }) {
   };
 
   return (
-    <Card className="bg-white border-slate-205 shadow-sm">
+    <Card className="bg-white border-slate-200 shadow-sm">
       <CardHeader className="border-b border-slate-100 py-3.5 px-6">
         <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
           <TrendingUp className="h-4 w-4 text-amber-500" />

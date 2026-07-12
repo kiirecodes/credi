@@ -155,7 +155,7 @@ export default function LendersDirectoryPage() {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white border border-slate-250/80 p-4 rounded-2xl shadow-sm">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white border border-slate-200 p-4 rounded-2xl shadow-sm">
         <div className="relative w-full md:w-80">
           <Search className="absolute left-3 top-2.5 h-4.5 w-4.5 text-slate-400" />
           <input

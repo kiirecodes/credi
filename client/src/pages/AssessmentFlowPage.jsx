@@ -17,7 +17,7 @@ const steps = [
 function ProgressStepper({ currentStep }) {
   const currentIndex = steps.findIndex(s => s.key === currentStep);
   return (
-    <div className="w-full bg-white border border-slate-250/80 rounded-xl p-4 flex items-center justify-between gap-2 mb-6 shadow-sm">
+    <div className="w-full bg-white border border-slate-200 rounded-xl p-4 flex items-center justify-between gap-2 mb-6 shadow-sm">
       {steps.map((s, index) => {
         const isActive = s.key === currentStep;
         const isCompleted = currentIndex > index;

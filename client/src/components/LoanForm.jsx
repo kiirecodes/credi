@@ -135,7 +135,7 @@ export default function LoanForm({ onSubmit, onValuesChange, initialValues }) {
                       placeholder={field.placeholder}
                       value={values[field.name]}
                       onChange={(e) => handleChange(field.name, e.target.value)}
-                      className={`pl-10 bg-white border-slate-250 text-slate-900 placeholder:text-slate-400 focus:border-teal-500 transition-colors focus-visible:ring-0 focus-visible:ring-offset-0 ${
+                      className={`pl-10 bg-white border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-teal-500 transition-colors focus-visible:ring-0 focus-visible:ring-offset-0 ${
                         errors[field.name] ? 'border-rose-500 focus:border-rose-500' : ''
                       }`}
                     />

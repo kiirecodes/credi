@@ -54,7 +54,7 @@ export default function RoadmapSlide({ onBack }) {
       </div>
 
       <div className="text-center pt-2">
-        <Button onClick={onBack} variant="outline" className="bg-white border-slate-250 text-slate-700 hover:text-slate-905 hover:bg-slate-50/50 px-6 py-2.5 rounded-xl text-xs font-semibold shadow-sm">
+        <Button onClick={onBack} variant="outline" className="bg-white border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-50/50 px-6 py-2.5 rounded-xl text-xs font-semibold shadow-sm">
           Back to Safety Audit
         </Button>
       </div>
