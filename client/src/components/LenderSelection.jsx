@@ -2,128 +2,73 @@ import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Landmark, Star, ChevronRight, BarChart2, PieChart } from 'lucide-react';
-
-const lenders = [
-  {
-    id: 'tala',
-    name: 'Tala Mobile Loan',
-    shortName: 'Tala Mobile',
-    interestRate: 15,
-    feeAmount: 10000,
-    repaymentPeriodDays: 30,
-    trustScore: 4.5,
-    category: 'Fintech Mobile app',
-    badge: 'Fast disbursement',
-    color: 'text-teal-400 border-teal-800/40 bg-teal-950/20'
-  },
-  {
-    id: 'branch',
-    name: 'Branch Finance',
-    shortName: 'Branch',
-    interestRate: 12,
-    feeAmount: 15000,
-    repaymentPeriodDays: 30,
-    trustScore: 4.6,
-    category: 'Fintech Mobile app',
-    badge: 'Lower Mobile Rate',
-    color: 'text-emerald-400 border-emerald-800/40 bg-emerald-955/20'
-  },
-  {
-    id: 'mkopa',
-    name: 'M-Kopa Cash',
-    shortName: 'M-Kopa Cash',
-    interestRate: 25,
-    feeAmount: 30000,
-    repaymentPeriodDays: 60,
-    trustScore: 3.8,
-    category: 'Asset Financer',
-    badge: 'High Cost / Flexible',
-    color: 'text-amber-400 border-amber-800/40 bg-amber-955/20'
-  },
-  {
-    id: 'watu',
-    name: 'Watu Credit Uganda',
-    shortName: 'Watu Credit',
-    interestRate: 20,
-    feeAmount: 50000,
-    repaymentPeriodDays: 90,
-    trustScore: 3.9,
-    category: 'Microfinance Institution',
-    badge: 'Longer repayment',
-    color: 'text-amber-400 border-amber-800/40 bg-amber-955/20'
-  },
-  {
-    id: 'ugtrust',
-    name: 'Uganda Trust Microfinance',
-    shortName: 'Uganda Trust',
-    interestRate: 8,
-    feeAmount: 20000,
-    repaymentPeriodDays: 90,
-    trustScore: 4.8,
-    category: 'Regulated Microfinance',
-    badge: 'Highly Regulated',
-    color: 'text-emerald-400 border-emerald-800/40 bg-emerald-955/20'
-  },
-  {
-    id: 'platinum',
-    name: 'Platinum Credit Uganda',
-    shortName: 'Platinum Credit',
-    interestRate: 18,
-    feeAmount: 40000,
-    repaymentPeriodDays: 120,
-    trustScore: 4.1,
-    category: 'Microfinance Institution',
-    badge: 'UMRA Registered',
-    color: 'text-teal-400 border-teal-800/40 bg-teal-950/20'
-  },
-  {
-    id: 'tugende',
-    name: 'Tugende Lease Finance',
-    shortName: 'Tugende Lease',
-    interestRate: 22,
-    feeAmount: 60000,
-    repaymentPeriodDays: 180,
-    trustScore: 4.0,
-    category: 'Asset Financer',
-    badge: 'Asset Lease Option',
-    color: 'text-amber-400 border-amber-800/40 bg-amber-955/20'
-  },
-  {
-    id: 'zuricash',
-    name: 'Zuri Cash Mobile',
-    shortName: 'Zuri Cash',
-    interestRate: 28,
-    feeAmount: 35000,
-    repaymentPeriodDays: 14,
-    trustScore: 3.2,
-    category: 'Fintech Mobile app',
-    badge: 'Unregulated Web',
-    color: 'text-rose-400 border-rose-800/40 bg-rose-955/20'
-  }
-];
+import { getLenders } from '@/services/api';
 
 export default function LenderSelection({ onSelect }) {
-  // Autoplay cycle state
-  const [hoveredLenderId, setHoveredLenderId] = useState('tala');
+  const [lenders, setLenders] = useState([]);
+  const [hoveredLenderId, setHoveredLenderId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(null);
   const [autoCycle, setAutoCycle] = useState(true);
+
+  useEffect(() => {
+    const loadLenders = async () => {
+      try {
+        const fetched = await getLenders();
+        setLenders(fetched);
+        setHoveredLenderId(fetched?.[0]?.slug || fetched?.[0]?.id || null);
+      } catch (err) {
+        setFetchError('Unable to load lenders from the server.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadLenders();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="rounded-3xl border border-slate-800 bg-slate-950/70 p-8 text-center text-slate-400">
+        Loading lender data...
+      </div>
+    );
+  }
+
+  if (fetchError) {
+    return (
+      <div className="rounded-3xl border border-rose-800 bg-rose-950/60 p-8 text-center text-rose-200">
+        {fetchError}
+      </div>
+    );
+  }
+
+  if (!lenders.length) {
+    return (
+      <div className="rounded-3xl border border-slate-800 bg-slate-950/70 p-8 text-center text-slate-400">
+        No lender data is available yet. Please ensure the backend is seeded and the API is running.
+      </div>
+    );
+  }
+
+  const activeLender = lenders.find((l) => l.slug === hoveredLenderId || l.id === hoveredLenderId) || lenders[0];
 
   // Auto-rotating slider effect
   useEffect(() => {
-    if (!autoCycle) return;
+    if (!autoCycle || lenders.length === 0) return;
 
     const timer = setInterval(() => {
       setHoveredLenderId((current) => {
-        const idx = lenders.findIndex(l => l.id === current);
+        const idx = lenders.findIndex((l) => l.slug === current || l.id === current);
         const nextIdx = (idx + 1) % lenders.length;
-        return lenders[nextIdx].id;
+        return lenders[nextIdx]?.slug || lenders[nextIdx]?.id;
       });
     }, 2500); // Switch every 2.5 seconds
 
     return () => clearInterval(timer);
-  }, [autoCycle]);
+  }, [autoCycle, lenders]);
 
   const BASE_LOAN = 500000;
-  const activeLender = lenders.find(l => l.id === hoveredLenderId) || lenders[0];
 
   // Calculations for active lender (standard UGX 500,000 loan)
   const activeInterest = BASE_LOAN * activeLender.interestRate / 100;
@@ -135,8 +80,9 @@ export default function LenderSelection({ onSelect }) {
   const feeMarkupPct = markupTotal > 0 ? (activeFee / markupTotal) * 100 : 0;
 
   // Line Chart Cost Curves calculations (UGX 100k to UGX 1M)
-  const linePoints = (lenderId) => {
-    const lender = lenders.find(l => l.id === lenderId);
+  const linePoints = (lenderSlug) => {
+    const lender = lenders.find(l => l.slug === lenderSlug);
+    if (!lender) return '';
     const amounts = [100000, 300000, 500000, 700000, 900000];
     
     return amounts.map((amt, idx) => {
@@ -242,7 +188,7 @@ export default function LenderSelection({ onSelect }) {
               if (markupPct > 25) barColor = 'bg-rose-500';
 
               return (
-                <div key={lender.id} className="space-y-0.5">
+                <div key={lender.slug} className="space-y-0.5">
                   <div className="flex justify-between items-center text-[9px]">
                     <span className="font-semibold text-slate-300">{lender.shortName}</span>
                     <span className="text-slate-500">
@@ -278,7 +224,7 @@ export default function LenderSelection({ onSelect }) {
               if (lender.trustScore < 4.0) ratingColor = 'bg-amber-600';
 
               return (
-                <div key={lender.id} className="space-y-0.5">
+                <div key={lender.slug} className="space-y-0.5">
                   <div className="flex justify-between items-center text-[9px]">
                     <span className="font-semibold text-slate-300">{lender.shortName}</span>
                     <span className="text-slate-500 font-bold flex items-center gap-0.5">
@@ -312,11 +258,11 @@ export default function LenderSelection({ onSelect }) {
           <div className="space-y-3 max-h-[385px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-800">
             {lenders.map((lender) => (
               <div 
-                key={lender.id}
-                onMouseEnter={() => handleCardMouseEnter(lender.id)}
+                key={lender.slug}
+                onMouseEnter={() => handleCardMouseEnter(lender.slug)}
                 onMouseLeave={handleCardMouseLeave}
                 className={`p-4 rounded-xl border transition-all duration-300 relative group cursor-pointer ${
-                  hoveredLenderId === lender.id 
+                  hoveredLenderId === lender.slug 
                     ? 'bg-slate-900/60 border-teal-500/50 shadow-md shadow-teal-950/20 scale-[1.005]' 
                     : 'bg-slate-900/20 border-slate-900 hover:border-slate-850 hover:bg-slate-900/30'
                 }`}
@@ -324,7 +270,7 @@ export default function LenderSelection({ onSelect }) {
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3">
                     <div className={`p-2 rounded-lg border shrink-0 transition-colors ${
-                      hoveredLenderId === lender.id ? 'bg-teal-955 text-teal-400 border-teal-800/40' : 'bg-slate-955 text-slate-500 border-slate-900'
+                      hoveredLenderId === lender.slug ? 'bg-teal-955 text-teal-400 border-teal-800/40' : 'bg-slate-955 text-slate-500 border-slate-900'
                     }`}>
                       <Landmark className="h-4.5 w-4.5" />
                     </div>

@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Alert } from '@/components/ui/alert';
 import { AlertCircle, TrendingUp, Sparkles, Coins, Landmark, Calendar, Percent, ShieldCheck, CheckCircle2, ShieldAlert, Sparkle, HelpCircle, Shield, AlertTriangle } from 'lucide-react';
 import LoanForm from '@/components/LoanForm';
 import ConsentStep from '@/components/ConsentStep';
 import ResultsDashboard from '@/components/ResultsDashboard';
 import LenderSelection from '@/components/LenderSelection';
+import { analyzeLoan, getDemoUser } from '@/services/api';
 
 const steps = [
   { key: 'select-provider', label: 'Select Lender', number: 1 },
@@ -55,6 +56,19 @@ export default function AssessmentFlowPage() {
   const [assessment, setAssessment] = useState(null);
   const [error, setError] = useState(null);
   const [selectedLender, setSelectedLender] = useState(null);
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const loadDemoUser = async () => {
+      try {
+        const { userId: id } = await getDemoUser();
+        setUserId(id);
+      } catch (err) {
+        setError('Unable to connect to the server. Please ensure the backend is running.');
+      }
+    };
+    loadDemoUser();
+  }, []);
   
   // Real-time form values state for live updates in the right-hand panel
   const [liveValues, setLiveValues] = useState({
@@ -81,6 +95,7 @@ export default function AssessmentFlowPage() {
   const handleSubmit = (values) => {
     setError(null);
     try {
+<<<<<<< HEAD
       // Extract numerical values
       const loanAmount = Number(values.loanAmount) || 0;
       const feeAmount = Number(values.feeAmount) || 0;
@@ -132,6 +147,9 @@ export default function AssessmentFlowPage() {
         patternWarning: null,
       };
 
+=======
+      const result = await analyzeLoan({ ...values, userId });
+>>>>>>> e2e24ffa4ef72359ee6dd650d21503813d8206e5
       setAssessment(result);
       setStep('consent');
     } catch (err) {
@@ -229,7 +247,7 @@ export default function AssessmentFlowPage() {
       ) : step === 'results' && assessment ? (
         // Full width layout for final results
         <div className="animate-fadeIn">
-          <ResultsDashboard assessment={{ ...liveValues, ...assessment }} />
+          <ResultsDashboard assessment={{ ...liveValues, ...assessment }} userId={userId} />
         </div>
       ) : (
         // Split view layout for form entry & consent checks
