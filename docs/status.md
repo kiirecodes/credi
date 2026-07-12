@@ -616,16 +616,38 @@ per-task entries below so it's easy to scan at a glance.
 - Blockers: none
 - Decisions/Deviations: none
 
+### [Feature] Add Active Friction Acknowledge Quiz Step
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 17:32
+- Status: Done
+- What was done: Introduced a multiple-choice comprehension verification test (`AcknowledgeQuizStep.jsx`) between the Consent Checklist and the Safety Report. The user must correctly identify their total repayment obligations. Selecting a wrong option flashes a warning and redirects the user back to the Declare Terms screen (`form`) to review their metrics carefully, creating a legally strong active consent shield.
+- Verify performed: Confirmed correct answers grant report access while incorrect ones trigger redirection; production build compiles successfully.
+- Commit: feat(client): add active friction comprehension quiz step
+- Blockers: none
+- Decisions/Deviations: none
+
+### [Feature] Blind Indicator Sidebar During Comprehension Check
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 17:40
+- Status: Done
+- What was done: Blinds the real-time affordability gauge and simulated cost numbers on the right-hand panel during the Acknowledgment step until the user selects the correct option. Clicking an incorrect answer triggers a full screen warning modal with a 3.5s delay to explain the significance of contract awareness, then redirects them back to Step 2.
+- Verify performed: Confirmed values are masked as "Hidden for Quiz" and "UGX ••••••" on the sidebar, and selecting the correct option instantly reveals them; production build compiles successfully.
+- Commit: feat(client): blind simulated stats during comprehension quiz and display error modal on wrong choice
+- Blockers: none
+- Decisions/Deviations: none
+
 ---
 
 ## Handover Summary
 
-- Last updated: 2026-07-12 17:11
-- Done: T0.1–T5.4, Steps 3–5.11 (all visual console upgrades, lender catalog, autofill fixes, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, lenders directory, catalog scroll containment, backend bypass, plain English translation pass, professional copy refinements, light theme conversion, global border fixes, homepage slider visualizer removal, selection card titles simplification, and autoplay transitions)
+- Last updated: 2026-07-12 17:40
+- Done: T0.1–T5.4, Steps 3–5.13 (all visual console upgrades, lender catalog, autofill fixes, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, lenders directory, catalog scroll containment, backend bypass, plain English translation pass, professional copy refinements, light theme conversion, global border fixes, homepage slider visualizer removal, selection card titles simplification, active friction comprehension quiz step, real-time sidebar blinding, warning modal overlays, and autoplay transitions)
 - In Progress: none
 - Blocked: none
 - Resume at: backend integration verification and demo data seeding
-- Anything the next agent/human needs to know before continuing: The client console features a fully functional visual dashboard and directory. Autofill initializes cleanly on mount. All safety calculations are executed locally on the client-side, using professional and accessible labels. Card borders are soft light-slate-200.
+- Anything the next agent/human needs to know before continuing: The client console features a fully functional visual dashboard, directory, and active friction comprehension check with real-time sidebar masking. Autofill initializes cleanly on mount. All safety calculations are executed locally on the client-side, using professional and accessible labels. Card borders are soft light-slate-200.
+
+
 
 
 

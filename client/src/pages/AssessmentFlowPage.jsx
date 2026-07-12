@@ -3,6 +3,7 @@ import { Alert } from '@/components/ui/alert';
 import { AlertCircle, TrendingUp, Sparkles, Coins, Landmark, Calendar, Percent, ShieldCheck, CheckCircle2, ShieldAlert, Sparkle, HelpCircle, Shield, AlertTriangle } from 'lucide-react';
 import LoanForm from '@/components/LoanForm';
 import ConsentStep from '@/components/ConsentStep';
+import AcknowledgeQuizStep from '@/components/AcknowledgeQuizStep';
 import ResultsDashboard from '@/components/ResultsDashboard';
 import LenderSelection from '@/components/LenderSelection';
 import { analyzeLoan, getDemoUser, getLoanReport } from '@/services/api';
@@ -11,7 +12,8 @@ const steps = [
   { key: 'select-provider', label: 'Select Lender', number: 1 },
   { key: 'form', label: 'Declare Terms', number: 2 },
   { key: 'consent', label: 'Verify Consent', number: 3 },
-  { key: 'results', label: 'Safety Report', number: 4 }
+  { key: 'acknowledge', label: 'Acknowledge', number: 4 },
+  { key: 'results', label: 'Safety Report', number: 5 }
 ];
 
 function ProgressStepper({ currentStep }) {
@@ -57,6 +59,7 @@ export default function AssessmentFlowPage() {
   const [error, setError] = useState(null);
   const [selectedLender, setSelectedLender] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [quizSolved, setQuizSolved] = useState(false);
 
   useEffect(() => {
     const loadDemoUser = async () => {
@@ -90,6 +93,7 @@ export default function AssessmentFlowPage() {
 
   const handleSelectLender = (lender) => {
     setSelectedLender(lender);
+    setQuizSolved(false);
     // Auto-fill standard parameters of the lender
     setLiveValues((prev) => ({
       ...prev,
@@ -210,6 +214,16 @@ export default function AssessmentFlowPage() {
     }
   }
 
+  const isBlinded = step === 'acknowledge' && !quizSolved;
+
+  const displayRisk = isBlinded ? {
+    label: '🔒 Hidden for Quiz',
+    color: 'text-slate-500',
+    bg: 'bg-slate-100 border border-slate-200',
+    barColor: 'bg-slate-300',
+    desc: 'Verify your total repayment obligation to unlock real-time affordability stats.'
+  } : liveRisk;
+
   return (
     <div className="space-y-6">
       {/* Title & Header Section */}
@@ -283,7 +297,18 @@ export default function AssessmentFlowPage() {
             {step === 'consent' && assessment && (
               <ConsentStep
                 assessment={{ ...liveValues, ...assessment }}
-                onConfirm={() => setStep('results')}
+                onConfirm={() => setStep('acknowledge')}
+              />
+            )}
+
+            {step === 'acknowledge' && assessment && (
+              <AcknowledgeQuizStep
+                assessment={{ ...liveValues, ...assessment }}
+                onCorrectSelected={(correct) => setQuizSolved(correct)}
+                onSuccess={() => setStep('results')}
+                onFailure={() => {
+                  setStep('form');
+                }}
               />
             )}
           </div>
@@ -291,25 +316,25 @@ export default function AssessmentFlowPage() {
           {/* Right Hand: Real-Time Interactive Analytics & Stats */}
           <div className="lg:col-span-5 space-y-6">
             {/* Live Visual Gauge / Status Header */}
-            <div className={`p-5 rounded-2xl border transition-all duration-300 ${liveRisk.bg}`}>
+            <div className={`p-5 rounded-2xl border transition-all duration-300 ${displayRisk.bg}`}>
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                   Real-time Affordability
                 </span>
-                <span className={`text-xs font-bold ${liveRisk.color}`}>
-                  {liveRisk.label}
+                <span className={`text-xs font-bold ${displayRisk.color}`}>
+                  {displayRisk.label}
                 </span>
               </div>
               
               {/* Progress gauge bar */}
               <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200 mb-2">
                 <div 
-                  className={`h-full rounded-full transition-all duration-500 ${liveRisk.barColor}`} 
-                  style={{ width: `${hasData ? Math.min(debtRatio, 100) : 0}%` }}
+                  className={`h-full rounded-full transition-all duration-500 ${displayRisk.barColor}`} 
+                  style={{ width: `${hasData && !isBlinded ? Math.min(debtRatio, 100) : 0}%` }}
                 />
               </div>
               <p className="text-[11px] text-slate-500 leading-normal">
-                {liveRisk.desc}
+                {displayRisk.desc}
               </p>
             </div>
 
@@ -326,7 +351,7 @@ export default function AssessmentFlowPage() {
                   <span>Total Repayment:</span>
                 </div>
                 <span className="text-sm font-semibold text-slate-800">
-                  UGX {hasData ? totalRepayment.toLocaleString() : '0'}
+                  {isBlinded ? 'UGX ••••••' : `UGX ${hasData ? totalRepayment.toLocaleString() : '0'}`}
                 </span>
               </div>
 
@@ -337,7 +362,7 @@ export default function AssessmentFlowPage() {
                   <span>Monthly Cost:</span>
                 </div>
                 <span className="text-sm font-semibold text-slate-800">
-                  UGX {hasData ? Math.round(newLoanMonthlyCost).toLocaleString() : '0'}
+                  {isBlinded ? 'UGX ••••••' : `UGX ${hasData ? Math.round(newLoanMonthlyCost).toLocaleString() : '0'}`}
                 </span>
               </div>
 
@@ -348,7 +373,7 @@ export default function AssessmentFlowPage() {
                   <span>Cost of Borrowing:</span>
                 </div>
                 <span className="text-sm font-semibold text-slate-800">
-                  {hasData ? `+${costPct.toFixed(0)}%` : '0%'}
+                  {isBlinded ? '••%' : (hasData ? `+${costPct.toFixed(0)}%` : '0%')}
                 </span>
               </div>
 
@@ -358,8 +383,8 @@ export default function AssessmentFlowPage() {
                   <TrendingUp className="h-4 w-4 text-slate-400" />
                   <span>Monthly Debt Ratio:</span>
                 </div>
-                <span className={`text-sm font-bold ${liveRisk.color}`}>
-                  {hasData ? `${debtRatio.toFixed(0)}%` : '0%'}
+                <span className={`text-sm font-bold ${isBlinded ? 'text-slate-400' : displayRisk.color}`}>
+                  {isBlinded ? '••%' : (hasData ? `${debtRatio.toFixed(0)}%` : '0%')}
                 </span>
               </div>
             </div>
