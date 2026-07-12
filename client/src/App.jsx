@@ -1,12 +1,43 @@
-import { useState } from 'react';
-import { ShieldCheck, Activity, Award, Landmark, BookOpen, ChevronRight, HelpCircle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ShieldCheck, Activity, Award, Landmark, BookOpen, ChevronRight } from 'lucide-react';
 import HomePage from '@/pages/HomePage';
 import AssessmentFlowPage from '@/pages/AssessmentFlowPage';
 import LendersDirectoryPage from '@/pages/LendersDirectoryPage';
+import UssdSimulator from '@/pages/UssdSimulator';
 import RoadmapSlide from '@/components/RoadmapSlide';
 
 export default function App() {
   const [view, setView] = useState('home');
+  const [isUssdMode, setIsUssdMode] = useState(window.location.pathname === '/ussd');
+
+  const navigate = (target) => {
+    if (target === 'ussd') {
+      window.history.pushState({}, '', '/ussd');
+      setIsUssdMode(true);
+      setView('home');
+      return;
+    }
+
+    window.history.pushState({}, '', '/');
+    setIsUssdMode(false);
+    setView(target);
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setIsUssdMode(window.location.pathname === '/ussd');
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  if (isUssdMode) {
+    return (
+      <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center px-4 py-8">
+        <UssdSimulator onNavigate={(target) => navigate(target)} />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col selection:bg-teal-200 relative overflow-hidden font-sans antialiased">
@@ -33,17 +64,23 @@ export default function App() {
               {/* Navigation Items */}
               <div className="flex items-center gap-6">
                 <button 
-                  onClick={() => setView('flow')}
+                  onClick={() => navigate('flow')}
                   className="px-4 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold tracking-wide transition-all shadow-sm shadow-teal-100"
                 >
                   Enter Safety Audit Console
+                </button>
+                <button 
+                  onClick={() => navigate('ussd')}
+                  className="px-4 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold tracking-wide transition-all shadow-sm shadow-slate-900/10"
+                >
+                  USSD Simulator
                 </button>
               </div>
             </div>
           </header>
 
           <main className="flex-grow">
-            <HomePage onStartAssessment={() => setView('flow')} />
+            <HomePage onStart={() => navigate('flow')} />
           </main>
 
           <footer className="border-t border-slate-200 bg-white/40 py-6 text-center text-xs text-slate-500">
@@ -154,6 +191,10 @@ export default function App() {
               ) : view === 'directory' ? (
                 <div className="animate-slideUp">
                   <LendersDirectoryPage />
+                </div>
+              ) : view === 'ussd' ? (
+                <div className="animate-slideUp">
+                  <UssdSimulator onNavigate={setView} />
                 </div>
               ) : (
                 <div className="animate-fadeIn">
