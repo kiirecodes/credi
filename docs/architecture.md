@@ -20,6 +20,18 @@ document.
 - The frontend includes a sidebar-based dashboard layout (replacing the
   simple centered card layout) and real-time affordability visualizations
   as bonus features beyond the MVP spec.
+- **Inline styles for dynamic values:** `LenderSelection.jsx`, `HomePage.jsx`,
+  and `AssessmentFlowPage.jsx` use inline `style={{}}` for CSS conic-gradient
+  charts, dynamic progress bar widths, slider ranges, and SVG coordinates.
+  These are runtime-computed values that cannot be static Tailwind classes.
+  See §7.3 for the updated component mapping.
+- **Frontend re-implements math for real-time feedback:** The right-hand
+  visualizer panel and the home page playground re-implement calculation
+  formulas client-side for instant per-keystroke feedback. Authoritative
+  risk logic is always server-side in `loanAssessmentService.js`. See §2.
+- **`GET /api/loans/:id` now recomputes `patternWarning`:** The report
+  endpoint runs the 90-day count query (matching `analyzeLoan`) instead of
+  returning `null`, so reloaded/shared reports include pattern warnings.
 
 ---
 
@@ -59,6 +71,13 @@ All risk logic lives server-side in a single `loanAssessmentService.js`
 module. The frontend never re-implements the math — it only displays what the
 API returns, styled entirely with Tailwind utility classes and shadcn/ui
 primitives.
+
+**Exception — Real-time visualizer:** The `AssessmentFlowPage` right-hand panel
+and the `HomePage` interactive playground both re-implement the calculation
+formulas client-side to provide instant feedback as the user types (no API call
+perkeystroke). These are display-only previews; the authoritative risk
+classification, reasoning, and recommendation are always computed server-side
+in `loanAssessmentService.js` and returned by `POST /api/loans/analyze`.
 
 ## 3. Folder Structure
 
@@ -499,6 +518,13 @@ Every visual element in the app must map to a row in this table before it's
 built. If a new UI element is needed mid-build that isn't listed here, add a
 row to this table first (and note the addition in `status.md`) rather than
 improvising a one-off color or icon choice.
+
+**Inline `style={{}}` exception:** Some components use inline styles for
+dynamic, runtime-computed values (conic-gradient backgrounds, percentage-based
+progress bar widths, SVG path coordinates). These cannot be expressed as static
+Tailwind classes. This is permitted only for truly dynamic values — all colors,
+spacing, and typography must still use Tailwind utility classes or shadcn
+primitives.
 
 ## 8. Non-Functional Notes
 

@@ -49,7 +49,7 @@ export default function ResultsDashboard({ assessment, userId }) {
   };
 
   const handleReload = () => {
-    // Reload page to reset form state
+    localStorage.removeItem('credicheck_assessmentId');
     window.location.reload();
   };
 

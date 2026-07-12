@@ -5,17 +5,17 @@ const config = {
   safe: {
     icon: CheckCircle2,
     label: 'Safe to Consider',
-    className: 'bg-safe-bg text-safe',
+    className: 'bg-safe-bg text-safe hover:bg-safe-bg',
   },
   caution: {
     icon: AlertTriangle,
     label: 'Borrow with Caution',
-    className: 'bg-caution-bg text-caution',
+    className: 'bg-caution-bg text-caution hover:bg-caution-bg',
   },
   high_risk: {
     icon: XCircle,
     label: 'High Financial Risk',
-    className: 'bg-high-risk-bg text-high-risk',
+    className: 'bg-high-risk-bg text-high-risk hover:bg-high-risk-bg',
   },
 };
 

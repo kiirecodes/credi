@@ -5,7 +5,7 @@ import LoanForm from '@/components/LoanForm';
 import ConsentStep from '@/components/ConsentStep';
 import ResultsDashboard from '@/components/ResultsDashboard';
 import LenderSelection from '@/components/LenderSelection';
-import { analyzeLoan, getDemoUser } from '@/services/api';
+import { analyzeLoan, getDemoUser, getLoanReport } from '@/services/api';
 
 const steps = [
   { key: 'select-provider', label: 'Select Lender', number: 1 },
@@ -63,6 +63,14 @@ export default function AssessmentFlowPage() {
       try {
         const { userId: id } = await getDemoUser();
         setUserId(id);
+
+        const storedId = localStorage.getItem('credicheck_assessmentId');
+        if (storedId) {
+          const report = await getLoanReport(storedId);
+          setAssessment(report);
+          setStep('results');
+          localStorage.removeItem('credicheck_assessmentId');
+        }
       } catch (err) {
         setError('Unable to connect to the server. Please ensure the backend is running.');
       }
@@ -97,6 +105,9 @@ export default function AssessmentFlowPage() {
     try {
       const result = await analyzeLoan({ ...values, userId });
       setAssessment(result);
+      if (result.assessmentId) {
+        localStorage.setItem('credicheck_assessmentId', result.assessmentId);
+      }
       setStep('consent');
     } catch (err) {
       const message = err.response?.data?.errors?.[0]?.message
