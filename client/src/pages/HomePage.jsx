@@ -5,12 +5,13 @@ import { ShieldCheck, Info, Sparkles, TrendingUp, HelpCircle, CheckCircle, Alert
 export default function HomePage({ onStart }) {
   // Mock interactive preview slider state for immediate wow-factor
   const [loanAmount, setLoanAmount] = useState(500000);
+  const [feeAmount, setFeeAmount] = useState(25000);
   const [interestRate, setInterestRate] = useState(15);
   const [termDays, setTermDays] = useState(30);
   const [income, setIncome] = useState(1200000);
 
   // Instant client-side calculations matching the server formulas
-  const totalRepayment = loanAmount + (loanAmount * interestRate / 100);
+  const totalRepayment = loanAmount + feeAmount + (loanAmount * interestRate / 100);
   const costPct = ((totalRepayment - loanAmount) / loanAmount) * 100;
   const newLoanMonthlyCost = totalRepayment / (termDays / 30);
   const debtRatio = (newLoanMonthlyCost / income) * 100;
@@ -111,6 +112,23 @@ export default function HomePage({ onStart }) {
                   step="50000"
                   value={loanAmount}
                   onChange={(e) => setLoanAmount(Number(e.target.value))}
+                  className="w-full h-1.5 bg-slate-855 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                />
+              </div>
+
+              {/* Slider 1b: Processing Fee */}
+              <div className="space-y-2">
+                <div className="flex justify-between text-xs">
+                  <span className="text-slate-300 font-medium">Processing Fee</span>
+                  <span className="text-teal-400 font-bold">UGX {feeAmount.toLocaleString()}</span>
+                </div>
+                <input 
+                  type="range" 
+                  min="0" 
+                  max="100000" 
+                  step="5000"
+                  value={feeAmount}
+                  onChange={(e) => setFeeAmount(Number(e.target.value))}
                   className="w-full h-1.5 bg-slate-855 rounded-lg appearance-none cursor-pointer accent-teal-500"
                 />
               </div>

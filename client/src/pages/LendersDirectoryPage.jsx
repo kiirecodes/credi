@@ -69,13 +69,13 @@ export default function LendersDirectoryPage() {
       {/* Filter and Search Bar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900/30 border border-slate-900 p-4 rounded-2xl">
         <div className="relative w-full md:w-80">
-          <Search className="absolute left-3 top-2.5 h-4.5 w-4.5 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 pointer-events-none" />
           <input
             type="text"
             placeholder="Search lenders by name or keyword..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-slate-950/80 border border-slate-850 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-teal-500/50"
+            className="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-teal-500/50"
           />
         </div>
 
@@ -101,9 +101,9 @@ export default function LendersDirectoryPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {filteredLenders.map((lender) => (
           <Card key={lender.slug} className="bg-slate-900/40 border-slate-800/80 hover:border-slate-700/80 shadow-xl transition-all duration-300 flex flex-col justify-between">
-            <CardHeader className="border-b border-slate-850/80 py-4 px-5 flex flex-row items-start justify-between gap-3">
+            <CardHeader className="border-b border-slate-800/80 py-4 px-5 flex flex-row items-start justify-between gap-3">
               <div className="flex items-start gap-3">
-                <div className="p-2.5 bg-slate-950 rounded-xl border border-slate-850 text-teal-405">
+                <div className="p-2.5 bg-slate-950 rounded-xl border border-slate-800 text-teal-400">
                   <Landmark className="h-5 w-5" />
                 </div>
                 <div className="space-y-0.5">

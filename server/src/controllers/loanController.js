@@ -88,6 +88,15 @@ exports.getLoanReport = async (req, res, next) => {
       existingDebtRepayment: assessment.existingDebtRepayment,
     });
 
+    const ninetyDaysAgo = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000);
+    const recentCount = await Assessment.countDocuments({
+      user: assessment.user,
+      createdAt: { $gte: ninetyDaysAgo },
+    });
+    const patternWarning = recentCount >= 3
+      ? `You have made ${recentCount} loan checks in the last 90 days. Your borrowing frequency is increasing.`
+      : null;
+
     res.status(200).json({
       assessmentId: assessment._id,
       totalRepayment: assessment.totalRepayment,
@@ -97,7 +106,7 @@ exports.getLoanReport = async (req, res, next) => {
       plainLanguageSummary,
       reasoning,
       recommendationText: assessment.recommendationText,
-      patternWarning: null,
+      patternWarning,
     });
   } catch (err) {
     next(err);

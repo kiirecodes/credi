@@ -27,6 +27,21 @@ export default function LenderSelection({ onSelect }) {
     loadLenders();
   }, []);
 
+  // Auto-rotating slider effect — must be before any conditional returns (Rules of Hooks)
+  useEffect(() => {
+    if (!autoCycle || lenders.length === 0) return;
+
+    const timer = setInterval(() => {
+      setHoveredLenderId((current) => {
+        const idx = lenders.findIndex((l) => l.slug === current || l.id === current);
+        const nextIdx = (idx + 1) % lenders.length;
+        return lenders[nextIdx]?.slug || lenders[nextIdx]?.id;
+      });
+    }, 2500);
+
+    return () => clearInterval(timer);
+  }, [autoCycle, lenders]);
+
   if (loading) {
     return (
       <div className="rounded-3xl border border-slate-800 bg-slate-950/70 p-8 text-center text-slate-400">
@@ -52,21 +67,6 @@ export default function LenderSelection({ onSelect }) {
   }
 
   const activeLender = lenders.find((l) => l.slug === hoveredLenderId || l.id === hoveredLenderId) || lenders[0];
-
-  // Auto-rotating slider effect
-  useEffect(() => {
-    if (!autoCycle || lenders.length === 0) return;
-
-    const timer = setInterval(() => {
-      setHoveredLenderId((current) => {
-        const idx = lenders.findIndex((l) => l.slug === current || l.id === current);
-        const nextIdx = (idx + 1) % lenders.length;
-        return lenders[nextIdx]?.slug || lenders[nextIdx]?.id;
-      });
-    }, 2500); // Switch every 2.5 seconds
-
-    return () => clearInterval(timer);
-  }, [autoCycle, lenders]);
 
   const BASE_LOAN = 500000;
 

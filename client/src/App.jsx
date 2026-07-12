@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ShieldCheck, Activity, Award, Landmark, BookOpen, ChevronRight, HelpCircle } from 'lucide-react';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import HomePage from '@/pages/HomePage';
 import AssessmentFlowPage from '@/pages/AssessmentFlowPage';
 import LendersDirectoryPage from '@/pages/LendersDirectoryPage';
@@ -9,6 +10,7 @@ export default function App() {
   const [view, setView] = useState('home');
 
   return (
+    <ErrorBoundary>
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-teal-700/50 relative overflow-hidden font-sans antialiased">
       {/* Decorative background ambient glows */}
       <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-teal-900/10 blur-[130px] pointer-events-none" />
@@ -169,5 +171,6 @@ export default function App() {
         </div>
       )}
     </div>
+    </ErrorBoundary>
   );
 }

@@ -47,12 +47,17 @@ export default function BorrowingPatternPanel({ userId }) {
         </p>
         <div className="space-y-2">
           {history.map((item) => (
-            <div key={item.id} className="flex items-center justify-between p-2.5 rounded-lg bg-slate-950/40 border border-slate-900">
+              <div key={item.id} className="flex items-center justify-between p-2.5 rounded-lg bg-slate-950/40 border border-slate-900">
               <div className="flex items-center gap-3">
                 <RiskBadge riskLevel={item.riskLevel} />
-                <span className="text-xs text-slate-300 font-medium">
-                  UGX {item.loanAmount.toLocaleString()}
-                </span>
+                <div className="flex flex-col">
+                  <span className="text-xs text-slate-300 font-medium">
+                    UGX {item.loanAmount.toLocaleString()}
+                  </span>
+                  <span className="text-[10px] text-slate-500">
+                    Repay: UGX {item.totalRepayment.toLocaleString()}
+                  </span>
+                </div>
               </div>
               <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
                 <Clock className="h-3 w-3" />
