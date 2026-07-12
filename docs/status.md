@@ -596,16 +596,38 @@ per-task entries below so it's easy to scan at a glance.
 - Blockers: none
 - Decisions/Deviations: none
 
+### [Clean] Remove Homepage Sliders Visualizer
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 17:10
+- Status: Done
+- What was done: Removed the "Interactive Affordability Visualizer" card containing loan range sliders, breakdown calculations, and active progress ratios from `HomePage.jsx` to clean up the landing layout and focus visitors on entering the console.
+- Verify performed: Confirmed homepage renders hero sections and core protection pillars cleanly; production build compiles successfully.
+- Commit: chore(client): remove interactive visualizer card from landing page
+- Blockers: none
+- Decisions/Deviations: none
+
+### [Copy] Simplify Card Headers in Lender Selection
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 17:11
+- Status: Done
+- What was done: Replaced technical and academic jargon card titles in `LenderSelection.jsx` with straightforward, professional headers: "Markup Cost Distribution" ➔ "Interest vs. Fee Breakdown", "Lender Markup Comparison" ➔ "Extra Costs Compared", "Lender Trust Ratings" ➔ "Lender Trust Scores", "Lender Verification Catalog" ➔ "Choose a Lender", "Financing Scale Curves" ➔ "Cost Trends by Loan Size", and "Total Repayment Trends" ➔ "Total Repayment Comparison".
+- Verify performed: Verified headers display clean, friendly, and professional light-themed labels; production build compiles successfully.
+- Commit: feat(client): simplify card headers in lender selection screen
+- Blockers: none
+- Decisions/Deviations: none
+
 ---
 
 ## Handover Summary
 
-- Last updated: 2026-07-12 17:08
-- Done: T0.1–T5.4, Steps 3–5.9 (all visual console upgrades, lender catalog, autofill fixes, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, lenders directory, catalog scroll containment, backend bypass, plain English translation pass, professional copy refinements, light theme conversion, global border fixes, and autoplay transitions)
+- Last updated: 2026-07-12 17:11
+- Done: T0.1–T5.4, Steps 3–5.11 (all visual console upgrades, lender catalog, autofill fixes, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, lenders directory, catalog scroll containment, backend bypass, plain English translation pass, professional copy refinements, light theme conversion, global border fixes, homepage slider visualizer removal, selection card titles simplification, and autoplay transitions)
 - In Progress: none
 - Blocked: none
 - Resume at: backend integration verification and demo data seeding
 - Anything the next agent/human needs to know before continuing: The client console features a fully functional visual dashboard and directory. Autofill initializes cleanly on mount. All safety calculations are executed locally on the client-side, using professional and accessible labels. Card borders are soft light-slate-200.
+
+
 
 
 

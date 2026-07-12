@@ -179,7 +179,7 @@ export default function LenderSelection({ onSelect }) {
           <CardHeader className="border-b border-slate-100 py-3 px-5">
             <CardTitle className="text-[10px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
               <PieChart className="h-3.5 w-3.5 text-teal-600" />
-              Markup Cost Distribution
+              Interest vs. Fee Breakdown
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 flex items-center justify-between gap-4 flex-grow">
@@ -229,7 +229,7 @@ export default function LenderSelection({ onSelect }) {
           <CardHeader className="border-b border-slate-100 py-3 px-5">
             <CardTitle className="text-[10px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
               <BarChart2 className="h-3.5 w-3.5 text-teal-600" />
-              Lender Markup Comparison
+              Extra Costs Compared
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 space-y-2 flex-grow flex flex-col justify-center">
@@ -266,7 +266,7 @@ export default function LenderSelection({ onSelect }) {
           <CardHeader className="border-b border-slate-100 py-3 px-5">
             <CardTitle className="text-[10px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
               <Star className="h-3.5 w-3.5 text-amber-500 fill-amber-500 shrink-0" />
-              Lender Trust Ratings (0-5.0)
+              Lender Trust Scores
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 space-y-2 flex-grow flex flex-col justify-center">
@@ -305,7 +305,7 @@ export default function LenderSelection({ onSelect }) {
         {/* Left Column: Lenders Catalog */}
         <div className="lg:col-span-7 space-y-3.5">
           <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 px-1">
-            Lender Verification Catalog
+            Choose a Lender
           </h3>
 
           {/* Bound list to max height and make scrollable internally */}
@@ -368,12 +368,12 @@ export default function LenderSelection({ onSelect }) {
         {/* Right Column: Cost Scale Curves (SVG Line Chart on Light Background) */}
         <div className="lg:col-span-5 space-y-4">
           <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 px-1">
-            Financing Scale Curves
+            Cost Trends by Loan Size
           </h3>
 
           <Card className="bg-white border-slate-200 shadow-sm">
             <CardContent className="p-5 space-y-4">
-              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Total Repayment Trends</span>
+              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">Total Repayment Comparison</span>
               
               <div className="w-full relative">
                 <svg viewBox="0 0 450 160" className="w-full overflow-visible">
