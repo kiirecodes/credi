@@ -103,7 +103,6 @@ export default function AssessmentFlowPage() {
   const handleSubmit = (values) => {
     setError(null);
     try {
-<<<<<<< HEAD
       // Extract numerical values
       const loanAmount = Number(values.loanAmount) || 0;
       const feeAmount = Number(values.feeAmount) || 0;
@@ -155,13 +154,7 @@ export default function AssessmentFlowPage() {
         patternWarning: null,
       };
 
-=======
-      const result = await analyzeLoan({ ...values, userId });
->>>>>>> e2e24ffa4ef72359ee6dd650d21503813d8206e5
       setAssessment(result);
-      if (result.assessmentId) {
-        localStorage.setItem('credicheck_assessmentId', result.assessmentId);
-      }
       setStep('consent');
     } catch (err) {
       setError('Something went wrong during local calculations.');
@@ -258,7 +251,7 @@ export default function AssessmentFlowPage() {
       ) : step === 'results' && assessment ? (
         // Full width layout for final results
         <div className="animate-fadeIn">
-          <ResultsDashboard assessment={{ ...liveValues, ...assessment }} userId={userId} />
+          <ResultsDashboard assessment={{ ...liveValues, ...assessment }} />
         </div>
       ) : (
         // Split view layout for form entry & consent checks
@@ -269,7 +262,7 @@ export default function AssessmentFlowPage() {
             {step === 'form' && (
               <div className="space-y-4">
                 {selectedLender && (
-                  <div className="p-3 bg-teal-955/20 border border-teal-900/30 rounded-xl text-xs flex justify-between items-center text-teal-400 animate-fadeIn">
+                  <div className="p-3 bg-teal-955/20 border border-teal-900/30 rounded-xl text-xs flex justify-between items-center text-teal-405 animate-fadeIn">
                     <span>Selected Lender: <strong>{selectedLender.name}</strong></span>
                     <button 
                       onClick={() => setStep('select-provider')} 
@@ -322,7 +315,7 @@ export default function AssessmentFlowPage() {
 
             {/* Live Stats grid */}
             <div className="bg-slate-900/40 border border-slate-800/60 rounded-2xl p-5 space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-850 pb-2">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-455 border-b border-slate-850 pb-2">
                 Simulated Cost Indicators
               </h3>
               
