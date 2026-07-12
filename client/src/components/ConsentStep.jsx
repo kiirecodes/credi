@@ -22,23 +22,23 @@ export default function ConsentStep({ assessment, onConfirm }) {
   const items = [
     {
       key: 'amount',
-      title: 'Principal Obligation',
-      label: `I understand I am borrowing UGX ${assessment.loanAmount.toLocaleString()}`,
+      title: 'Money Received (Principal)',
+      label: `I understand I am borrowing exactly UGX ${assessment.loanAmount.toLocaleString()} in hand.`,
     },
     {
       key: 'repayment',
-      title: 'Repayment Value',
-      label: `I understand I will repay UGX ${assessment.totalRepayment.toLocaleString()} in total`,
+      title: 'Total Money to Repay',
+      label: `I understand I must pay back a total of UGX ${assessment.totalRepayment.toLocaleString()} (including all interest and fees).`,
     },
     {
       key: 'deadline',
-      title: 'repayment Schedule',
-      label: `I understand the repayment deadline is ${assessment.repaymentPeriodDays} days`,
+      title: 'Repayment Deadline',
+      label: `I understand I have exactly ${assessment.repaymentPeriodDays} days to pay back the full amount.`,
     },
     {
       key: 'fees',
-      title: 'Financing Surcharges',
-      label: `I understand there is a fee of UGX ${assessment.feeAmount.toLocaleString()} included in the total`,
+      title: 'Lender Service Fees',
+      label: `I understand there is an extra fee of UGX ${assessment.feeAmount.toLocaleString()} added on top of what I borrowed.`,
     },
   ];
 
@@ -47,15 +47,15 @@ export default function ConsentStep({ assessment, onConfirm }) {
       <CardHeader className="border-b border-slate-850 py-4 px-6">
         <CardTitle className="text-base font-bold text-slate-100 flex items-center gap-2">
           <ShieldCheck className="h-5 w-5 text-teal-400" />
-          Affirmative Consent Checklist
+          Make Sure You Understand Your Loan
         </CardTitle>
       </CardHeader>
       
       <CardContent className="p-6 space-y-5">
         <div className="p-4 bg-slate-950/80 border border-slate-900 rounded-xl space-y-1">
-          <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Audit Result Pending</h4>
+          <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Please Verify These Numbers First</h4>
           <p className="text-xs text-slate-500 leading-normal">
-            To view the full safety report, you must manually acknowledge and verify that you understand each of the four core terms below.
+            Before we show you your full safety report, please check each box below to confirm you understand how much this loan will actually cost you.
           </p>
         </div>
 
@@ -66,7 +66,7 @@ export default function ConsentStep({ assessment, onConfirm }) {
               onClick={() => handleCheck(item.key)}
               className={`flex items-start gap-3.5 p-4 rounded-xl border cursor-pointer transition-all duration-200 select-none ${
                 checks[item.key] 
-                  ? 'bg-teal-950/20 border-teal-800/60 shadow-sm shadow-teal-950/20' 
+                  ? 'bg-teal-955/20 border-teal-800/60 shadow-sm shadow-teal-950/20' 
                   : 'bg-slate-950/40 border-slate-850 hover:bg-slate-900/50 hover:border-slate-800'
               }`}
             >
@@ -79,8 +79,8 @@ export default function ConsentStep({ assessment, onConfirm }) {
                   <Checkbox
                     id={item.key}
                     checked={checks[item.key]}
-                    onCheckedChange={() => {}} // Handled by outer card onClick for easier tap target
-                    className="border-slate-700 bg-slate-950"
+                    onCheckedChange={() => {}} // Handled by outer card onClick
+                    className="border-slate-700 bg-slate-955"
                   />
                   <Label 
                     htmlFor={item.key} 
@@ -97,7 +97,7 @@ export default function ConsentStep({ assessment, onConfirm }) {
         <Button
           onClick={onConfirm}
           disabled={!allChecked}
-          className="w-full bg-teal-650 hover:bg-teal-700 text-white font-semibold text-sm py-5 rounded-xl border border-teal-500/20 shadow-md shadow-teal-955/20 hover:scale-[1.01] transition-all disabled:opacity-40 disabled:scale-100 mt-4"
+          className="w-full bg-teal-600 hover:bg-teal-500 text-white font-semibold text-sm py-5 rounded-xl border border-teal-500/20 shadow-md shadow-teal-955/20 hover:scale-[1.01] transition-all disabled:opacity-40 disabled:scale-100 mt-4"
         >
           View Full Transparency Report
           <CheckCircle2 className="h-4 w-4 ml-2" />

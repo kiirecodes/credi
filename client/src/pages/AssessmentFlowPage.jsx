@@ -125,18 +125,18 @@ export default function AssessmentFlowPage() {
 
       // Build recommendation
       const safeMonthlyCapacity = monthlyIncome * 0.4 - existingDebtRepayment;
-      let recommendationText = `This loan is likely to cause repayment stress. A safer monthly repayment capacity is approximately UGX ${Math.max(safeMonthlyCapacity, 0).toLocaleString()}.`;
+      let recommendationText = `We advise you not to take this loan. It takes up too much of your monthly budget. A safer maximum amount you can afford to pay back each month is UGX ${Math.max(safeMonthlyCapacity, 0).toLocaleString()}.`;
       if (riskLevel === 'safe') {
-        recommendationText = 'This loan appears manageable based on your current income and obligations.';
+        recommendationText = 'This loan fits within your normal monthly budget based on what you earn and what you owe.';
       } else if (riskLevel === 'caution') {
-        recommendationText = 'This loan may create financial pressure. Consider a smaller amount or longer term.';
+        recommendationText = 'Be careful. This loan will make your monthly budget very tight. If possible, borrow a smaller amount or ask for a longer payment period to reduce the monthly size.';
       }
 
       // Build reasoning checks list
       const reasoning = [];
-      reasoning.push(`Your repayment takes ${debtBurdenRatio.toFixed(0)}% of your income`);
-      if (costOfBorrowingPct > 10) reasoning.push('Loan cost is above the recommended level');
-      if (existingDebtRepayment > 0) reasoning.push('You already have an existing active loan');
+      reasoning.push(`Paying back this loan takes ${debtBurdenRatio.toFixed(0)}% of your monthly earnings.`);
+      if (costOfBorrowingPct > 10) reasoning.push('The lender is charging you more than 10% extra on top of what you borrowed (High markup).');
+      if (existingDebtRepayment > 0) reasoning.push('You are already paying off another active loan right now, which adds extra pressure.');
 
       // Create summaries
       const plainLanguageSummary = `You are borrowing UGX ${loanAmount.toLocaleString()} but will repay UGX ${totalRepayment.toLocaleString()} within ${repaymentPeriodDays} days.`;
@@ -315,7 +315,7 @@ export default function AssessmentFlowPage() {
 
             {/* Live Stats grid */}
             <div className="bg-slate-900/40 border border-slate-800/60 rounded-2xl p-5 space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-455 border-b border-slate-850 pb-2">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-850 pb-2">
                 Simulated Cost Indicators
               </h3>
               
@@ -323,7 +323,7 @@ export default function AssessmentFlowPage() {
               <div className="flex justify-between items-center py-1">
                 <div className="flex items-center gap-2 text-xs text-slate-400">
                   <Coins className="h-4 w-4 text-slate-500" />
-                  <span>Est. Repayment:</span>
+                  <span>Total you pay back:</span>
                 </div>
                 <span className="text-sm font-semibold text-slate-200">
                   UGX {hasData ? totalRepayment.toLocaleString() : '0'}
@@ -334,7 +334,7 @@ export default function AssessmentFlowPage() {
               <div className="flex justify-between items-center py-1">
                 <div className="flex items-center gap-2 text-xs text-slate-400">
                   <Calendar className="h-4 w-4 text-slate-500" />
-                  <span>Monthly Cost:</span>
+                  <span>Expected monthly payment:</span>
                 </div>
                 <span className="text-sm font-semibold text-slate-200">
                   UGX {hasData ? Math.round(newLoanMonthlyCost).toLocaleString() : '0'}
@@ -345,7 +345,7 @@ export default function AssessmentFlowPage() {
               <div className="flex justify-between items-center py-1">
                 <div className="flex items-center gap-2 text-xs text-slate-400">
                   <Percent className="h-4 w-4 text-slate-500" />
-                  <span>Cost Multiplier:</span>
+                  <span>Extra borrowing cost:</span>
                 </div>
                 <span className="text-sm font-semibold text-slate-200">
                   {hasData ? `+${costPct.toFixed(0)}%` : '0%'}
@@ -356,7 +356,7 @@ export default function AssessmentFlowPage() {
               <div className="flex justify-between items-center py-1">
                 <div className="flex items-center gap-2 text-xs text-slate-400">
                   <TrendingUp className="h-4 w-4 text-slate-500" />
-                  <span>Total Debt Ratio:</span>
+                  <span>Portion of income spent on loans:</span>
                 </div>
                 <span className={`text-sm font-bold ${liveRisk.color}`}>
                   {hasData ? `${debtRatio.toFixed(0)}%` : '0%'}

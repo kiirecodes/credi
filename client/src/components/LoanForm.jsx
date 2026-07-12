@@ -6,12 +6,12 @@ import { Button } from '@/components/ui/button';
 import { Landmark, Receipt, Percent, Calendar, Coins, AlertTriangle, ArrowRight, AlertCircle } from 'lucide-react';
 
 const fields = [
-  { name: 'loanAmount', label: 'Loan Offer Amount (UGX)', type: 'number', icon: Landmark, placeholder: 'e.g. 500,000' },
-  { name: 'feeAmount', label: 'Processing Fees (UGX)', type: 'number', icon: Receipt, placeholder: 'e.g. 25,050' },
-  { name: 'interestRate', label: 'Stated Interest Rate (%)', type: 'number', icon: Percent, placeholder: 'e.g. 15' },
-  { name: 'repaymentPeriodDays', label: 'Repayment Period (Days)', type: 'number', icon: Calendar, placeholder: 'e.g. 30' },
-  { name: 'monthlyIncome', label: 'Your Monthly Net Income (UGX)', type: 'number', icon: Coins, placeholder: 'e.g. 1,200,000' },
-  { name: 'existingDebtRepayment', label: 'Other Active Monthly Debt (UGX)', type: 'number', icon: AlertTriangle, placeholder: 'e.g. 200,000 (optional)', optional: true },
+  { name: 'loanAmount', label: 'How much money is the lender giving you? (UGX)', type: 'number', icon: Landmark, placeholder: 'e.g. 500,000' },
+  { name: 'feeAmount', label: 'How much fee do they charge to setup this loan? (UGX)', type: 'number', icon: Receipt, placeholder: 'e.g. 25,050' },
+  { name: 'interestRate', label: 'What is the stated interest rate? (%)', type: 'number', icon: Percent, placeholder: 'e.g. 15' },
+  { name: 'repaymentPeriodDays', label: 'How many days do you have to pay it back? (Days)', type: 'number', icon: Calendar, placeholder: 'e.g. 30' },
+  { name: 'monthlyIncome', label: 'How much money do you take home/earn each month? (UGX)', type: 'number', icon: Coins, placeholder: 'e.g. 1,200,000' },
+  { name: 'existingDebtRepayment', label: 'How much do you pay for other loans each month? (UGX)', type: 'number', icon: AlertTriangle, placeholder: 'e.g. 200,000', optional: true },
 ];
 
 export default function LoanForm({ onSubmit, onValuesChange, initialValues }) {

@@ -566,22 +566,25 @@ per-task entries below so it's easy to scan at a glance.
 - Blockers: none
 - Decisions/Deviations: none
 
+### [Copy] Plain English Simplification Pass
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 16:49
+- Status: Done
+- What was done: Simplified financial/technical jargon to plain English starting from the selection screen all the way to the results dashboard. Changed input labels to conversational questions in `LoanForm.jsx`, reworded check items in `ConsentStep.jsx` to clear headings, and translated chart and card indicators in `ResultsDashboard.jsx` and `AssessmentFlowPage.jsx` (e.g. Total Repayment -> Total You Pay Back; Monthly Burden -> Portion of Income Spent).
+- Verify performed: Confirmed all screens render simple labels and explanations; production build compiles successfully.
+- Commit: feat(client): plain english copy pass across all safety audit screens
+- Blockers: none
+- Decisions/Deviations: none
+
 ---
 
 ## Handover Summary
 
-- Last updated: 2026-07-12 15:40
-- Done: T0.1–T5.4, Steps 3–5.6 (all visual console upgrades, lender catalog, autofill fixes, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, lenders transparency directory, catalog scroll containment, backend bypass calculations, and autoplay transitions)
+- Last updated: 2026-07-12 16:49
+- Done: T0.1–T5.4, Steps 3–5.7 (all visual console upgrades, lender catalog, autofill fixes, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, lenders directory, catalog scroll containment, backend bypass, plain English translation pass, and autoplay transitions)
 - In Progress: none
 - Blocked: none
 - Resume at: backend integration verification and demo data seeding
-- Anything the next agent/human needs to know before continuing: The client console features a fully functional visual dashboard and directory. Autofill initializes cleanly on mount. All safety calculations are executed locally on the client-side to allow backend-free testing.
-
-
-
-
-
-
 
 
 

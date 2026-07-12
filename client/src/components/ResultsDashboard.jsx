@@ -81,28 +81,28 @@ export default function ResultsDashboard({ assessment, userId }) {
           <Card className="bg-slate-900/40 border-slate-800/80 shadow-xl backdrop-blur-md">
             <CardHeader className="border-b border-slate-850 py-3.5 px-6">
               <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                contractual Terms Summary
+                Simple Loan Cost Summary
               </CardTitle>
             </CardHeader>
             
             <CardContent className="p-6">
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div className="space-y-1.5 p-3 rounded-xl bg-slate-950/60 border border-slate-900">
-                  <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Total Repayment</p>
+                  <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Total You Pay Back</p>
                   <p className="text-base font-bold text-slate-200">
                     UGX {assessment.totalRepayment.toLocaleString()}
                   </p>
                 </div>
                 
                 <div className="space-y-1.5 p-3 rounded-xl bg-slate-950/60 border border-slate-900">
-                  <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Markup Cost</p>
+                  <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Extra Borrowing Cost</p>
                   <p className="text-base font-bold text-teal-400">
                     +{assessment.costOfBorrowingPct.toFixed(0)}%
                   </p>
                 </div>
 
                 <div className="space-y-1.5 p-3 rounded-xl bg-slate-950/60 border border-slate-900">
-                  <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Monthly Burden</p>
+                  <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Portion of Income Spent</p>
                   <p className="text-base font-bold text-slate-200">
                     {assessment.debtBurdenRatio.toFixed(0)}%
                   </p>
@@ -110,7 +110,7 @@ export default function ResultsDashboard({ assessment, userId }) {
               </div>
 
               <p className="text-xs text-slate-300 leading-relaxed mt-5 p-4 bg-slate-950/40 border border-slate-900 rounded-xl">
-                <strong className="text-teal-400">Audit Insight:</strong> {assessment.plainLanguageSummary}
+                <strong className="text-teal-400">Plain English Summary:</strong> {assessment.plainLanguageSummary}
               </p>
             </CardContent>
           </Card>
@@ -120,7 +120,7 @@ export default function ResultsDashboard({ assessment, userId }) {
             <CardHeader className="border-b border-slate-850 py-3.5 px-6">
               <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
                 <TrendingDown className="h-4 w-4 text-teal-400" />
-                Monthly Cash Flow Allocation Chart
+                Where Does Your Monthly Income Go?
               </CardTitle>
             </CardHeader>
             <CardContent className="p-6 space-y-5">
@@ -146,15 +146,15 @@ export default function ResultsDashboard({ assessment, userId }) {
 
                 <div className="grid grid-cols-3 gap-2 pt-2">
                   <div className="space-y-0.5 text-left border-l-2 border-slate-600 pl-2">
-                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Prior Debt</span>
+                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Other Loan Payments</span>
                     <p className="text-xs font-semibold text-slate-300">{preDebtPct.toFixed(0)}% ({existingDebtRepayment.toLocaleString()} UGX)</p>
                   </div>
                   <div className="space-y-0.5 text-left border-l-2 border-teal-600 pl-2">
-                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">New Loan</span>
+                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">This Loan Payment</span>
                     <p className="text-xs font-semibold text-slate-300">{newDebtPct.toFixed(0)}% ({Math.round(newLoanMonthlyCost).toLocaleString()} UGX)</p>
                   </div>
                   <div className="space-y-0.5 text-left border-l-2 border-emerald-500 pl-2">
-                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Remaining</span>
+                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Money Left For You</span>
                     <p className="text-xs font-semibold text-slate-300">{netRemainingPct.toFixed(0)}% ({Math.round(netRemaining).toLocaleString()} UGX)</p>
                   </div>
                 </div>
@@ -171,7 +171,7 @@ export default function ResultsDashboard({ assessment, userId }) {
           <Card className="bg-slate-900/40 border-slate-800/80 shadow-xl backdrop-blur-md">
             <CardHeader className="border-b border-slate-850 py-3.5 px-6">
               <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                Affordability Factors Checked
+                Things We Double-Checked For You
               </CardTitle>
             </CardHeader>
             <CardContent className="p-6">
@@ -187,7 +187,7 @@ export default function ResultsDashboard({ assessment, userId }) {
             <div className="flex gap-3 relative z-10">
               <Lightbulb className="h-5 w-5 text-teal-400 shrink-0 mt-0.5" />
               <div className="space-y-1">
-                <h4 className="text-xs uppercase font-bold text-teal-400 tracking-wider">Risk Mitigation Recommendation</h4>
+                <h4 className="text-xs uppercase font-bold text-teal-400 tracking-wider">Our Advice for You</h4>
                 <p className="text-xs text-slate-300 leading-relaxed font-medium">
                   {assessment.recommendationText}
                 </p>
