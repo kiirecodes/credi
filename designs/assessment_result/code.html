@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Credi Assessment Result | Intelligent Protector</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-primary": "#ffffff",
+                "on-secondary-container": "#fefcff",
+                "secondary-container": "#1e71e2",
+                "surface-tint": "#565e74",
+                "tertiary": "#000000",
+                "on-error-container": "#93000a",
+                "primary-container": "#131b2e",
+                "outline-variant": "#c6c6cd",
+                "on-surface": "#1b1b1d",
+                "outline": "#76777d",
+                "surface-bright": "#fcf8fa",
+                "on-background": "#1b1b1d",
+                "on-secondary": "#ffffff",
+                "tertiary-fixed": "#fcdeb5",
+                "risk-high": "#DC2626",
+                "inverse-surface": "#303032",
+                "surface-container-high": "#eae7e9",
+                "error": "#ba1a1a",
+                "surface-container-low": "#f6f3f5",
+                "on-secondary-fixed": "#001a41",
+                "on-primary-fixed": "#131b2e",
+                "surface-subtle": "#F8FAFC",
+                "surface-container-lowest": "#ffffff",
+                "risk-caution": "#D97706",
+                "surface-container-highest": "#e4e2e4",
+                "on-tertiary-container": "#98805d",
+                "tertiary-fixed-dim": "#dec29a",
+                "tertiary-container": "#271901",
+                "inverse-on-surface": "#f3f0f2",
+                "surface-dim": "#dcd9db",
+                "on-tertiary-fixed": "#271901",
+                "on-primary-fixed-variant": "#3f465c",
+                "secondary-fixed": "#d8e2ff",
+                "surface-variant": "#e4e2e4",
+                "primary": "#000000",
+                "on-surface-variant": "#45464d",
+                "background": "#fcf8fa",
+                "inverse-primary": "#bec6e0",
+                "risk-safe": "#16A34A",
+                "primary-fixed-dim": "#bec6e0",
+                "on-error": "#ffffff",
+                "on-tertiary": "#ffffff",
+                "secondary-fixed-dim": "#adc6ff",
+                "secondary": "#0058bb",
+                "border-muted": "#E2E8F0",
+                "on-primary-container": "#7c839b",
+                "error-container": "#ffdad6",
+                "on-secondary-fixed-variant": "#004493",
+                "surface-container": "#f0edef",
+                "surface": "#fcf8fa",
+                "on-tertiary-fixed-variant": "#574425",
+                "primary-fixed": "#dae2fd"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "spacing": {
+                "margin-mobile": "1rem",
+                "margin-desktop": "2rem",
+                "stack-sm": "0.5rem",
+                "gutter": "1.5rem",
+                "stack-md": "1rem",
+                "stack-lg": "2rem"
+            },
+            "fontFamily": {
+                "headline-lg": ["Hanken Grotesk"],
+                "body-md": ["Inter"],
+                "headline-md": ["Hanken Grotesk"],
+                "body-lg": ["Inter"],
+                "label-sm": ["JetBrains Mono"],
+                "label-md": ["JetBrains Mono"],
+                "headline-lg-mobile": ["Hanken Grotesk"],
+                "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "headline-md": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "label-sm": ["11px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                "label-md": ["13px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { background-color: #fcf8fa; color: #1b1b1d; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .risk-gauge-track { stroke: #e4e2e4; stroke-width: 8; fill: none; }
+        .risk-gauge-fill { stroke-width: 8; stroke-linecap: round; fill: none; transition: stroke-dashoffset 1s ease-out; }
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; }
+        @media (max-width: 768px) { .bento-grid { grid-template-columns: 1fr; gap: 1rem; } }
+    </style>
+</head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="w-full sticky top-0 z-50 bg-surface dark:bg-background border-b border-outline-variant dark:border-outline flex items-center justify-between px-margin-mobile h-16 md:px-margin-desktop">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-on-background">security</span>
+<span class="text-headline-md font-headline-md-mobile font-bold text-primary dark:text-on-background">Credi-Check</span>
+</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="font-label-md text-label-md text-primary dark:text-on-background hover:opacity-80 transition-opacity" href="#">Dashboard</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:opacity-80 transition-opacity" href="#">Analyze</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:opacity-80 transition-opacity" href="#">History</a>
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-fixed text-sm">person</span>
+</div>
+</nav>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<main class="max-w-[1280px] mx-auto px-margin-mobile py-8 md:px-margin-desktop md:py-12">
+<!-- Assessment Header & Actions -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div>
+<div class="flex items-center gap-2 text-on-surface-variant mb-2">
+<span class="font-label-sm text-label-sm tracking-widest uppercase">Assessment ID: #CRD-8829</span>
+<span class="w-1 h-1 bg-outline rounded-full"></span>
+<span class="font-label-sm text-label-sm uppercase">June 12, 2026</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Loan Analysis Result</h1>
+<p class="text-on-surface-variant max-w-xl mt-2 font-body-md text-body-md">Comprehensive risk breakdown for your pending application with Premier Finance Ltd.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 bg-on-primary border border-border-muted px-4 py-2.5 rounded-lg font-label-md text-label-md hover:bg-surface-subtle transition-colors shadow-sm">
+<span class="material-symbols-outlined text-base">save</span>
+                    SAVE TO CLOUD
+                </button>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-5 py-2.5 rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity shadow-sm">
+<span class="material-symbols-outlined text-base">download</span>
+                    DOWNLOAD PDF
+                </button>
+</div>
+</div>
+<!-- Main Results Grid -->
+<div class="bento-grid">
+<!-- Risk Indicator Card -->
+<section class="col-span-12 md:col-span-4 bg-surface-container-lowest p-8 rounded-xl border border-border-muted shadow-sm flex flex-col items-center justify-center text-center relative overflow-hidden">
+<div class="absolute top-4 left-4">
+<span class="font-label-sm text-label-sm text-on-surface-variant">RISK INDEX</span>
+</div>
+<div class="relative w-48 h-48 mb-6">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<circle class="risk-gauge-track" cx="50" cy="50" r="40"></circle>
+<circle class="risk-gauge-fill text-risk-safe" cx="50" cy="50" r="40" stroke="currentColor" style="stroke-dasharray: 251.2; stroke-dashoffset: 75.36;"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-headline-lg font-bold text-risk-safe">70%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">CONFIDENCE</span>
+</div>
+</div>
+<div class="px-4 py-1.5 bg-risk-safe/10 text-risk-safe rounded-full font-label-md text-label-md mb-3">
+                    SAFE TO PROCEED
+                </div>
+<p class="text-on-surface-variant font-body-sm text-body-sm px-4 leading-relaxed">
+                    Based on your debt-to-income ratio and the lender's credibility, this loan poses a low risk to your financial health.
+                </p>
+</section>
+<!-- Cost Breakdown Card -->
+<section class="col-span-12 md:col-span-8 bg-surface-container-lowest p-8 rounded-xl border border-border-muted shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-label-md text-label-md text-on-surface uppercase tracking-wider">Financial Transparency</h3>
+<div class="flex items-center gap-1 text-on-secondary-fixed-variant bg-secondary-fixed/30 px-3 py-1 rounded">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-sm text-label-sm">ADVANCED METRICS</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="space-y-1">
+<p class="text-on-surface-variant font-body-sm text-body-sm">Total Cost of Credit</p>
+<p class="text-headline-md font-bold text-primary">$215,000</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Principal + Fees + Int.</p>
+</div>
+<div class="space-y-1">
+<p class="text-on-surface-variant font-body-sm text-body-sm">Effective APR</p>
+<p class="text-headline-md font-bold text-primary">5.82%</p>
+<p class="font-label-sm text-label-sm text-risk-safe">Competitive Rate</p>
+</div>
+<div class="space-y-1">
+<p class="text-on-surface-variant font-body-sm text-body-sm">Repayment Period</p>
+<p class="text-headline-md font-bold text-primary">60 Months</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Standard Duration</p>
+</div>
+</div>
+<div class="mt-10 border-t border-outline-variant pt-8">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-md text-label-md text-on-surface-variant">Detailed Fee Analysis</span>
+<button class="text-secondary text-label-sm font-label-md flex items-center gap-1 hover:underline">
+                            EXPAND DATA <span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
+</button>
+</div>
+<table class="w-full">
+<tbody class="divide-y divide-outline-variant/30">
+<tr>
+<td class="py-3 font-body-sm text-body-sm text-on-surface-variant">Lender Initiation Fee</td>
+<td class="py-3 text-right font-label-md text-label-md">$1,200.00</td>
+</tr>
+<tr>
+<td class="py-3 font-body-sm text-body-sm text-on-surface-variant">Protection Insurance</td>
+<td class="py-3 text-right font-label-md text-label-md">$450.00</td>
+</tr>
+<tr>
+<td class="py-3 font-body-sm text-body-sm text-on-surface-variant">Documentation &amp; Legal</td>
+<td class="py-3 text-right font-label-md text-label-md text-on-surface">WAIVED</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Protective Advice Section -->
+<section class="col-span-12 md:col-span-7 space-y-6">
+<div class="bg-surface-container-highest p-8 rounded-xl border border-border-muted flex flex-col md:flex-row gap-6">
+<div class="flex-shrink-0 w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div class="space-y-4">
+<h3 class="font-headline-md text-headline-md text-primary">Protective Advice</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                            While the numerical risk is low, our intelligence layer suggests these optimizations to ensure your long-term security.
+                        </p>
+<ul class="space-y-3">
+<li class="flex gap-3 items-start">
+<span class="material-symbols-outlined text-risk-safe mt-0.5">check_circle</span>
+<span class="font-body-sm text-body-sm"><strong class="text-on-surface font-semibold">Pre-payment Strategy:</strong> This lender does not penalize early settlement. Aim to pay an extra 5% monthly to save $4,200 in interest.</span>
+</li>
+<li class="flex gap-3 items-start">
+<span class="material-symbols-outlined text-risk-safe mt-0.5">check_circle</span>
+<span class="font-body-sm text-body-sm"><strong class="text-on-surface font-semibold">Insurance Review:</strong> The mandatory insurance is 12% higher than market average. Consider a 3rd party alternative.</span>
+</li>
+<li class="flex gap-3 items-start">
+<span class="material-symbols-outlined text-risk-safe mt-0.5">check_circle</span>
+<span class="font-body-sm text-body-sm"><strong class="text-on-surface font-semibold">Legal Check:</strong> Section 4.2 has a 'Grace Period' clause. Request a 3-day extension to match standard consumer protection norms.</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Next Steps / Actions -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="p-6 bg-surface-container-lowest rounded-xl border border-border-muted hover:border-secondary transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-secondary mb-3">account_balance</span>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Verify Lender</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Confirm license credentials with the regulatory board.</p>
+<span class="text-secondary font-label-md text-label-md flex items-center gap-1 group-hover:gap-2 transition-all">START VERIFICATION <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+</div>
+<div class="p-6 bg-surface-container-lowest rounded-xl border border-border-muted hover:border-secondary transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-secondary mb-3">history</span>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Compare Offers</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">See how this matches with your previous assessments.</p>
+<span class="text-secondary font-label-md text-label-md flex items-center gap-1 group-hover:gap-2 transition-all">VIEW HISTORY <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+</div>
+</div>
+</section>
+<!-- Side Visualization: Income vs Debt -->
+<section class="col-span-12 md:col-span-5 bg-primary-container p-8 rounded-xl relative overflow-hidden flex flex-col justify-between">
+<!-- Abstract visual element -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+<div>
+<h3 class="font-label-md text-label-md text-on-primary-container uppercase tracking-widest mb-6">Affordability Context</h3>
+<div class="space-y-8">
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<span class="font-body-sm text-body-sm text-on-primary-container/80">Monthly Net Income</span>
+<span class="font-label-md text-label-md text-on-primary">$8,500</span>
+</div>
+<div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-full"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<span class="font-body-sm text-body-sm text-on-primary-container/80">Projected Loan Repayment</span>
+<span class="font-label-md text-label-md text-on-primary">$1,250</span>
+</div>
+<div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-risk-safe" style="width: 14.7%;"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<span class="font-body-sm text-body-sm text-on-primary-container/80">Existing Debt Obligations</span>
+<span class="font-label-md text-label-md text-on-primary">$900</span>
+</div>
+<div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-risk-caution" style="width: 10.5%;"></div>
+</div>
+</div>
+</div>
+<div class="mt-12 p-5 bg-white/5 border border-white/10 rounded-lg">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-on-primary">info</span>
+<span class="font-label-md text-label-md text-on-primary uppercase">Ratio Summary</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-primary-container/90">
+                            Your combined debt-to-income ratio (DTI) will be <strong class="text-on-primary">25.2%</strong>. The recommended ceiling for financial stability is 36%. You remain well within the safety margin.
+                        </p>
+</div>
+</div>
+<div class="mt-8 pt-8 border-t border-white/10">
+<img class="w-full h-24 object-contain opacity-50 grayscale invert" data-alt="A clean professional line chart showing a gradual upward trend representing financial growth and stability. The chart uses a minimalist blue and white color palette to match a corporate fintech dashboard. High-key lighting, modern and institutional look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDBfPkxQ3bLJg63pGSrhAulTw35vxKfiaf_vvJnZwmH4RiBYyAn0NdTY7simPEnYmlVaTyyHWkCfHd0J_kcRUYrdWR8fbqrQqnJIJ8buowwKF-chhPfAoPUXkJs8GZHDPYWomjMQywhEEFCZ9JLRu8yrPRLABFtjj_VQehA1gSytHT5OJEDbnm_fqPIFq_tiuHPx_IGAH-0pqOAuUDU8AA9RwI6x7bQ0b8O3lP-8--kwUjV_IclxMp"/>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Mobile Nav -->
+<footer class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container-lowest dark:bg-primary-container border-t border-outline-variant dark:border-outline shadow-sm flex justify-around items-center h-16 px-2 pb-safe">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container dark:bg-secondary-fixed dark:text-on-secondary-fixed rounded-full px-4 py-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-sm text-label-sm">Analyze</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-sm text-label-sm">History</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</div>
+</footer>
+<script>
+        // Micro-interaction for risk gauge on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const gauge = document.querySelector('.risk-gauge-fill');
+            if (gauge) {
+                // Set the gauge to 70% after a short delay for animation effect
+                setTimeout(() => {
+                    const radius = 40;
+                    const circumference = 2 * Math.PI * radius;
+                    const offset = circumference - (0.7 * circumference);
+                    gauge.style.strokeDashoffset = offset;
+                }, 300);
+            }
+        });
+
+        // Toggle Dark Mode (Optional Functionality)
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+    </script>
+</body></html>

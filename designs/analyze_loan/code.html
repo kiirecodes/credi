@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Credi Loan Analysis Form</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#fefcff",
+                        "secondary-container": "#1e71e2",
+                        "surface-tint": "#565e74",
+                        "tertiary": "#000000",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#131b2e",
+                        "outline-variant": "#c6c6cd",
+                        "on-surface": "#1b1b1d",
+                        "outline": "#76777d",
+                        "surface-bright": "#fcf8fa",
+                        "on-background": "#1b1b1d",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#fcdeb5",
+                        "risk-high": "#DC2626",
+                        "inverse-surface": "#303032",
+                        "surface-container-high": "#eae7e9",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f6f3f5",
+                        "on-secondary-fixed": "#001a41",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-subtle": "#F8FAFC",
+                        "surface-container-lowest": "#ffffff",
+                        "risk-caution": "#D97706",
+                        "surface-container-highest": "#e4e2e4",
+                        "on-tertiary-container": "#98805d",
+                        "tertiary-fixed-dim": "#dec29a",
+                        "tertiary-container": "#271901",
+                        "inverse-on-surface": "#f3f0f2",
+                        "surface-dim": "#dcd9db",
+                        "on-tertiary-fixed": "#271901",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "secondary-fixed": "#d8e2ff",
+                        "surface-variant": "#e4e2e4",
+                        "primary": "#000000",
+                        "on-surface-variant": "#45464d",
+                        "background": "#fcf8fa",
+                        "inverse-primary": "#bec6e0",
+                        "risk-safe": "#16A34A",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "secondary": "#0058bb",
+                        "border-muted": "#E2E8F0",
+                        "on-primary-container": "#7c839b",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#004493",
+                        "surface-container": "#f0edef",
+                        "surface": "#fcf8fa",
+                        "on-tertiary-fixed-variant": "#574425",
+                        "primary-fixed": "#dae2fd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "1rem",
+                        "margin-desktop": "2rem",
+                        "stack-sm": "0.5rem",
+                        "gutter": "1.5rem",
+                        "stack-md": "1rem",
+                        "stack-lg": "2rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["JetBrains Mono"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["13px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-transition {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-secondary-container selection:text-on-secondary-container overflow-x-hidden">
+<!-- Top Navigation Shell -->
+<header class="w-full sticky top-0 z-50 bg-surface dark:bg-background border-b border-outline-variant dark:border-outline flex items-center justify-between px-margin-mobile md:px-margin-desktop h-16">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-on-background" style="font-variation-settings: 'FILL' 1;">security</span>
+<h1 class="text-headline-md-mobile md:text-headline-md font-bold text-primary dark:text-on-background">Credi-Check</h1>
+</div>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-on-surface-variant font-label-md text-label-md hover:opacity-80 transition-opacity" href="#">Analyze</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:opacity-80 transition-opacity" href="#">History</a>
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[18px]">person</span>
+</div>
+</nav>
+</header>
+<main class="min-h-[calc(100vh-128px)] flex items-center justify-center py-stack-lg px-4 relative overflow-hidden">
+<!-- Atmospheric Background Elements -->
+<div class="absolute top-0 left-0 w-full h-full pointer-events-none -z-10 overflow-hidden">
+<div class="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] bg-secondary-fixed opacity-20 blur-[120px] rounded-full"></div>
+<div class="absolute -bottom-1/4 -left-1/4 w-[500px] h-[500px] bg-tertiary-fixed opacity-10 blur-[100px] rounded-full"></div>
+</div>
+<div class="max-w-2xl w-full">
+<!-- Header Section -->
+<div class="mb-stack-lg text-center">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-2">Loan Analysis Form</h2>
+<p class="text-on-surface-variant font-body-md text-body-md max-w-lg mx-auto">
+                    Enter the details of your loan offer for a comprehensive risk and protection assessment.
+                </p>
+</div>
+<!-- Multi-step Form Container -->
+<div class="glass-panel border border-border-muted rounded-xl shadow-sm overflow-hidden">
+<!-- Progress Header -->
+<div class="bg-surface-container-low px-8 py-4 flex items-center justify-between border-b border-border-muted">
+<div class="flex gap-4" id="step-indicators">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center text-[10px] font-bold" data-step="1">1</div>
+<span class="font-label-sm text-label-sm text-primary">Loan Details</span>
+</div>
+<div class="w-8 h-[1px] bg-outline-variant self-center"></div>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center text-[10px] font-bold" data-step="2">2</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Borrower Info</span>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant" id="step-counter">Step 1 of 2</span>
+</div>
+<!-- Form Content -->
+<form class="p-8" id="analysis-form">
+<!-- Step 1: Loan Specifics -->
+<div class="step-transition" id="form-step-1">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Loan Amount -->
+<div class="space-y-2">
+<label class="flex items-center gap-2 font-label-md text-label-md text-on-surface-variant" for="loan-amount">
+                                    Loan Amount
+                                    <span class="material-symbols-outlined text-[14px] cursor-help text-outline" title="The principal amount you are requesting from the lender.">info</span>
+</label>
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-label-md">$</span>
+<input class="w-full pl-8 pr-4 py-3 bg-transparent border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all font-body-md outline-none" id="loan-amount" placeholder="e.g. 200,000" required="" type="number"/>
+</div>
+</div>
+<!-- Fee -->
+<div class="space-y-2">
+<label class="flex items-center gap-2 font-label-md text-label-md text-on-surface-variant" for="loan-fee">
+                                    Processing Fee
+                                    <span class="material-symbols-outlined text-[14px] cursor-help text-outline" title="Initial upfront costs associated with the loan application.">info</span>
+</label>
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-label-md">$</span>
+<input class="w-full pl-8 pr-4 py-3 bg-transparent border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all font-body-md outline-none" id="loan-fee" placeholder="e.g. 10,000" required="" type="number"/>
+</div>
+</div>
+<!-- Interest Rate -->
+<div class="space-y-2">
+<label class="flex items-center gap-2 font-label-md text-label-md text-on-surface-variant" for="interest-rate">
+                                    Interest Rate (%)
+                                    <span class="material-symbols-outlined text-[14px] cursor-help text-outline" title="The annual percentage rate (APR) charged by the lender.">info</span>
+</label>
+<div class="relative group">
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-label-md">%</span>
+<input class="w-full pl-4 pr-10 py-3 bg-transparent border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all font-body-md outline-none" id="interest-rate" placeholder="e.g. 5.0" required="" step="0.01" type="number"/>
+</div>
+</div>
+<!-- Period -->
+<div class="space-y-2">
+<label class="flex items-center gap-2 font-label-md text-label-md text-on-surface-variant" for="loan-period">
+                                    Period (Days)
+                                    <span class="material-symbols-outlined text-[14px] cursor-help text-outline" title="The duration for which you are borrowing the funds.">info</span>
+</label>
+<div class="relative group">
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-label-md">Days</span>
+<input class="w-full pl-4 pr-16 py-3 bg-transparent border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all font-body-md outline-none" id="loan-period" placeholder="e.g. 60" required="" type="number"/>
+</div>
+</div>
+</div>
+<div class="mt-8 flex justify-end">
+<button class="bg-primary text-on-primary px-6 py-3 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all" id="next-btn" type="button">
+                                Next Step
+                                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Step 2: Financial Snapshot -->
+<div class="hidden step-transition" id="form-step-2">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Monthly Income -->
+<div class="space-y-2">
+<label class="flex items-center gap-2 font-label-md text-label-md text-on-surface-variant" for="monthly-income">
+                                    Monthly Income
+                                    <span class="material-symbols-outlined text-[14px] cursor-help text-outline" title="Your total verifiable monthly take-home pay.">info</span>
+</label>
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-label-md">$</span>
+<input class="w-full pl-8 pr-4 py-3 bg-transparent border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all font-body-md outline-none" id="monthly-income" placeholder="e.g. 800,000" required="" type="number"/>
+</div>
+</div>
+<!-- Existing Debt -->
+<div class="space-y-2">
+<label class="flex items-center gap-2 font-label-md text-label-md text-on-surface-variant" for="existing-debt">
+                                    Existing Debt
+                                    <span class="material-symbols-outlined text-[14px] cursor-help text-outline" title="The sum of all your current outstanding financial obligations.">info</span>
+</label>
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-label-md">$</span>
+<input class="w-full pl-8 pr-4 py-3 bg-transparent border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all font-body-md outline-none" id="existing-debt" placeholder="e.g. 50,000" required="" type="number"/>
+</div>
+</div>
+</div>
+<div class="mt-8 flex justify-between">
+<button class="border border-outline-variant text-on-surface px-6 py-3 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:bg-surface-variant active:scale-95 transition-all" id="prev-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                                Previous
+                            </button>
+<button class="bg-secondary text-on-secondary px-8 py-3 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all" id="submit-btn" type="submit">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">analytics</span>
+                                Run Analysis
+                            </button>
+</div>
+</div>
+</form>
+</div>
+<!-- Security Trust Badges -->
+<div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-stack-md opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+<div class="flex items-center gap-3 justify-center">
+<span class="material-symbols-outlined text-primary">encrypted</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">End-to-End Encrypted</span>
+</div>
+<div class="flex items-center gap-3 justify-center">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Secure Assessment</span>
+</div>
+<div class="flex items-center gap-3 justify-center">
+<span class="material-symbols-outlined text-primary">visibility_off</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Private &amp; Confidential</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Shell (Mobile) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container-lowest dark:bg-primary-container border-t border-outline-variant dark:border-outline shadow-sm flex justify-around items-center h-16">
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container dark:bg-secondary-fixed dark:text-on-secondary-fixed rounded-full px-4 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1 active:scale-95 transition-transform duration-150 hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-sm text-label-sm">Analyze</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1 active:scale-95 transition-transform duration-150 hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-sm text-label-sm">History</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-1 active:scale-95 transition-transform duration-150 hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<!-- Loading Overlay (Initial Hidden) -->
+<div class="fixed inset-0 bg-primary/20 backdrop-blur-md z-[100] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300" id="loading-overlay">
+<div class="w-16 h-16 border-4 border-secondary border-t-transparent rounded-full animate-spin"></div>
+<p class="mt-4 font-headline-md text-primary animate-pulse">Analyzing Loan Data...</p>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Please wait while we compute risk factors</p>
+</div>
+<script>
+        const step1 = document.getElementById('form-step-1');
+        const step2 = document.getElementById('form-step-2');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const counter = document.getElementById('step-counter');
+        const indicators = document.querySelectorAll('[data-step]');
+        const form = document.getElementById('analysis-form');
+        const loadingOverlay = document.getElementById('loading-overlay');
+
+        function updateProgress(step) {
+            if (step === 1) {
+                step1.classList.remove('hidden');
+                step2.classList.add('hidden');
+                counter.innerText = 'Step 1 of 2';
+                indicators[0].classList.replace('bg-surface-container-highest', 'bg-primary');
+                indicators[0].classList.replace('text-on-surface-variant', 'text-on-primary');
+                indicators[1].classList.replace('bg-primary', 'bg-surface-container-highest');
+                indicators[1].classList.replace('text-on-primary', 'text-on-surface-variant');
+            } else {
+                step1.classList.add('hidden');
+                step2.classList.remove('hidden');
+                counter.innerText = 'Step 2 of 2';
+                indicators[1].classList.replace('bg-surface-container-highest', 'bg-primary');
+                indicators[1].classList.replace('text-on-surface-variant', 'text-on-primary');
+                indicators[0].classList.replace('bg-primary', 'bg-surface-container-highest');
+                indicators[0].classList.replace('text-on-primary', 'text-on-surface-variant');
+            }
+        }
+
+        nextBtn.addEventListener('click', () => {
+            // Validation check
+            const inputs = step1.querySelectorAll('input');
+            let valid = true;
+            inputs.forEach(input => {
+                if (!input.checkValidity()) {
+                    input.reportValidity();
+                    valid = false;
+                }
+            });
+            if (valid) updateProgress(2);
+        });
+
+        prevBtn.addEventListener('click', () => updateProgress(1));
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            loadingOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            
+            // Artificial delay to simulate analysis
+            setTimeout(() => {
+                alert('Analysis complete! Check your dashboard for the detailed Credi-Check report.');
+                loadingOverlay.classList.add('opacity-0', 'pointer-events-none');
+            }, 2500);
+        });
+    </script>
+</body></html>
