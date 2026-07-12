@@ -656,16 +656,60 @@ per-task entries below so it's easy to scan at a glance.
 - Blockers: none
 - Decisions/Deviations: none
 
+### [Sensitization] Add Borrower Rights and Regulations Panel to Dashboard
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 17:52
+- Status: Done
+- What was done: Added a full-width educational and sensitization panel ("Borrower Protection & Rights") to the bottom of the Safety Report Dashboard. Features specific sections for "Your Legal Rights in Uganda" and "Anti-Debt Trap Guidelines" detailing UMRA regulations regarding contact-list privacy, plain language disclosure, and rollover traps.
+- Verify performed: Verified card displays cleanly in light theme below the main grid; production build compiles successfully.
+- Commit: feat(client): add borrower rights and regulations panel to results dashboard
+- Blockers: none
+- Decisions/Deviations: none
+
+### [Roadmap] Refine Product Expansion Roadmap Slide Stages
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 17:57
+- Status: Done
+- What was done: Rewrote `RoadmapSlide.jsx` stages array to match the full strategic vision discussed: Phase 1 (Local Audit MVP), Phase 2 (Secure Consent Block & API Handshake), Phase 3 (Community Trust Scores & Harassment Tracker), Phase 4 (UMRA GovTech Compliance Dashboard), and Phase 5 (Africa-Wide Wallet Adapters expansion).
+- Verify performed: Verified roadmap slide displays detailed, professional developmental milestones; production build compiles successfully.
+- Commit: feat(client): expand and refine product roadmap stages
+- Blockers: none
+- Decisions/Deviations: none
+
+### [Roadmap] Implement Interactive Tree Diagram Roadmap & Details Modals
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 18:01
+- Status: Done
+- What was done: Overhauled the roadmap page layout (`RoadmapSlide.jsx`) from a static stacked card list to a beautiful, interactive timeline tree diagram. Features staggered layout paths connected by a dashed centerline. Clicking any node opens a glassmorphic pop-up detail modal that unlocks the phase's objective, timeline, stakeholders, and technology profile.
+- Verify performed: Confirmed node items click-open beautiful popups and display timelines and detailed parameters correctly; production build compiles successfully.
+- Commit: feat(client): implement interactive tree diagram roadmap with click detail modals
+- Blockers: none
+- Decisions/Deviations: none
+
+### [Roadmap] Add Dedicated USSD Offline Integration Phase
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 18:03
+- Status: Done
+- What was done: Added a dedicated phase (Phase 3: USSD Offline Integration) to the interactive roadmap tree diagram. It details the vision for rural offline inclusion via USSD codes (e.g. *284*4#) and SMS-based safety audits over standard feature phones using telco SMS broadcast gateways.
+- Verify performed: Verified Phone node click-opens the new Phase 3 details popup modal correctly; production build compiles successfully.
+- Commit: feat(client): add USSD offline integration stage to interactive product roadmap
+- Blockers: none
+- Decisions/Deviations: none
+
 ---
 
 ## Handover Summary
 
-- Last updated: 2026-07-12 17:48
-- Done: T0.1–T5.4, Steps 3–5.15 (all visual console upgrades, lender catalog, autofill fixes, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, lenders directory, catalog scroll containment, backend bypass, plain English translation pass, professional copy refinements, light theme conversion, global border fixes, homepage slider visualizer removal, selection card titles simplification, active friction comprehension quiz step, real-time sidebar blinding, warning modal overlays, manual rollback button, standardized navigation labels, back-navigation button, and autoplay transitions)
+- Last updated: 2026-07-12 18:03
+- Done: T0.1–T5.4, Steps 3–5.19 (all visual console upgrades, lender catalog, autofill fixes, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, lenders directory, catalog scroll containment, backend bypass, plain English translation pass, professional copy refinements, light theme conversion, global border fixes, homepage slider visualizer removal, selection card titles simplification, active friction comprehension quiz step, real-time sidebar blinding, warning modal overlays, manual rollback button, standardized navigation labels, back-navigation button, borrower rights sensitization panel, interactive timeline tree diagram roadmap, detail modals, USSD offline integration phase, and autoplay transitions)
 - In Progress: none
 - Blocked: none
 - Resume at: backend integration verification and demo data seeding
-- Anything the next agent/human needs to know before continuing: The client console features a fully functional visual dashboard, directory, active friction comprehension check with real-time sidebar masking, and manual step back-navigation. Autofill initializes cleanly on mount. All safety calculations are executed locally on the client-side, using professional and accessible labels. Card borders are soft light-slate-200.
+- Anything the next agent/human needs to know before continuing: The client console features a fully functional visual dashboard, directory, active friction comprehension check with real-time sidebar masking, borrower rights card, manual step back-navigation, and an interactive tree timeline roadmap slide with pop-up detailed modals. Autofill initializes cleanly on mount. All safety calculations are executed locally on the client-side, using professional and accessible labels. Card borders are soft light-slate-200.
+
+
+
+
 
 
 

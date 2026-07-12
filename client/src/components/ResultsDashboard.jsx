@@ -224,6 +224,32 @@ export default function ResultsDashboard({ assessment, userId }) {
 
       </div>
 
+      {/* Sensitization & Educational Panel */}
+      <Card className="bg-white border-slate-200 shadow-sm p-6 space-y-4">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 border-b border-slate-100 pb-2 flex items-center gap-1.5">
+          <ShieldCheck className="h-4.5 w-4.5 text-teal-600" />
+          Borrower Protection & Rights (UMRA Regulations)
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+          <div className="space-y-2 p-4 bg-slate-50 border border-slate-200 rounded-2xl">
+            <h4 className="font-bold text-slate-900">Your Legal Rights in Uganda:</h4>
+            <ul className="list-disc list-inside space-y-1.5 text-slate-600 leading-relaxed">
+              <li>Lenders <strong>must</strong> disclose all baseline interest fees in plain language before signing.</li>
+              <li>Lenders are legally barred from contacting people in your contact list or scraping photos for debt collection.</li>
+              <li>You have the right to request a formal repayment contract schedule at any time.</li>
+            </ul>
+          </div>
+          <div className="space-y-2 p-4 bg-slate-50 border border-slate-200 rounded-2xl">
+            <h4 className="font-bold text-slate-900">Anti-Debt Trap Guidelines:</h4>
+            <ul className="list-disc list-inside space-y-1.5 text-slate-600 leading-relaxed">
+              <li><strong>Avoid Rollovers</strong>: Never borrow from one digital app to pay off another active loan.</li>
+              <li><strong>Emergency Focus</strong>: Limit mobile credit strictly to cash-generating assets or critical emergencies.</li>
+              <li><strong>Report Predatory Actions</strong>: Report harassment, hidden interest charges, or unauthorized disbursements directly to UMRA.</li>
+            </ul>
+          </div>
+        </div>
+      </Card>
+
     </div>
   );
 }
