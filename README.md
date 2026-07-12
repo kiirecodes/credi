@@ -29,7 +29,8 @@ A borrower protection intelligence layer that helps people make informed decisio
 3. **Seed demo data:**
    ```bash
    cd server
-   node src/seeders/seedDemoData.js
+   npm run seed:demo     # creates demo user + 3 demo assessments
+   npm run seed:lenders  # seeds 8 lender directory entries
    ```
 
 4. **Start the servers:**
@@ -48,9 +49,11 @@ A borrower protection intelligence layer that helps people make informed decisio
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/api/health` | Health check |
+| GET | `/api/users/demo` | Get or create the demo user |
 | POST | `/api/loans/analyze` | Analyze a loan offer |
 | GET | `/api/loans/:id` | Get a stored assessment |
 | GET | `/api/users/:id/history` | Get user's assessment history |
+| GET | `/api/lenders` | Get all lender directory entries |
 
 ## Demo Scenarios
 

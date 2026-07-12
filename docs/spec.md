@@ -99,7 +99,7 @@ at 1 AM.
 | Machine learning risk model | A trained model adds risk (time, accuracy, explainability) for no visible demo benefit over clear rules; rules *look* intelligent and are explainable, which actually matters more to judges |
 | SMS / push notification warnings | Nice for the roadmap slide, not needed to prove the concept live |
 | Blockchain / smart contracts | No relevance to the problem statements; avoid at all costs |
-| Multi-lender comparison engine | This is the "Next" step on the roadmap slide, not tonight's build |
+| Multi-lender comparison engine | This is the "Next" step on the roadmap slide, not tonight's build — **BONUS: a simplified version was built** as a lender selection step with cost comparison charts, autofill from selected lender, and a lender transparency directory. See architecture.md for details. |
 | Admin/regulator dashboard | Roadmap item; only the borrower-facing flow matters for the pitch |
 | Automated test suite / CI pipeline | Valuable long-term, but time is better spent on the demo path tonight; add a short manual test checklist instead (see task.md) |
 | Polished design system, animations, dark mode | Basic clean styling only; do not spend time on visual polish beyond a coherent color scheme for the risk badges |
@@ -109,14 +109,15 @@ highest-value item from this list rather than starting something new.
 
 ## 6. Demo Script (what judges will see)
 
-1. Judge/borrower enters a loan offer + basic finances into the form.
-2. Click "Check My Loan."
-3. Consent checklist appears — user ticks that they understand the terms.
-4. Results dashboard renders: risk badge, plain-language cost line, debt burden
-   ratio, reasoning bullets, recommendation line.
-5. (If time allows) a "Your Borrowing Pattern" panel shows the loan history
-   warning using seeded demo data.
-6. Presenter explains the roadmap slide (see spec.md §7) to show this is the
+1. Judge/borrower lands on the home page and clicks "Enter Safety Audit Console."
+2. Lender selection step — browse 8 seeded lenders with cost comparison charts,
+   or skip to manual entry. Selecting a lender auto-fills the form.
+3. Enter loan offer + basic finances into the form.
+4. Click "Review Audit Disclosures."
+5. Consent checklist appears — user ticks that they understand the terms.
+6. Results dashboard renders: risk badge, plain-language cost line, debt burden
+   ratio, reasoning bullets, recommendation line, and borrowing pattern panel.
+7. Presenter explains the roadmap slide (see spec.md §7) to show this is the
    first brick of a bigger product, not a finished app.
 
 ## 7. Roadmap (for the pitch, not for tonight)

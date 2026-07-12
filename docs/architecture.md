@@ -4,10 +4,22 @@ Companion to `spec.md`. This is the build blueprint — implementers should not
 need to make architectural decisions on their own; they should follow this
 file and log deviations in `status.md`.
 
-**Stack: MERN + Tailwind CSS + shadcn/ui + lucide-react** (MongoDB, Express,
+ **Stack: MERN + Tailwind CSS + shadcn/ui + lucide-react** (MongoDB, Express,
 React, Node.js on the backend; Tailwind/shadcn/lucide for all frontend UI and
 icons). This supersedes any prior Laravel/MySQL or plain-CSS version of this
 document.
+
+**Deviations from original spec:**
+- The assessment flow uses a **4-step wizard** (select lender → form →
+  consent → results) instead of the original 3-step plan, to accommodate
+  the lender comparison feature.
+- A `Lender` model and `GET /api/lenders` endpoint were added to support
+  the lender directory and autofill features — not in the original MVP spec.
+- A `GET /api/users/demo` endpoint was added so the frontend can obtain the
+  demo user ID without hardcoding it.
+- The frontend includes a sidebar-based dashboard layout (replacing the
+  simple centered card layout) and real-time affordability visualizations
+  as bonus features beyond the MVP spec.
 
 ---
 
@@ -68,20 +80,24 @@ credicheck/
 │   │   │   └── db.js                 # Mongo connection setup
 │   │   ├── models/
 │   │   │   ├── User.js
-│   │   │   └── Assessment.js
+│   │   │   ├── Assessment.js
+│   │   │   └── Lender.js             # lender directory data
 │   │   ├── services/
 │   │   │   └── loanAssessmentService.js   # all calculation logic, pure functions
 │   │   ├── controllers/
 │   │   │   ├── loanController.js
-│   │   │   └── userController.js
+│   │   │   ├── userController.js
+│   │   │   └── lenderController.js   # lender directory queries
 │   │   ├── routes/
 │   │   │   ├── loanRoutes.js
-│   │   │   └── userRoutes.js
+│   │   │   ├── userRoutes.js
+│   │   │   └── lenderRoutes.js       # GET /api/lenders
 │   │   ├── middleware/
 │   │   │   ├── validateLoanInput.js
 │   │   │   └── errorHandler.js
 │   │   ├── seeders/
-│   │   │   └── seedDemoData.js       # creates demo user + demo assessments
+│   │   │   ├── seedDemoData.js       # creates demo user + demo assessments
+│   │   │   └── seedLenders.js        # seeds lender directory data
 │   │   └── app.js                    # express app, middleware, route mounting
 │   ├── server.js                     # entry point, starts app.js + connects DB
 │   ├── .env                          # PORT, MONGO_URI
@@ -105,12 +121,15 @@ credicheck/
 │   │   │   ├── RiskBadge.jsx
 │   │   │   ├── ReasoningList.jsx
 │   │   │   ├── PatternWarningBanner.jsx
+│   │   │   ├── BorrowingPatternPanel.jsx  # user assessment history list
+│   │   │   ├── LenderSelection.jsx        # lender comparison + auto-cycling cards
 │   │   │   └── RoadmapSlide.jsx
 │   │   ├── pages/
 │   │   │   ├── HomePage.jsx
-│   │   │   └── AssessmentFlowPage.jsx   # owns the step state machine
+│   │   │   ├── AssessmentFlowPage.jsx   # owns the 4-step state machine
+│   │   │   └── LendersDirectoryPage.jsx # searchable lender registry
 │   │   ├── services/
-│   │   │   └── api.js                # axios instance + analyzeLoan(), getLoanReport()
+│   │   │   └── api.js                # axios instance + all API functions
 │   │   ├── lib/
 │   │   │   └── utils.js              # shadcn's cn() helper (clsx + tailwind-merge)
 │   │   ├── styles/
@@ -157,8 +176,29 @@ registration/login flows.
 | `recommendationText` | String | computed, stored |
 | `createdAt` / `updatedAt` | Date | via `{ timestamps: true }`, used for the 90-day pattern query |
 
-No other collections are needed for the MVP. Do not add lender,
-notification, or audit-log collections tonight — see spec.md §5.
+### `Lender` model (`server/src/models/Lender.js`)
+| Field | Type | Notes |
+|---|---|---|
+| `slug` | String, required, unique | machine-readable key (e.g. `tala`) |
+| `name` | String, required | display name |
+| `shortName` | String, required | abbreviated name for tight UI |
+| `category` | String, required | e.g. `Fintech Mobile app`, `Microfinance Institution` |
+| `interestRate` | Number, required | percentage |
+| `feeAmount` | Number, required | processing fee in UGX |
+| `repaymentPeriodDays` | Number, required | default loan term |
+| `trustScore` | Number, required | 0–5.0 scale |
+| `badge` | String, required | short label (e.g. `Fast disbursement`) |
+| `color` | String, required | Tailwind classes for badge styling |
+| `license` | String, required | regulatory status label |
+| `licenseColor` | String, required | Tailwind classes for license badge |
+| `loanRange` | String, required | display string (e.g. `UGX 50,000 - 1,000,000`) |
+| `description` | String, required | plain-text description |
+| `privacyNote` | String, required | data collection disclosure |
+| `safetyStatus` | String, required | overall safety label |
+| `createdAt` / `updatedAt` | Date | via `{ timestamps: true }` |
+
+No other collections are needed beyond these three for the MVP. Do not add
+notification or audit-log collections tonight — see spec.md §5.
 
 ## 5. Calculation Logic (single source of truth)
 
@@ -298,21 +338,43 @@ Validation errors (`422 Unprocessable Entity`):
 - Response: same shape as `POST /api/loans/analyze`, `200 OK`, or `404 Not
   Found` with `{ "message": "Assessment not found" }`.
 
+### `GET /api/users/demo`
+- **Route file:** `server/src/routes/userRoutes.js`
+- **Controller:** `userController.getDemoUser`
+- **Purpose:** return (or create) the single demo user so the frontend has a
+  `userId` to attach to loan analysis requests. No auth flow needed.
+- Response (`200 OK`):
+```json
+{ "userId": "664f1c2e2a1b2c3d4e5f6789", "name": "Demo User" }
+```
+
 ### `GET /api/users/:id/history`
 - **Route file:** `server/src/routes/userRoutes.js`
 - **Controller:** `userController.getHistory`
-- **Purpose:** return the demo user's past assessments for the pattern
-  panel. **Only build this if Phase 3 (task.md) is reached with time to
-  spare** — the `patternWarning` field already returned by `analyze` is
-  sufficient for the MVP demo on its own.
+- **Purpose:** return the demo user's past assessments for the borrowing
+  pattern panel in the results dashboard.
 - Response (`200 OK`):
 ```json
 {
   "count": 3,
   "assessments": [
-    { "id": "...", "loanAmount": 200000, "riskLevel": "safe", "createdAt": "2026-04-11T10:00:00Z" },
-    { "id": "...", "loanAmount": 300000, "riskLevel": "caution", "createdAt": "2026-05-20T10:00:00Z" },
-    { "id": "...", "loanAmount": 500000, "riskLevel": "high_risk", "createdAt": "2026-07-01T10:00:00Z" }
+    { "id": "...", "loanAmount": 200000, "riskLevel": "safe", "totalRepayment": 220000, "createdAt": "2026-04-11T10:00:00Z" },
+    { "id": "...", "loanAmount": 300000, "riskLevel": "caution", "totalRepayment": 360000, "createdAt": "2026-05-20T10:00:00Z" },
+    { "id": "...", "loanAmount": 500000, "riskLevel": "high_risk", "totalRepayment": 600000, "createdAt": "2026-07-01T10:00:00Z" }
+  ]
+}
+```
+
+### `GET /api/lenders`
+- **Route file:** `server/src/routes/lenderRoutes.js`
+- **Controller:** `lenderController.getLenders`
+- **Purpose:** return the full list of seeded lender directory entries for
+  the lender selection step and the transparency directory page.
+- Response (`200 OK`):
+```json
+{
+  "lenders": [
+    { "slug": "tala", "name": "Tala Mobile Loan", "shortName": "Tala Mobile", "category": "Fintech Mobile app", "interestRate": 15, "feeAmount": 10000, "repaymentPeriodDays": 30, "trustScore": 4.5, "badge": "Fast disbursement", "license": "UMRA Registered", "loanRange": "UGX 50,000 - 1,000,000", "description": "...", "privacyNote": "...", "safetyStatus": "Safe (Regulated)" }
   ]
 }
 ```
@@ -412,7 +474,7 @@ This keeps the palette a single source of truth in `tailwind.config.js`.
 
 | Component | File | shadcn primitive | Tailwind classes | lucide-react icon |
 |---|---|---|---|---|
-| App header/nav bar | `App.jsx` | — (plain `<header>`) | `bg-navy text-navy-foreground` | `ShieldCheck` (logo mark, left-aligned) |
+| App sidebar/nav | `App.jsx` | — (plain `<aside>` + `<nav>`) | `bg-slate-950 border-slate-900` for sidebar; `text-slate-400`/`text-teal-400` for nav items | `ShieldCheck` (logo), `Landmark`, `BookOpen`, `Award` (nav items) |
 | Home hero | `HomePage.jsx` | `Button` | page `bg-background`, heading `text-foreground` | `ShieldCheck` (large, hero icon) |
 | Roadmap slide / footer | `RoadmapSlide.jsx` | `Card` (per roadmap stage) | `bg-navy text-navy-foreground` | `Rocket` (final stage), `ArrowRight` (connectors between stages) |
 | Form/card containers | `LoanForm.jsx`, `ConsentStep.jsx`, `ResultsDashboard.jsx` | `Card`, `CardHeader`, `CardContent` | shadcn `Card` defaults (`bg-card`, `border-border`) — do not override | — |
@@ -427,6 +489,9 @@ This keeps the palette a single source of truth in `tailwind.config.js`.
 | Reasoning bullet list | `ReasoningList.jsx` | — | list text `text-foreground`, icon `text-muted-foreground` | `ChevronRight` (one per list item, leading) |
 | Recommendation box | `ResultsDashboard.jsx` (recommendation section) | `Alert` | `bg-primary/10 border-primary text-foreground` | `Lightbulb` |
 | Pattern warning banner | `PatternWarningBanner.jsx` | `Alert` (`variant` left default, colors overridden) | `bg-caution-bg border-caution text-foreground` | `TrendingUp` |
+| Borrowing pattern panel | `BorrowingPatternPanel.jsx` | `Card` | shadcn `Card` defaults | `TrendingUp`, `Clock` |
+| Lender selection (comparison) | `LenderSelection.jsx` | `Card`, `Button` | shadcn defaults; inline `style` for doughnut chart (`conic-gradient`) | `Landmark`, `Star`, `PieChart`, `BarChart2`, `ChevronRight` |
+| Lenders directory page | `LendersDirectoryPage.jsx` | `Card` | shadcn defaults; custom search input | `Landmark`, `Search`, `Star`, `ShieldCheck`, `ShieldAlert`, `Award`, `FileText` |
 | Body copy (default) | global | — | `text-foreground` on `bg-card`/`bg-background` | — |
 | Secondary/helper copy (e.g. field hints, timestamps) | global | — | `text-muted-foreground` | — |
 
