@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { AlertCircle, HelpCircle, ArrowRight } from 'lucide-react';
+import { AlertCircle, HelpCircle, ArrowRight, RotateCcw } from 'lucide-react';
 
 export default function AcknowledgeQuizStep({ assessment, onCorrectSelected, onSuccess, onFailure }) {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -46,9 +46,6 @@ export default function AcknowledgeQuizStep({ assessment, onCorrectSelected, onS
       onSuccess();
     } else {
       setError(true);
-      setTimeout(() => {
-        onFailure();
-      }, 3500); // 3.5 seconds to read the warning popup
     }
   };
 
@@ -70,7 +67,7 @@ export default function AcknowledgeQuizStep({ assessment, onCorrectSelected, onS
           </p>
         </div>
 
-        {/* Modal Pop-up Overlay for Incorrect Selection */}
+        {/* Modal Pop-up Overlay for Incorrect Selection - Requires user action */}
         {error && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 animate-fadeIn">
             <div className="bg-white border border-rose-200 rounded-2xl p-6 max-w-sm w-full text-center space-y-4 shadow-2xl animate-slideUp">
@@ -83,9 +80,14 @@ export default function AcknowledgeQuizStep({ assessment, onCorrectSelected, onS
                   It appears you did not capture the actual cost of this loan. Before borrowing, it is vital that you are fully aware of your financial obligations.
                 </p>
               </div>
-              <p className="text-[10px] text-rose-605 font-bold uppercase tracking-wider animate-pulse bg-rose-50/50 py-1.5 rounded-lg border border-rose-100/50">
-                Redirecting to review terms...
-              </p>
+              
+              <Button
+                onClick={onFailure}
+                className="w-full bg-rose-600 hover:bg-rose-500 text-white font-semibold py-3.5 rounded-xl border-0 flex items-center justify-center gap-2 mt-4 hover:scale-[1.01] transition-all"
+              >
+                <RotateCcw className="h-4 w-4" />
+                Start Afresh
+              </Button>
             </div>
           </div>
         )}
@@ -116,7 +118,7 @@ export default function AcknowledgeQuizStep({ assessment, onCorrectSelected, onS
           disabled={selectedOption === null || error !== null}
           className="w-full bg-teal-600 hover:bg-teal-500 text-white font-semibold text-sm py-5 rounded-xl border-0 shadow-md shadow-teal-100/50 hover:scale-[1.01] transition-all disabled:opacity-40 disabled:scale-100 mt-4"
         >
-          Confirm Acknowledgment
+          Complete
           <ArrowRight className="h-4 w-4 ml-2" />
         </Button>
       </CardContent>

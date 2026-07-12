@@ -636,16 +636,27 @@ per-task entries below so it's easy to scan at a glance.
 - Blockers: none
 - Decisions/Deviations: none
 
+### [Feature] Add Back Navigation Button to Audit Flow
+- Agent/Author: Antigravity
+- Timestamp: 2026-07-12 17:43
+- Status: Done
+- What was done: Added a back-navigation button (`ArrowLeft`) at the top of the left-hand column inside the split-view steps (`form`, `consent`, `acknowledge`) to allow borrowers to roll back step states manually and double-check their declarations.
+- Verify performed: Confirmed back-navigation successfully rolls back step states step-by-step; production build compiles successfully.
+- Commit: feat(client): add back step navigation button to audit console flow
+- Blockers: none
+- Decisions/Deviations: none
+
 ---
 
 ## Handover Summary
 
-- Last updated: 2026-07-12 17:40
-- Done: T0.1–T5.4, Steps 3–5.13 (all visual console upgrades, lender catalog, autofill fixes, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, lenders directory, catalog scroll containment, backend bypass, plain English translation pass, professional copy refinements, light theme conversion, global border fixes, homepage slider visualizer removal, selection card titles simplification, active friction comprehension quiz step, real-time sidebar blinding, warning modal overlays, and autoplay transitions)
+- Last updated: 2026-07-12 17:43
+- Done: T0.1–T5.4, Steps 3–5.14 (all visual console upgrades, lender catalog, autofill fixes, visual SVG cost charts, progress comparison bars, 3-column top dashboard row, stationary scroll layout, conic-gradient doughnut fixes, lenders directory, catalog scroll containment, backend bypass, plain English translation pass, professional copy refinements, light theme conversion, global border fixes, homepage slider visualizer removal, selection card titles simplification, active friction comprehension quiz step, real-time sidebar blinding, warning modal overlays, back-navigation button, and autoplay transitions)
 - In Progress: none
 - Blocked: none
 - Resume at: backend integration verification and demo data seeding
-- Anything the next agent/human needs to know before continuing: The client console features a fully functional visual dashboard, directory, and active friction comprehension check with real-time sidebar masking. Autofill initializes cleanly on mount. All safety calculations are executed locally on the client-side, using professional and accessible labels. Card borders are soft light-slate-200.
+- Anything the next agent/human needs to know before continuing: The client console features a fully functional visual dashboard, directory, active friction comprehension check with real-time sidebar masking, and manual step back-navigation. Autofill initializes cleanly on mount. All safety calculations are executed locally on the client-side, using professional and accessible labels. Card borders are soft light-slate-200.
+
 
 
 

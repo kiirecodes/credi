@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Alert } from '@/components/ui/alert';
-import { AlertCircle, TrendingUp, Sparkles, Coins, Landmark, Calendar, Percent, ShieldCheck, CheckCircle2, ShieldAlert, Sparkle, HelpCircle, Shield, AlertTriangle } from 'lucide-react';
+import { AlertCircle, TrendingUp, Sparkles, Coins, Landmark, Calendar, Percent, ShieldCheck, CheckCircle2, ShieldAlert, Sparkle, HelpCircle, Shield, AlertTriangle, ArrowLeft } from 'lucide-react';
 import LoanForm from '@/components/LoanForm';
 import ConsentStep from '@/components/ConsentStep';
 import AcknowledgeQuizStep from '@/components/AcknowledgeQuizStep';
@@ -102,6 +102,12 @@ export default function AssessmentFlowPage() {
       repaymentPeriodDays: lender.repaymentPeriodDays,
     }));
     setStep('form');
+  };
+
+  const handleBackStep = () => {
+    if (step === 'form') setStep('select-provider');
+    else if (step === 'consent') setStep('form');
+    else if (step === 'acknowledge') setStep('consent');
   };
 
   const handleSubmit = (values) => {
@@ -273,6 +279,16 @@ export default function AssessmentFlowPage() {
           
           {/* Left Hand: Active Input Step */}
           <div className="lg:col-span-7 space-y-6">
+            {step !== 'select-provider' && step !== 'results' && (
+              <button
+                onClick={handleBackStep}
+                className="inline-flex items-center gap-1.5 text-xs text-slate-550 hover:text-slate-900 transition-colors py-1 font-bold uppercase tracking-wider"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+                Back to previous step
+              </button>
+            )}
+
             {step === 'form' && (
               <div className="space-y-4">
                 {selectedLender && (
