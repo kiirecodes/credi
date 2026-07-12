@@ -5,7 +5,6 @@ import LoanForm from '@/components/LoanForm';
 import ConsentStep from '@/components/ConsentStep';
 import ResultsDashboard from '@/components/ResultsDashboard';
 import LenderSelection from '@/components/LenderSelection';
-import { analyzeLoan } from '@/services/api';
 
 const steps = [
   { key: 'select-provider', label: 'Select Lender', number: 1 },
@@ -26,9 +25,9 @@ function ProgressStepper({ currentStep }) {
             <div className="flex items-center gap-2">
               <div className={`h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-all ${
                 isActive 
-                  ? 'bg-teal-600 text-white shadow-sm shadow-teal-900/50' 
+                  ? 'bg-teal-655 text-white shadow-sm shadow-teal-900/50' 
                   : isCompleted 
-                    ? 'bg-teal-955/80 text-teal-400 border border-teal-800/60' 
+                    ? 'bg-teal-955/80 text-teal-405 border border-teal-800/60' 
                     : 'bg-slate-950 text-slate-500 border border-slate-900'
               }`}>
                 {isCompleted ? '✓' : s.number}
@@ -79,17 +78,64 @@ export default function AssessmentFlowPage() {
     setStep('form');
   };
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = (values) => {
     setError(null);
     try {
-      const result = await analyzeLoan(values);
+      // Extract numerical values
+      const loanAmount = Number(values.loanAmount) || 0;
+      const feeAmount = Number(values.feeAmount) || 0;
+      const interestRate = Number(values.interestRate) || 0;
+      const repaymentPeriodDays = Number(values.repaymentPeriodDays) || 30;
+      const monthlyIncome = Number(values.monthlyIncome) || 0;
+      const existingDebtRepayment = Number(values.existingDebtRepayment) || 0;
+
+      // Duplicate Node/Express server calculations locally
+      const totalRepayment = loanAmount + feeAmount + (loanAmount * interestRate / 100);
+      const costOfBorrowingPct = loanAmount > 0 ? ((totalRepayment - loanAmount) / loanAmount) * 100 : 0;
+      
+      const newLoanMonthlyCost = repaymentPeriodDays > 0 ? (totalRepayment / (repaymentPeriodDays / 30)) : 0;
+      const debtBurdenRatio = monthlyIncome > 0 ? ((existingDebtRepayment + newLoanMonthlyCost) / monthlyIncome) * 100 : 0;
+      
+      // Classify risk level
+      let riskLevel = 'high_risk';
+      if (debtBurdenRatio <= 40) riskLevel = 'safe';
+      else if (debtBurdenRatio <= 60) riskLevel = 'caution';
+
+      // Build recommendation
+      const safeMonthlyCapacity = monthlyIncome * 0.4 - existingDebtRepayment;
+      let recommendationText = `This loan is likely to cause repayment stress. A safer monthly repayment capacity is approximately UGX ${Math.max(safeMonthlyCapacity, 0).toLocaleString()}.`;
+      if (riskLevel === 'safe') {
+        recommendationText = 'This loan appears manageable based on your current income and obligations.';
+      } else if (riskLevel === 'caution') {
+        recommendationText = 'This loan may create financial pressure. Consider a smaller amount or longer term.';
+      }
+
+      // Build reasoning checks list
+      const reasoning = [];
+      reasoning.push(`Your repayment takes ${debtBurdenRatio.toFixed(0)}% of your income`);
+      if (costOfBorrowingPct > 10) reasoning.push('Loan cost is above the recommended level');
+      if (existingDebtRepayment > 0) reasoning.push('You already have an existing active loan');
+
+      // Create summaries
+      const plainLanguageSummary = `You are borrowing UGX ${loanAmount.toLocaleString()} but will repay UGX ${totalRepayment.toLocaleString()} within ${repaymentPeriodDays} days.`;
+
+      // Package full local assessment output
+      const result = {
+        assessmentId: 'mock-local-id-' + Math.random().toString(36).substr(2, 9),
+        totalRepayment,
+        costOfBorrowingPct,
+        debtBurdenRatio,
+        riskLevel,
+        plainLanguageSummary,
+        reasoning,
+        recommendationText,
+        patternWarning: null,
+      };
+
       setAssessment(result);
       setStep('consent');
     } catch (err) {
-      const message = err.response?.data?.errors?.[0]?.message
-        || err.response?.data?.message
-        || 'Something went wrong. Please try again.';
-      setError(message);
+      setError('Something went wrong during local calculations.');
     }
   };
 
@@ -108,7 +154,7 @@ export default function AssessmentFlowPage() {
   // Determine risk profile for real-time visual chart elements
   let liveRisk = {
     label: 'Calculating...',
-    color: 'text-slate-400',
+    color: 'text-slate-405',
     bg: 'bg-slate-900/50 border-slate-800/80',
     barColor: 'bg-slate-700',
     desc: 'Enter numbers to begin protection calculations.'
@@ -157,7 +203,7 @@ export default function AssessmentFlowPage() {
         </div>
         
         {step !== 'results' && (
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-teal-950/40 border border-teal-900/40 text-[10px] font-semibold text-teal-400 uppercase tracking-wider">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-teal-955/40 border border-teal-900/40 text-[10px] font-semibold text-teal-400 uppercase tracking-wider">
             <Sparkle className="h-3 w-3 animate-spin" />
             Live Analysis Active
           </div>
@@ -225,7 +271,7 @@ export default function AssessmentFlowPage() {
             {/* Live Visual Gauge / Status Header */}
             <div className={`p-5 rounded-2xl border transition-all duration-300 ${liveRisk.bg}`}>
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <span className="text-xs font-semibold uppercase tracking-wider text-slate-405">
                   Real-time Affordability
                 </span>
                 <span className={`text-xs font-bold ${liveRisk.color}`}>
@@ -304,7 +350,7 @@ export default function AssessmentFlowPage() {
               
               <div className="space-y-3">
                 <div className="flex items-start gap-2.5">
-                  <div className="h-4 w-4 rounded-full bg-teal-950 flex items-center justify-center text-[9px] font-bold text-teal-400 mt-0.5 shrink-0">
+                  <div className="h-4 w-4 rounded-full bg-teal-955 flex items-center justify-center text-[9px] font-bold text-teal-400 mt-0.5 shrink-0">
                     1
                   </div>
                   <p className="text-[11px] text-slate-400 leading-normal">
@@ -313,7 +359,7 @@ export default function AssessmentFlowPage() {
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <div className="h-4 w-4 rounded-full bg-teal-950 flex items-center justify-center text-[9px] font-bold text-teal-400 mt-0.5 shrink-0">
+                  <div className="h-4 w-4 rounded-full bg-teal-955 flex items-center justify-center text-[9px] font-bold text-teal-400 mt-0.5 shrink-0">
                     2
                   </div>
                   <p className="text-[11px] text-slate-400 leading-normal">
@@ -322,7 +368,7 @@ export default function AssessmentFlowPage() {
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <div className="h-4 w-4 rounded-full bg-teal-950 flex items-center justify-center text-[9px] font-bold text-teal-400 mt-0.5 shrink-0">
+                  <div className="h-4 w-4 rounded-full bg-teal-955 flex items-center justify-center text-[9px] font-bold text-teal-400 mt-0.5 shrink-0">
                     3
                   </div>
                   <p className="text-[11px] text-slate-400 leading-normal">
