@@ -17,7 +17,7 @@ const steps = [
 function ProgressStepper({ currentStep }) {
   const currentIndex = steps.findIndex(s => s.key === currentStep);
   return (
-    <div className="w-full bg-slate-900/30 border border-slate-900 rounded-xl p-4 flex items-center justify-between gap-2 mb-6">
+    <div className="w-full bg-white border border-slate-250/80 rounded-xl p-4 flex items-center justify-between gap-2 mb-6 shadow-sm">
       {steps.map((s, index) => {
         const isActive = s.key === currentStep;
         const isCompleted = currentIndex > index;
@@ -26,22 +26,22 @@ function ProgressStepper({ currentStep }) {
             <div className="flex items-center gap-2">
               <div className={`h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-all ${
                 isActive 
-                  ? 'bg-teal-655 text-white shadow-sm shadow-teal-900/50' 
+                  ? 'bg-teal-600 text-white shadow-sm' 
                   : isCompleted 
-                    ? 'bg-teal-955/80 text-teal-405 border border-teal-800/60' 
-                    : 'bg-slate-950 text-slate-500 border border-slate-900'
+                    ? 'bg-teal-50 text-teal-600 border border-teal-200/80' 
+                    : 'bg-slate-100 text-slate-400 border border-slate-200'
               }`}>
                 {isCompleted ? '✓' : s.number}
               </div>
               <span className={`text-[10px] uppercase tracking-wider font-bold hidden sm:inline ${
-                isActive ? 'text-teal-400' : isCompleted ? 'text-slate-300' : 'text-slate-500'
+                isActive ? 'text-teal-600' : isCompleted ? 'text-slate-500' : 'text-slate-400'
               }`}>
                 {s.label}
               </span>
             </div>
             {index < steps.length - 1 && (
               <div className={`h-[1px] flex-grow mx-4 hidden sm:block ${
-                currentIndex > index ? 'bg-teal-900/50' : 'bg-slate-900'
+                currentIndex > index ? 'bg-teal-400/60' : 'bg-slate-200'
               }`} />
             )}
           </div>
@@ -173,12 +173,12 @@ export default function AssessmentFlowPage() {
   const totalMonthlyCommitment = existingDebtRepayment + newLoanMonthlyCost;
   const debtRatio = monthlyIncome > 0 ? (totalMonthlyCommitment / monthlyIncome) * 100 : 0;
 
-  // Determine risk profile for real-time visual chart elements
+  // Determine risk profile for real-time visual chart elements (Light Theme colors)
   let liveRisk = {
     label: 'Calculating...',
-    color: 'text-slate-405',
-    bg: 'bg-slate-900/50 border-slate-800/80',
-    barColor: 'bg-slate-700',
+    color: 'text-slate-500',
+    bg: 'bg-slate-100 border border-slate-200',
+    barColor: 'bg-slate-400',
     desc: 'Enter numbers to begin protection calculations.'
   };
 
@@ -186,25 +186,25 @@ export default function AssessmentFlowPage() {
     if (debtRatio <= 40) {
       liveRisk = {
         label: 'Affordable / Safe Capacity',
-        color: 'text-emerald-400',
-        bg: 'bg-emerald-950/20 border-emerald-800/30',
-        barColor: 'bg-emerald-500',
+        color: 'text-emerald-700',
+        bg: 'bg-emerald-50 border border-emerald-200/60 shadow-sm',
+        barColor: 'bg-emerald-600',
         desc: 'Repayment is within safe bounds (under 40% of income).'
       };
     } else if (debtRatio <= 60) {
       liveRisk = {
         label: 'Moderate Financial Pressure',
-        color: 'text-amber-400',
-        bg: 'bg-amber-955/20 border-amber-800/30',
-        barColor: 'bg-amber-500',
+        color: 'text-amber-700',
+        bg: 'bg-amber-50 border border-amber-200/60 shadow-sm',
+        barColor: 'bg-amber-600',
         desc: 'Repayments are elevated. Ensure you reduce other discretionary spending.'
       };
     } else {
       liveRisk = {
         label: 'Excessive Debt Stress',
-        color: 'text-rose-400',
-        bg: 'bg-rose-955/30 border-rose-800/30',
-        barColor: 'bg-rose-500',
+        color: 'text-rose-700',
+        bg: 'bg-rose-50 border border-rose-200/60 shadow-sm',
+        barColor: 'bg-rose-600',
         desc: 'repayment eats too much of your monthly income. High chance of rolling debt cycles.'
       };
     }
@@ -213,20 +213,20 @@ export default function AssessmentFlowPage() {
   return (
     <div className="space-y-6">
       {/* Title & Header Section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-900 pb-5">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-100 flex items-center gap-2">
-            <Landmark className="h-6 w-6 text-teal-400" />
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+            <Landmark className="h-6 w-6 text-teal-600" />
             Safety Audit Console
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Conducting local calculations using the Borrower Affordability framework.
           </p>
         </div>
         
         {step !== 'results' && (
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-teal-955/40 border border-teal-900/40 text-[10px] font-semibold text-teal-400 uppercase tracking-wider">
-            <Sparkle className="h-3 w-3 animate-spin" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-teal-50 border border-teal-200/50 text-[10px] font-bold text-teal-700 uppercase tracking-wider shadow-sm">
+            <Sparkle className="h-3 w-3 text-teal-600 animate-spin" />
             Live Analysis Active
           </div>
         )}
@@ -236,8 +236,8 @@ export default function AssessmentFlowPage() {
       <ProgressStepper currentStep={step} />
 
       {error && (
-        <Alert className="bg-rose-955/30 border-rose-900 text-rose-200">
-          <AlertCircle className="h-4 w-4 text-rose-400" />
+        <Alert className="bg-rose-50 border-rose-200 text-rose-800">
+          <AlertCircle className="h-4 w-4 text-rose-600" />
           <span className="text-sm">{error}</span>
         </Alert>
       )}
@@ -262,11 +262,11 @@ export default function AssessmentFlowPage() {
             {step === 'form' && (
               <div className="space-y-4">
                 {selectedLender && (
-                  <div className="p-3 bg-teal-955/20 border border-teal-900/30 rounded-xl text-xs flex justify-between items-center text-teal-405 animate-fadeIn">
+                  <div className="p-3 bg-teal-50 border border-teal-200/60 rounded-xl text-xs flex justify-between items-center text-teal-700 shadow-sm animate-fadeIn">
                     <span>Selected Lender: <strong>{selectedLender.name}</strong></span>
                     <button 
                       onClick={() => setStep('select-provider')} 
-                      className="underline text-[10px] uppercase font-bold hover:text-white"
+                      className="underline text-[10px] uppercase font-bold hover:text-teal-600 transition-colors"
                     >
                       Change Lender
                     </button>
@@ -293,7 +293,7 @@ export default function AssessmentFlowPage() {
             {/* Live Visual Gauge / Status Header */}
             <div className={`p-5 rounded-2xl border transition-all duration-300 ${liveRisk.bg}`}>
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-semibold uppercase tracking-wider text-slate-405">
+                <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                   Real-time Affordability
                 </span>
                 <span className={`text-xs font-bold ${liveRisk.color}`}>
@@ -302,60 +302,60 @@ export default function AssessmentFlowPage() {
               </div>
               
               {/* Progress gauge bar */}
-              <div className="w-full h-3 bg-slate-900 rounded-full overflow-hidden p-0.5 border border-slate-800 mb-2">
+              <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200 mb-2">
                 <div 
                   className={`h-full rounded-full transition-all duration-500 ${liveRisk.barColor}`} 
                   style={{ width: `${hasData ? Math.min(debtRatio, 100) : 0}%` }}
                 />
               </div>
-              <p className="text-[11px] text-slate-400 leading-normal">
+              <p className="text-[11px] text-slate-500 leading-normal">
                 {liveRisk.desc}
               </p>
             </div>
 
             {/* Live Stats grid */}
-            <div className="bg-slate-900/40 border border-slate-800/60 rounded-2xl p-5 space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-850 pb-2">
+            <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-sm">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 border-b border-slate-100 pb-2">
                 Simulated Cost Indicators
               </h3>
               
               {/* Stat 1: Total Repayment */}
               <div className="flex justify-between items-center py-1">
-                <div className="flex items-center gap-2 text-xs text-slate-400">
-                  <Coins className="h-4 w-4 text-slate-500" />
+                <div className="flex items-center gap-2 text-xs text-slate-500">
+                  <Coins className="h-4 w-4 text-slate-400" />
                   <span>Total Repayment:</span>
                 </div>
-                <span className="text-sm font-semibold text-slate-200">
+                <span className="text-sm font-semibold text-slate-800">
                   UGX {hasData ? totalRepayment.toLocaleString() : '0'}
                 </span>
               </div>
 
               {/* Stat 2: Monthly Cost */}
               <div className="flex justify-between items-center py-1">
-                <div className="flex items-center gap-2 text-xs text-slate-400">
-                  <Calendar className="h-4 w-4 text-slate-500" />
+                <div className="flex items-center gap-2 text-xs text-slate-500">
+                  <Calendar className="h-4 w-4 text-slate-400" />
                   <span>Monthly Cost:</span>
                 </div>
-                <span className="text-sm font-semibold text-slate-200">
+                <span className="text-sm font-semibold text-slate-800">
                   UGX {hasData ? Math.round(newLoanMonthlyCost).toLocaleString() : '0'}
                 </span>
               </div>
 
               {/* Stat 3: Markup Percentage */}
               <div className="flex justify-between items-center py-1">
-                <div className="flex items-center gap-2 text-xs text-slate-400">
-                  <Percent className="h-4 w-4 text-slate-500" />
+                <div className="flex items-center gap-2 text-xs text-slate-500">
+                  <Percent className="h-4 w-4 text-slate-400" />
                   <span>Cost of Borrowing:</span>
                 </div>
-                <span className="text-sm font-semibold text-slate-200">
+                <span className="text-sm font-semibold text-slate-800">
                   {hasData ? `+${costPct.toFixed(0)}%` : '0%'}
                 </span>
               </div>
 
               {/* Stat 4: Debt-to-income burden */}
               <div className="flex justify-between items-center py-1">
-                <div className="flex items-center gap-2 text-xs text-slate-400">
-                  <TrendingUp className="h-4 w-4 text-slate-500" />
+                <div className="flex items-center gap-2 text-xs text-slate-500">
+                  <TrendingUp className="h-4 w-4 text-slate-400" />
                   <span>Monthly Debt Ratio:</span>
                 </div>
                 <span className={`text-sm font-bold ${liveRisk.color}`}>
@@ -365,36 +365,36 @@ export default function AssessmentFlowPage() {
             </div>
 
             {/* Informative Guidance / Trust Pillars */}
-            <div className="p-5 bg-slate-900/10 border border-slate-900 rounded-2xl space-y-3.5">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            <div className="p-5 bg-white border border-slate-200 rounded-2xl space-y-3.5 shadow-sm">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">
                 Key Affordability Rules
               </h3>
               
               <div className="space-y-3">
                 <div className="flex items-start gap-2.5">
-                  <div className="h-4 w-4 rounded-full bg-teal-955 flex items-center justify-center text-[9px] font-bold text-teal-400 mt-0.5 shrink-0">
+                  <div className="h-4 w-4 rounded-full bg-teal-50 border border-teal-200 flex items-center justify-center text-[9px] font-bold text-teal-700 mt-0.5 shrink-0">
                     1
                   </div>
-                  <p className="text-[11px] text-slate-400 leading-normal">
-                    <strong className="text-slate-300">The 40% Guideline</strong>: Safe lending recommends keeping all combined debt payments under 40% of net monthly income.
+                  <p className="text-[11px] text-slate-500 leading-normal">
+                    <strong className="text-slate-800">The 40% Guideline</strong>: Safe lending recommends keeping all combined debt payments under 40% of net monthly income.
                   </p>
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <div className="h-4 w-4 rounded-full bg-teal-955 flex items-center justify-center text-[9px] font-bold text-teal-400 mt-0.5 shrink-0">
+                  <div className="h-4 w-4 rounded-full bg-teal-50 border border-teal-200 flex items-center justify-center text-[9px] font-bold text-teal-700 mt-0.5 shrink-0">
                     2
                   </div>
-                  <p className="text-[11px] text-slate-400 leading-normal">
-                    <strong className="text-slate-300">Cost Transparency</strong>: Pay attention to administrative fees; they are often used to mask double-digit interest rates.
+                  <p className="text-[11px] text-slate-500 leading-normal">
+                    <strong className="text-slate-800">Cost Transparency</strong>: Pay attention to administrative fees; they are often used to mask double-digit interest rates.
                   </p>
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <div className="h-4 w-4 rounded-full bg-teal-955 flex items-center justify-center text-[9px] font-bold text-teal-400 mt-0.5 shrink-0">
+                  <div className="h-4 w-4 rounded-full bg-teal-50 border border-teal-200 flex items-center justify-center text-[9px] font-bold text-teal-700 mt-0.5 shrink-0">
                     3
                   </div>
-                  <p className="text-[11px] text-slate-400 leading-normal">
-                    <strong className="text-slate-300">Privacy Safeguard</strong>: All computations happen locally. Your finances are never uploaded to our databases unless you request a logged report.
+                  <p className="text-[11px] text-slate-500 leading-normal">
+                    <strong className="text-slate-800">Privacy Safeguard</strong>: All computations happen locally. Your finances are never uploaded to our databases unless you request a logged report.
                   </p>
                 </div>
               </div>

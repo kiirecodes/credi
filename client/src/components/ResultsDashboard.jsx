@@ -19,24 +19,24 @@ export default function ResultsDashboard({ assessment, userId }) {
   const newDebtPct = monthlyIncome > 0 ? (newLoanMonthlyCost / monthlyIncome) * 100 : 0;
   const netRemainingPct = Math.max(0, 100 - (preDebtPct + newDebtPct));
 
-  // Determine risk presentation details
+  // Determine risk presentation details (Premium Light Theme alerts)
   let bannerStyle = {
-    bg: 'bg-emerald-950/20 border-emerald-900/40',
-    text: 'text-emerald-400',
+    bg: 'bg-emerald-50 border-emerald-200 text-emerald-700 shadow-sm',
+    text: 'text-emerald-700',
     icon: ShieldCheck,
     title: 'Affordable Assessment Approved'
   };
   if (assessment.riskLevel === 'caution') {
     bannerStyle = {
-      bg: 'bg-amber-950/20 border-amber-900/40',
-      text: 'text-amber-400',
+      bg: 'bg-amber-50 border-amber-205 text-amber-700 shadow-sm',
+      text: 'text-amber-700',
       icon: AlertTriangle,
       title: 'Elevated Affordability Warning'
     };
   } else if (assessment.riskLevel === 'high_risk') {
     bannerStyle = {
-      bg: 'bg-rose-955/20 border-rose-900/40',
-      text: 'text-rose-450',
+      bg: 'bg-rose-50 border-rose-200 text-rose-700 shadow-sm',
+      text: 'text-rose-700',
       icon: ShieldAlert,
       title: 'High Financial Risk Indicated'
     };
@@ -64,8 +64,8 @@ export default function ResultsDashboard({ assessment, userId }) {
             <h3 className={`text-sm font-bold ${bannerStyle.text}`}>
               {bannerStyle.title}
             </h3>
-            <p className="text-[11px] text-slate-400 mt-0.5 print:text-slate-600">
-              Unique Assessment Code: <span className="font-mono text-slate-300 print:text-slate-800">{assessment.assessmentId}</span>
+            <p className="text-[11px] text-slate-500 mt-0.5 print:text-slate-650">
+              Check Code: <span className="font-mono font-bold text-slate-700 print:text-slate-800">{assessment.assessmentId}</span>
             </p>
           </div>
         </div>
@@ -78,62 +78,62 @@ export default function ResultsDashboard({ assessment, userId }) {
         <div className="lg:col-span-7 space-y-6">
           
           {/* Main Stat Cards Grid */}
-          <Card className="bg-slate-900/40 border-slate-800/80 shadow-xl backdrop-blur-md">
-            <CardHeader className="border-b border-slate-850 py-3.5 px-6">
-              <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-400">
+          <Card className="bg-white border-slate-205 shadow-sm">
+            <CardHeader className="border-b border-slate-100 py-3.5 px-6">
+              <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Loan Cost Summary
               </CardTitle>
             </CardHeader>
             
             <CardContent className="p-6">
               <div className="grid grid-cols-3 gap-4 text-center">
-                <div className="space-y-1.5 p-3 rounded-xl bg-slate-950/60 border border-slate-900">
+                <div className="space-y-1.5 p-3 rounded-xl bg-slate-50 border border-slate-100">
                   <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Total Repayment</p>
-                  <p className="text-base font-bold text-slate-200">
+                  <p className="text-base font-bold text-slate-900">
                     UGX {assessment.totalRepayment.toLocaleString()}
                   </p>
                 </div>
                 
-                <div className="space-y-1.5 p-3 rounded-xl bg-slate-950/60 border border-slate-900">
+                <div className="space-y-1.5 p-3 rounded-xl bg-slate-50 border border-slate-100">
                   <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Cost of Borrowing</p>
-                  <p className="text-base font-bold text-teal-400">
+                  <p className="text-base font-bold text-teal-655">
                     +{assessment.costOfBorrowingPct.toFixed(0)}%
                   </p>
                 </div>
 
-                <div className="space-y-1.5 p-3 rounded-xl bg-slate-950/60 border border-slate-900">
+                <div className="space-y-1.5 p-3 rounded-xl bg-slate-50 border border-slate-100">
                   <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Monthly Debt Ratio</p>
-                  <p className="text-base font-bold text-slate-200">
+                  <p className="text-base font-bold text-slate-900">
                     {assessment.debtBurdenRatio.toFixed(0)}%
                   </p>
                 </div>
               </div>
 
-              <p className="text-xs text-slate-300 leading-relaxed mt-5 p-4 bg-slate-950/40 border border-slate-900 rounded-xl">
-                <strong className="text-teal-400">Summary:</strong> {assessment.plainLanguageSummary}
+              <p className="text-xs text-slate-600 leading-relaxed mt-5 p-4 bg-slate-50 border border-slate-150 rounded-xl">
+                <strong className="text-teal-655">Summary:</strong> {assessment.plainLanguageSummary}
               </p>
             </CardContent>
           </Card>
 
           {/* Visual Income Breakdown chart list */}
-          <Card className="bg-slate-900/40 border-slate-800/80 shadow-xl backdrop-blur-md">
-            <CardHeader className="border-b border-slate-850 py-3.5 px-6">
-              <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                <TrendingDown className="h-4 w-4 text-teal-400" />
+          <Card className="bg-white border-slate-205 shadow-sm">
+            <CardHeader className="border-b border-slate-100 py-3.5 px-6">
+              <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                <TrendingDown className="h-4 w-4 text-teal-600" />
                 Where Does Your Monthly Income Go?
               </CardTitle>
             </CardHeader>
             <CardContent className="p-6 space-y-5">
               <div className="space-y-4">
                 {/* Visual Stacked bar */}
-                <div className="w-full h-4 bg-slate-950 border border-slate-850 rounded-full overflow-hidden p-0.5 flex">
+                <div className="w-full h-4 bg-slate-100 border border-slate-200 rounded-full overflow-hidden p-0.5 flex">
                   <div 
-                    className="h-full bg-slate-700 rounded-l-full transition-all duration-300"
+                    className="h-full bg-slate-400 rounded-l-full transition-all duration-300"
                     style={{ width: `${preDebtPct}%` }}
                     title={`Existing Debt: ${preDebtPct.toFixed(0)}%`}
                   />
                   <div 
-                    className="h-full bg-teal-650 transition-all duration-300"
+                    className="h-full bg-teal-600 transition-all duration-300"
                     style={{ width: `${newDebtPct}%` }}
                     title={`New Loan: ${newDebtPct.toFixed(0)}%`}
                   />
@@ -145,17 +145,17 @@ export default function ResultsDashboard({ assessment, userId }) {
                 </div>
 
                 <div className="grid grid-cols-3 gap-2 pt-2">
-                  <div className="space-y-0.5 text-left border-l-2 border-slate-600 pl-2">
+                  <div className="space-y-0.5 text-left border-l-2 border-slate-400 pl-2">
                     <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Existing Debt Payments</span>
-                    <p className="text-xs font-semibold text-slate-300">{preDebtPct.toFixed(0)}% ({existingDebtRepayment.toLocaleString()} UGX)</p>
+                    <p className="text-xs font-semibold text-slate-800">{preDebtPct.toFixed(0)}% ({existingDebtRepayment.toLocaleString()} UGX)</p>
                   </div>
-                  <div className="space-y-0.5 text-left border-l-2 border-teal-600 pl-2">
+                  <div className="space-y-0.5 text-left border-l-2 border-teal-500 pl-2">
                     <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">New Loan Payment</span>
-                    <p className="text-xs font-semibold text-slate-300">{newDebtPct.toFixed(0)}% ({Math.round(newLoanMonthlyCost).toLocaleString()} UGX)</p>
+                    <p className="text-xs font-semibold text-slate-800">{newDebtPct.toFixed(0)}% ({Math.round(newLoanMonthlyCost).toLocaleString()} UGX)</p>
                   </div>
                   <div className="space-y-0.5 text-left border-l-2 border-emerald-500 pl-2">
                     <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Remaining Monthly Income</span>
-                    <p className="text-xs font-semibold text-slate-300">{netRemainingPct.toFixed(0)}% ({Math.round(netRemaining).toLocaleString()} UGX)</p>
+                    <p className="text-xs font-semibold text-slate-800">{netRemainingPct.toFixed(0)}% ({Math.round(netRemaining).toLocaleString()} UGX)</p>
                   </div>
                 </div>
               </div>
@@ -168,9 +168,9 @@ export default function ResultsDashboard({ assessment, userId }) {
         <div className="lg:col-span-5 space-y-6">
           
           {/* Assessment Reasoning cards */}
-          <Card className="bg-slate-900/40 border-slate-800/80 shadow-xl backdrop-blur-md">
-            <CardHeader className="border-b border-slate-850 py-3.5 px-6">
-              <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-400">
+          <Card className="bg-white border-slate-205 shadow-sm">
+            <CardHeader className="border-b border-slate-100 py-3.5 px-6">
+              <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Affordability Audit Checks
               </CardTitle>
             </CardHeader>
@@ -180,15 +180,15 @@ export default function ResultsDashboard({ assessment, userId }) {
           </Card>
 
           {/* Core recommendation box */}
-          <Alert className="bg-teal-950/20 border-teal-800/40 text-slate-100 p-5 rounded-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-2 opacity-5">
-              <Lightbulb className="h-20 w-20 text-teal-400" />
+          <Alert className="bg-teal-50 border-teal-200/80 text-slate-900 p-5 rounded-2xl relative overflow-hidden shadow-sm">
+            <div className="absolute top-0 right-0 p-2 opacity-2">
+              <Lightbulb className="h-20 w-20 text-teal-600" />
             </div>
             <div className="flex gap-3 relative z-10">
-              <Lightbulb className="h-5 w-5 text-teal-400 shrink-0 mt-0.5" />
+              <Lightbulb className="h-5 w-5 text-teal-655 shrink-0 mt-0.5" />
               <div className="space-y-1">
-                <h4 className="text-xs uppercase font-bold text-teal-400 tracking-wider">Mitigation Recommendation</h4>
-                <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                <h4 className="text-xs uppercase font-bold text-teal-700 tracking-wider">Mitigation Recommendation</h4>
+                <p className="text-xs text-slate-700 leading-relaxed font-semibold">
                   {assessment.recommendationText}
                 </p>
               </div>
@@ -206,14 +206,14 @@ export default function ResultsDashboard({ assessment, userId }) {
             <Button
               onClick={handleReload}
               variant="outline"
-              className="flex-1 bg-slate-950 border-slate-850 text-slate-300 hover:text-white hover:bg-slate-900 py-5 rounded-xl text-xs font-semibold"
+              className="flex-1 bg-white border-slate-250 text-slate-700 hover:text-slate-900 hover:bg-slate-50/50 py-5 rounded-xl text-xs font-semibold shadow-sm"
             >
               <RotateCcw className="h-4 w-4 mr-2" />
               New Safety Audit
             </Button>
             <Button
               onClick={handlePrint}
-              className="flex-1 bg-teal-650 hover:bg-teal-700 text-white py-5 rounded-xl text-xs font-semibold"
+              className="flex-1 bg-teal-650 hover:bg-teal-700 text-white py-5 rounded-xl text-xs font-semibold shadow-sm border-0"
             >
               <Printer className="h-4 w-4 mr-2" />
               Print Audit Document

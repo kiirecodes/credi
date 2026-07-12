@@ -43,17 +43,17 @@ export default function ConsentStep({ assessment, onConfirm }) {
   ];
 
   return (
-    <Card className="bg-slate-900/40 border-slate-800/80 shadow-2xl backdrop-blur-md animate-slideUp">
-      <CardHeader className="border-b border-slate-850 py-4 px-6">
-        <CardTitle className="text-base font-bold text-slate-100 flex items-center gap-2">
-          <ShieldCheck className="h-5 w-5 text-teal-400" />
+    <Card className="bg-white border-slate-205 shadow-sm animate-slideUp">
+      <CardHeader className="border-b border-slate-100 py-4 px-6">
+        <CardTitle className="text-base font-bold text-slate-800 flex items-center gap-2">
+          <ShieldCheck className="h-5 w-5 text-teal-600" />
           Make Sure You Understand Your Loan
         </CardTitle>
       </CardHeader>
       
       <CardContent className="p-6 space-y-5">
-        <div className="p-4 bg-slate-950/80 border border-slate-900 rounded-xl space-y-1">
-          <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Please Verify These Numbers First</h4>
+        <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+          <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Please Verify These Numbers First</h4>
           <p className="text-xs text-slate-500 leading-normal">
             Before we show you your full safety report, please check each box below to confirm you understand how much this loan will actually cost you.
           </p>
@@ -66,13 +66,13 @@ export default function ConsentStep({ assessment, onConfirm }) {
               onClick={() => handleCheck(item.key)}
               className={`flex items-start gap-3.5 p-4 rounded-xl border cursor-pointer transition-all duration-200 select-none ${
                 checks[item.key] 
-                  ? 'bg-teal-955/20 border-teal-800/60 shadow-sm shadow-teal-950/20' 
-                  : 'bg-slate-950/40 border-slate-850 hover:bg-slate-900/50 hover:border-slate-800'
+                  ? 'bg-teal-50/20 border-teal-500/80 shadow-sm' 
+                  : 'bg-white border-slate-200 hover:bg-slate-50/40 hover:border-slate-250'
               }`}
             >
-              <Info className={`h-5 w-5 mt-0.5 shrink-0 transition-colors ${checks[item.key] ? 'text-teal-400' : 'text-slate-500'}`} />
+              <Info className={`h-5 w-5 mt-0.5 shrink-0 transition-colors ${checks[item.key] ? 'text-teal-655' : 'text-slate-400'}`} />
               <div className="flex-grow space-y-1">
-                <span className={`text-[10px] uppercase font-bold tracking-wider ${checks[item.key] ? 'text-teal-400' : 'text-slate-500'}`}>
+                <span className={`text-[10px] uppercase font-bold tracking-wider ${checks[item.key] ? 'text-teal-600' : 'text-slate-450'}`}>
                   {item.title}
                 </span>
                 <div className="flex items-center gap-3">
@@ -80,11 +80,11 @@ export default function ConsentStep({ assessment, onConfirm }) {
                     id={item.key}
                     checked={checks[item.key]}
                     onCheckedChange={() => {}} // Handled by outer card onClick
-                    className="border-slate-700 bg-slate-955"
+                    className="border-slate-300 bg-white"
                   />
                   <Label 
                     htmlFor={item.key} 
-                    className="text-xs font-medium text-slate-300 leading-snug cursor-pointer flex-grow"
+                    className="text-xs font-semibold text-slate-700 leading-snug cursor-pointer flex-grow"
                   >
                     {item.label}
                   </Label>
@@ -97,7 +97,7 @@ export default function ConsentStep({ assessment, onConfirm }) {
         <Button
           onClick={onConfirm}
           disabled={!allChecked}
-          className="w-full bg-teal-600 hover:bg-teal-500 text-white font-semibold text-sm py-5 rounded-xl border border-teal-500/20 shadow-md shadow-teal-955/20 hover:scale-[1.01] transition-all disabled:opacity-40 disabled:scale-100 mt-4"
+          className="w-full bg-teal-600 hover:bg-teal-500 text-white font-semibold text-sm py-5 rounded-xl border-0 shadow-md shadow-teal-100/50 hover:scale-[1.01] transition-all disabled:opacity-40 disabled:scale-100 mt-4"
         >
           View Full Transparency Report
           <CheckCircle2 className="h-4 w-4 ml-2" />

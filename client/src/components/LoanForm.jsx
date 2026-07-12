@@ -106,9 +106,9 @@ export default function LoanForm({ onSubmit, onValuesChange, initialValues }) {
   };
 
   return (
-    <Card className="bg-slate-900/40 border-slate-800/80 shadow-2xl backdrop-blur-md">
-      <CardHeader className="border-b border-slate-850 py-4 px-6">
-        <CardTitle className="text-base font-bold text-slate-100 tracking-wide">
+    <Card className="bg-white border-slate-200 shadow-sm">
+      <CardHeader className="border-b border-slate-100 py-4 px-6">
+        <CardTitle className="text-base font-bold text-slate-800 tracking-wide">
           Loan Term Declaration
         </CardTitle>
       </CardHeader>
@@ -119,15 +119,14 @@ export default function LoanForm({ onSubmit, onValuesChange, initialValues }) {
               const FieldIcon = field.icon;
               return (
                 <div key={field.name} className="space-y-1.5">
-                  {/* Fixed text-slate-350 to standard text-slate-300 to make label text visible */}
-                  <Label htmlFor={field.name} className="text-slate-300 text-xs font-semibold tracking-wide flex items-center justify-between">
+                  <Label htmlFor={field.name} className="text-slate-650 text-xs font-semibold tracking-wide flex items-center justify-between">
                     {field.label}
                     {field.optional && (
-                      <span className="text-[10px] text-slate-500 font-medium tracking-normal lowercase">optional</span>
+                      <span className="text-[10px] text-slate-400 font-medium tracking-normal lowercase">optional</span>
                     )}
                   </Label>
                   <div className="relative">
-                    <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none">
+                    <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
                       <FieldIcon className="h-4 w-4" />
                     </div>
                     <Input
@@ -136,14 +135,14 @@ export default function LoanForm({ onSubmit, onValuesChange, initialValues }) {
                       placeholder={field.placeholder}
                       value={values[field.name]}
                       onChange={(e) => handleChange(field.name, e.target.value)}
-                      className={`pl-10 bg-slate-950 border-slate-850 text-slate-100 placeholder:text-slate-700 focus:border-teal-705 transition-colors focus-visible:ring-0 focus-visible:ring-offset-0 ${
+                      className={`pl-10 bg-white border-slate-250 text-slate-900 placeholder:text-slate-400 focus:border-teal-500 transition-colors focus-visible:ring-0 focus-visible:ring-offset-0 ${
                         errors[field.name] ? 'border-rose-500 focus:border-rose-500' : ''
                       }`}
                     />
                   </div>
                   {errors[field.name] && (
-                    <span className="text-[10px] text-rose-400 font-semibold block flex items-center gap-1">
-                      <AlertCircle className="h-3.5 w-3.5 shrink-0" />
+                    <span className="text-[10px] text-rose-600 font-semibold block flex items-center gap-1">
+                      <AlertCircle className="h-3.5 w-3.5 shrink-0 text-rose-500" />
                       {errors[field.name]}
                     </span>
                   )}
@@ -154,7 +153,7 @@ export default function LoanForm({ onSubmit, onValuesChange, initialValues }) {
 
           <Button 
             type="submit" 
-            className="w-full bg-teal-600 hover:bg-teal-500 text-white font-semibold py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-lg shadow-teal-950"
+            className="w-full bg-teal-600 hover:bg-teal-500 text-white font-semibold py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-md shadow-teal-100 border-0"
           >
             Review Audit Disclosures
             <ArrowRight className="h-4.5 w-4.5" />
