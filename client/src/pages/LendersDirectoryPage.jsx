@@ -100,7 +100,7 @@ export default function LendersDirectoryPage() {
       {/* Directory Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {filteredLenders.map((lender) => (
-          <Card key={lender.id} className="bg-slate-900/40 border-slate-800/80 hover:border-slate-700/80 shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <Card key={lender.slug} className="bg-slate-900/40 border-slate-800/80 hover:border-slate-700/80 shadow-xl transition-all duration-300 flex flex-col justify-between">
             <CardHeader className="border-b border-slate-850/80 py-4 px-5 flex flex-row items-start justify-between gap-3">
               <div className="flex items-start gap-3">
                 <div className="p-2.5 bg-slate-950 rounded-xl border border-slate-850 text-teal-405">

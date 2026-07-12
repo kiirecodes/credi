@@ -5,8 +5,9 @@ import { Lightbulb, RotateCcw, Printer, Info, HelpCircle, AlertTriangle, ShieldC
 import RiskBadge from './RiskBadge';
 import ReasoningList from './ReasoningList';
 import PatternWarningBanner from './PatternWarningBanner';
+import BorrowingPatternPanel from './BorrowingPatternPanel';
 
-export default function ResultsDashboard({ assessment }) {
+export default function ResultsDashboard({ assessment, userId }) {
   // Re-run calculations locally to show detailed monthly breakdown
   const { loanAmount, feeAmount, interestRate, repaymentPeriodDays, monthlyIncome, existingDebtRepayment } = assessment;
 
@@ -196,6 +197,9 @@ export default function ResultsDashboard({ assessment }) {
 
           {/* Pattern Warnings */}
           <PatternWarningBanner patternWarning={assessment.patternWarning} />
+
+          {/* Borrowing History Pattern Panel */}
+          {userId && <BorrowingPatternPanel userId={userId} />}
 
           {/* Dashboard Action Toolbar */}
           <div className="flex gap-4 print:hidden">

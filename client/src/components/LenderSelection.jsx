@@ -80,8 +80,9 @@ export default function LenderSelection({ onSelect }) {
   const feeMarkupPct = markupTotal > 0 ? (activeFee / markupTotal) * 100 : 0;
 
   // Line Chart Cost Curves calculations (UGX 100k to UGX 1M)
-  const linePoints = (lenderId) => {
-    const lender = lenders.find(l => l.id === lenderId);
+  const linePoints = (lenderSlug) => {
+    const lender = lenders.find(l => l.slug === lenderSlug);
+    if (!lender) return '';
     const amounts = [100000, 300000, 500000, 700000, 900000];
     
     return amounts.map((amt, idx) => {
@@ -187,7 +188,7 @@ export default function LenderSelection({ onSelect }) {
               if (markupPct > 25) barColor = 'bg-rose-500';
 
               return (
-                <div key={lender.id} className="space-y-0.5">
+                <div key={lender.slug} className="space-y-0.5">
                   <div className="flex justify-between items-center text-[9px]">
                     <span className="font-semibold text-slate-300">{lender.shortName}</span>
                     <span className="text-slate-500">
@@ -223,7 +224,7 @@ export default function LenderSelection({ onSelect }) {
               if (lender.trustScore < 4.0) ratingColor = 'bg-amber-600';
 
               return (
-                <div key={lender.id} className="space-y-0.5">
+                <div key={lender.slug} className="space-y-0.5">
                   <div className="flex justify-between items-center text-[9px]">
                     <span className="font-semibold text-slate-300">{lender.shortName}</span>
                     <span className="text-slate-500 font-bold flex items-center gap-0.5">
@@ -257,11 +258,11 @@ export default function LenderSelection({ onSelect }) {
           <div className="space-y-3 max-h-[385px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-800">
             {lenders.map((lender) => (
               <div 
-                key={lender.id}
-                onMouseEnter={() => handleCardMouseEnter(lender.id)}
+                key={lender.slug}
+                onMouseEnter={() => handleCardMouseEnter(lender.slug)}
                 onMouseLeave={handleCardMouseLeave}
                 className={`p-4 rounded-xl border transition-all duration-300 relative group cursor-pointer ${
-                  hoveredLenderId === lender.id 
+                  hoveredLenderId === lender.slug 
                     ? 'bg-slate-900/60 border-teal-500/50 shadow-md shadow-teal-950/20 scale-[1.005]' 
                     : 'bg-slate-900/20 border-slate-900 hover:border-slate-850 hover:bg-slate-900/30'
                 }`}
@@ -269,7 +270,7 @@ export default function LenderSelection({ onSelect }) {
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3">
                     <div className={`p-2 rounded-lg border shrink-0 transition-colors ${
-                      hoveredLenderId === lender.id ? 'bg-teal-955 text-teal-400 border-teal-800/40' : 'bg-slate-955 text-slate-500 border-slate-900'
+                      hoveredLenderId === lender.slug ? 'bg-teal-955 text-teal-400 border-teal-800/40' : 'bg-slate-955 text-slate-500 border-slate-900'
                     }`}>
                       <Landmark className="h-4.5 w-4.5" />
                     </div>
